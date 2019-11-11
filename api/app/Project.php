@@ -18,15 +18,6 @@ class Project extends Model
     protected $table = "projects";
     protected $primaryKey = "id";
 
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password',
-    ];
-
     public function comments() {
         return $this->hasMany("App\Comment", "project_id");
     }

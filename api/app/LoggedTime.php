@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Organisation extends Model
+class LoggedTime extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,13 +12,9 @@ class Organisation extends Model
      * @var array
      */
     protected $fillable = [
-        'organisation_name'
+        'minutes_logged', 'user_id', 'description'
     ];
 
-    protected $table = "organisations";
+    protected $table = "logged_time";
     protected $primaryKey = "id";
-
-    public function users() {
-        return $this->hasMany("App\Users", "organisation_id");
-    }
 }
