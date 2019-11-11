@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Project extends Model
+class Comment extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,10 +12,10 @@ class Project extends Model
      * @var array
      */
     protected $fillable = [
-        'project_name', 'description'
+        'comment_text', 'user_id', 'project_id'
     ];
 
-    protected $table = "projects";
+    protected $table = "comments";
     protected $primaryKey = "id";
 
     /**
@@ -26,8 +26,4 @@ class Project extends Model
     protected $hidden = [
         'password',
     ];
-
-    public function comments() {
-        return $this->hasMany("App\Comment", "project_id");
-    }
 }
