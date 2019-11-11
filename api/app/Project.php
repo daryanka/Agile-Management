@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Organisation extends Model
+class Project extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,10 +12,10 @@ class Organisation extends Model
      * @var array
      */
     protected $fillable = [
-        'organisation_name'
+        'project_name', 'description'
     ];
 
-    protected $table = "organisations";
+    protected $table = "projects";
     protected $primaryKey = "id";
 
     /**
@@ -26,8 +26,4 @@ class Organisation extends Model
     protected $hidden = [
         'password',
     ];
-
-    public function users() {
-        return $this->hasMany("App\Users", "organisation_id");
-    }
 }
