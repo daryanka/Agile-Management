@@ -21,4 +21,8 @@ class Organisation extends Model
     public function users() {
         return $this->hasMany("App\Users", "organisation_id");
     }
+
+    public function projects() {
+        return $this->hasMany("App\Project", "organisation_id");
+    }
 }

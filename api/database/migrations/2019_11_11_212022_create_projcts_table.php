@@ -17,8 +17,11 @@ class CreateProjctsTable extends Migration
             $table->bigIncrements('id');
             $table->string("project_name");
             $table->text("description");
+            $table->unsignedBigInteger("organisation_id");
             $table->unsignedTinyInteger("priority")->default(0);
             $table->timestamps();
+
+            $table->foreign("organisation_id")->references("id")->on("organisations")->onDelete("cascade");
         });
     }
 

@@ -62,22 +62,20 @@ class AuthController extends Controller
             "email" => "required|email|max:255|unique:users,email",
             "name" => "required|max:255|string",
             "password" => "required|max:255",
-            "role" => "required|in:admin,other",
             "organisation_name" => "required|max:255|string"
         ]);
 
         $organisation = Organisation::create($this->request->all());
         $password = Hash::make($this->request->password);
+        $this->request["role"] = "admin";
 
         $this->request["password"] = $password;
         $this->request["organisation_id"] = $organisation->id;
 
         $user = User::create($this->request->all());
 
-        return response($user, 200);
-    }
+        return response(["token" => $this->jwt($user)], 200);
 
-    public function test() {
-        return response("Authenticated");
+        return response($user, 200);
     }
 }

@@ -34,6 +34,8 @@ class JWTMiddleware
         }
 
         $user = User::findOrFail($credentials->sub);
+
+        $request->user = $user;
         return $next($request);
     }
 }
