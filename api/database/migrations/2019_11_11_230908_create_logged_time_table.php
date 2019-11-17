@@ -17,10 +17,12 @@ class CreateLoggedTimeTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedInteger("minutes_logged");
             $table->unsignedBigInteger("user_id");
+            $table->unsignedBigInteger("project_id");
             $table->text("description");
             $table->timestamps();
 
             $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade");
+            $table->foreign("project_id")->references("id")->on("projects")->onDelete("cascade");
         });
     }
 
