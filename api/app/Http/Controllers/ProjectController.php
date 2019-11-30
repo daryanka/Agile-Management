@@ -10,6 +10,7 @@ use App\Task;
 use App\Traits\Helper;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ProjectController extends Controller
@@ -139,5 +140,34 @@ class ProjectController extends Controller
             ->delete();
 
         return response("User unassigned to project", 200);
+    }
+
+    public function me() {
+        $projects = DB::table("project_user")
+            ->select(
+                "projects.id",
+                "projects.project_name",
+                "projects.description",
+                "projects.priority"
+            )
+            ->leftJoin("projects", "projects.id", "=", "project_user.project_id")
+            ->where("project_user.user_id", "=",$this->request->user->id)
+            ->get();
+
+        return response($projects, 200);
+    }
+
+    public function search() {
+        $this->validate($this->request, [
+            "search" => "required|string|max:255"
+        ]);
+        $organisationID = $this->request->user->organisation_id;
+
+        $data = DB::table("projects")->select("project_name", "description", "priority")
+            ->where("organisation_id", "=", $organisationID)
+            ->where("project_name", "like", "%" . $this->request->search . "%")
+            ->get();
+
+        return response($data, 200);
     }
 }

@@ -19,7 +19,10 @@ $router->group(["prefix" => "api/v1"], function() use($router) {
 
     $router->group(["prefix" => "projects"], function() use ($router) {
         $router->post("/", "ProjectController@create");
-        $router->get("/{id}", "ProjectController@getProject");
+        $router->get("/me", "ProjectController@me");
+        $router->get("/individual/{id}", "ProjectController@getProject");
+        $router->get("/search", "ProjectController@search");
+
 
         $router->post("/assign/{id}", "ProjectController@assignUser");
         $router->post("/unassign/{id}", "ProjectController@unassignUser");
@@ -33,5 +36,21 @@ $router->group(["prefix" => "api/v1"], function() use($router) {
     $router->group(["prefix" => "links"], function () use($router) {
         $router->get("/{id}", "LinksController@index");
         $router->post("/{id}", "LinksController@create");
+    });
+
+    $router->group(["prefix" => "time"], function () use ($router) {
+        $router->post("/{id}", "TimeLoggedController@add");
+        $router->patch("/{id}", "TimeLoggedController@update");
+    });
+
+    $router->group(["prefix" => "users"], function () use ($router){
+        $router->get("/", "UsersController@index");
+        $router->post("/", "UsersController@create");
+        $router->patch("/", "UserController@update");
+    });
+
+    $router->group(["prefix" => "tasks"], function () use ($router) {
+        $router->post("/{id}", "TasksController@create");
+        $router->patch("/{id}", "TasksController@update");
     });
 });

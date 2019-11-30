@@ -12,7 +12,7 @@ class LoggedTime extends Model
      * @var array
      */
     protected $fillable = [
-        'minutes_logged', 'user_id', 'description'
+        'minutes_logged', 'user_id', 'description', 'project_id'
     ];
 
     protected $table = "logged_time";
