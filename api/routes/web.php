@@ -53,4 +53,8 @@ $router->group(["prefix" => "api/v1"], function() use($router) {
         $router->post("/{id}", "TasksController@create");
         $router->patch("/{id}", "TasksController@update");
     });
+
+    $router->group(["prefix" => "files"], function () use ($router) {
+        $router->post("/upload/{id}", "FilesController@upload");
+    });
 });
