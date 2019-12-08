@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\File;
 use App\Traits\Helper;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class FilesController extends Controller
 {
@@ -22,7 +23,7 @@ class FilesController extends Controller
     }
 
     public function upload($id) {
-//        Check user belongs to project
+        // Check user belongs to project
         if (!$this->userBelongsToProject($this->request->user->organisation_id, $id)) {
             return response("Unauthorized", 401);
         }
@@ -42,11 +43,34 @@ class FilesController extends Controller
                 "user_id" => $this->request->user->id,
                 "project_id" => $id,
                 "url" => "http://localhost:8080/public/upload/projectsFiles/{$id}/{$fileSaveName}",
-                "file_name" => $fileName
+                "file_name" => $fileName,
+                "file_save_name" => $fileSaveName
             ]);
             return response("File uploaded", 200);
         } else {
             return response("Unable to upload file", 400);
         }
+    }
+
+    public function delete($id) {
+        // Delete file from project, but in sql and in storage
+        $file = File::find($id);
+
+        if (empty($file)) {
+            return response("Unauthorized", 401);
+        }
+
+        //Check user belongs to project
+        if (!$this->userBelongsToProject($this->request->user->organisation_id, $file->project_id)) {
+            return response("Unauthorized", 401);
+        }
+
+        // Remove from database
+        $file->delete();
+
+        $dir = "./public/upload/projectsFiles/{$file->project_id}/{$file->file_save_name}";
+        $temp = unlink($dir);
+        dd($temp);
+
     }
 }

@@ -18,6 +18,7 @@ class CreateFilesTable extends Migration
             $table->unsignedBigInteger("project_id");
             $table->unsignedBigInteger("user_id");
             $table->string("file_name");
+            $table->string("file_save_name");
             $table->string("url" );
             $table->timestamps();
 

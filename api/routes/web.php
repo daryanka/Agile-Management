@@ -56,5 +56,6 @@ $router->group(["prefix" => "api/v1"], function() use($router) {
 
     $router->group(["prefix" => "files"], function () use ($router) {
         $router->post("/upload/{id}", "FilesController@upload");
+        $router->delete("/remove/{id}", "FilesController@delete");
     });
 });

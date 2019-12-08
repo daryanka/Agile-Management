@@ -12,7 +12,7 @@ class File extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'project_id', 'url', 'file_name'
+        'user_id', 'project_id', 'url', 'file_name', 'file_save_name'
     ];
 
     protected $table = "files";
