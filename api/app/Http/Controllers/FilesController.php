@@ -70,7 +70,13 @@ class FilesController extends Controller
 
         $dir = "./public/upload/projectsFiles/{$file->project_id}/{$file->file_save_name}";
         $temp = unlink($dir);
-        dd($temp);
+
+        if ($temp) {
+            // Successfully Deleted
+            return response("Successfully deleted!", 200);
+        } else {
+            return response("Something went wrong while trying to delete the file", 500);
+        }
 
     }
 }
