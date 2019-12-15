@@ -1,10 +1,13 @@
 import React from "react"
 import "../scss/style.scss"
+import { Route, Switch } from "react-router-dom"
 
 const App = () => {
   return (
     <div>
-      <h1>testing 12345</h1>
+      <Switch>
+
+      </Switch>
     </div>
   )
 }
