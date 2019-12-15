@@ -1,0 +1,49 @@
+// Colors
+$primary = #E54848;
+$secondary = #fff;
+
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,400i,600,600i,700&display=swap');
+
+// Break-points
+$desktop: 1200px;
+$large-tablet : 1024px;
+$tablet: 728px;
+$small-tablet: 600px;
+$mobile: 450px;
+$small-mobile: 350px;
+
+// Typography
+h1, h2, h4, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, a, p, .p, .a  {
+  font-family: "Poppins", "Arial", sans-serif;
+  text-decoration: none;
+}
+
+h1, .h1 {
+  font-size: 50px;
+}
+
+h2, .h2 {
+  font-size: 40px;
+}
+
+h3, .h3 {
+  font-size: 36px;
+}
+
+h4, .h4 {
+  font-size: 30px;
+}
+
+h5, .h5 {
+  font-size: 28px;
+}
+
+h6, .h6 {
+  font-size: 26px;
+}
+
+p, .p {
+  font-size: 20px;
+}
+

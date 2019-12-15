@@ -1,3 +1,4 @@
-h1 {
-  color : red;
-}
+@import "general/variables";
+@import "general/mixins";
+@import "general/grid";
+@import "general/buttons";

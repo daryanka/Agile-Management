@@ -1,0 +1,89 @@
+.grid {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+$grid-cols : 12;
+
+@for $i from 1 through $grid-cols {
+
+  @include until($small-mobile) {
+    .col-xs-#{$i} {
+      flex: 0 0 100% / $grid-cols * $i;
+    }
+    .col-xs-offset-#{$i} {
+      margin-left: 100% / $grid-cols * $i;
+    }
+
+    .col-xs-offset-right-#{$i} {
+      margin-right: 100% / $grid-cols * $i;
+    }
+  }
+
+  @include until($mobile) {
+    .col-s-#{$i} {
+      flex: 0 0 100% / $grid-cols * $i;
+    }
+    .col-s-offset-#{$i} {
+      margin-left: 100% / $grid-cols * $i;
+    }
+
+    .col-s-offset-right-#{$i} {
+      margin-right: 100% / $grid-cols * $i;
+    }
+  }
+
+  @include until($small-tablet) {
+    .col-sm-#{$i} {
+      flex: 0 0 100% / $grid-cols * $i;
+    }
+    .col-sm-offset-#{$i} {
+      margin-left: 100% / $grid-cols * $i;
+    }
+
+    .col-sm-offset-right-#{$i} {
+      margin-right: 100% / $grid-cols * $i;
+    }
+  }
+
+  @include until($tablet) {
+    .col-m-#{$i} {
+      flex: 0 0 100% / $grid-cols * $i;
+    }
+    .col-m-offset-#{$i} {
+      margin-left: 100% / $grid-cols * $i;
+    }
+
+    .col-m-offset-right-#{$i} {
+      margin-right: 100% / $grid-cols * $i;
+    }
+  }
+
+  @include until($large-tablet) {
+    .col-l-#{$i} {
+      flex: 0 0 100% / $grid-cols * $i;
+    }
+    .col-l-offset-#{$i} {
+      margin-left: 100% / $grid-cols * $i;
+    }
+
+    .col-l-offset-right-#{$i} {
+      margin-right: 100% / $grid-cols * $i;
+    }
+  }
+
+  @include until($desktop) {
+    .col-xl-#{$i} {
+      flex: 0 0 100% / $grid-cols * $i;
+    }
+    .col-xl-offset-#{$i} {
+      margin-left: 100% / $grid-cols * $i;
+    }
+
+    .col-xl-offset-right-#{$i} {
+      margin-right: 100% / $grid-cols * $i;
+    }
+  }
+
+}
