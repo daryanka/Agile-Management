@@ -1,9 +1,13 @@
 // Colors
-$primary = #E54848;
-$secondary = #fff;
+$primary: #E54848; // Red
+$secondary: #fff; // White
+$gray: #707070; // Gray
 
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,400i,600,600i,700&display=swap');
+
+// Centering Width
+$centering: 1600px;
 
 // Break-points
 $desktop: 1200px;
@@ -12,6 +16,9 @@ $tablet: 728px;
 $small-tablet: 600px;
 $mobile: 450px;
 $small-mobile: 350px;
+
+// Border radius for buttons and inputs
+$border-radius: 7px;
 
 // Typography
 h1, h2, h4, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, a, p, .p, .a  {

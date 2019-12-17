@@ -1,0 +1,24 @@
+.centering {
+  max-width: $centering;
+  width: 100%;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.semi-bold {
+  font-weight: 600;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.danger {
+  color: red;
+}

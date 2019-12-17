@@ -8,20 +8,18 @@ $grid-cols : 12;
 
 @for $i from 1 through $grid-cols {
 
-  @include until($small-mobile) {
-    .col-xs-#{$i} {
-      flex: 0 0 100% / $grid-cols * $i;
-    }
-    .col-xs-offset-#{$i} {
-      margin-left: 100% / $grid-cols * $i;
-    }
-
-    .col-xs-offset-right-#{$i} {
-      margin-right: 100% / $grid-cols * $i;
-    }
+  .col-xs-#{$i} {
+    flex: 0 0 100% / $grid-cols * $i;
+  }
+  .col-xs-offset-#{$i} {
+    margin-left: 100% / $grid-cols * $i;
   }
 
-  @include until($mobile) {
+  .col-xs-offset-right-#{$i} {
+    margin-right: 100% / $grid-cols * $i;
+  }
+
+  @include at-least($mobile) {
     .col-s-#{$i} {
       flex: 0 0 100% / $grid-cols * $i;
     }
@@ -34,7 +32,7 @@ $grid-cols : 12;
     }
   }
 
-  @include until($small-tablet) {
+  @include at-least($small-tablet) {
     .col-sm-#{$i} {
       flex: 0 0 100% / $grid-cols * $i;
     }
@@ -47,7 +45,7 @@ $grid-cols : 12;
     }
   }
 
-  @include until($tablet) {
+  @include at-least($tablet) {
     .col-m-#{$i} {
       flex: 0 0 100% / $grid-cols * $i;
     }
@@ -60,7 +58,7 @@ $grid-cols : 12;
     }
   }
 
-  @include until($large-tablet) {
+  @include at-least($large-tablet) {
     .col-l-#{$i} {
       flex: 0 0 100% / $grid-cols * $i;
     }
@@ -73,7 +71,7 @@ $grid-cols : 12;
     }
   }
 
-  @include until($desktop) {
+  @include at-least($desktop) {
     .col-xl-#{$i} {
       flex: 0 0 100% / $grid-cols * $i;
     }
