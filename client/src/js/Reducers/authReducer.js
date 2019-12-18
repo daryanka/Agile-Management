@@ -8,18 +8,18 @@ const defaultState = {
 const authReducer = (state = defaultState, action) => {
   const { payload } = action;
   switch (action.type) {
-    case LOGIN_LOADING:
+    case "LOGIN_LOADING":
       return {
         ...state,
         loading: true
       };
-    case LOGIN_FAIL:
+    case "LOGIN_FAIL":
       Cookie.remove("token");
       return {
         ...state,
         loading: false
       };
-    case LOGIN_SUCCESS:
+    case "LOGIN_SUCCESS":
       if (payload.token) {
         Cookie.set("token", payload.token, { expires: 10 / 24 })
       }
