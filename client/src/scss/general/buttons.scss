@@ -4,12 +4,28 @@
   cursor: pointer;
   text-align: center;
   display: inline-block;
-  border: 2px $primary;
-  padding: 5px 15px;
-  font-size: 26px;
-  transition: ease-in-out all 0.3s;
+  border: 2px solid $primary;
+  padding: 5px 30px;
+  font-size: 18px;
+  transition: ease-in-out all 200ms;
   outline: none;
+  color: white;
+
+  &:hover {
+    background: white;
+    color: $primary;
+  }
+
   &:focus {
     outline: none;
   }
+
+  &.secondary {
+    background: white;
+    color: $primary
+  }
+}
+
+button {
+  outline: none;
 }
