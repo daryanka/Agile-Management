@@ -3,9 +3,31 @@
     padding-top: 50px;
     display: flex;
     width: calc(100% - 100px);
+    max-width: 1920px;
     margin: auto;
     .text {
       width: 60%;
+      margin-top: 100px;
+
+      @include at-least(1500px) {
+        margin-top: 120px;
+      }
+
+      @include at-least(1750px) {
+        margin-top: 130px;
+      }
+
+      h1 {
+        @include fluid-type(1500px, 1920px, 40px, 50px);
+      }
+
+      h2 {
+        @include fluid-type(1500px, 1920px, 32px, 40px);
+      }
+
+      display: flex;
+      flex-direction: column;
+
       h1 {
         margin-bottom: 25px;
 
@@ -25,6 +47,62 @@
 
     .image {
       width: 40%;
+    }
+  }
+
+  .about {
+    display: flex;
+    flex-direction: column;
+
+      .wave-1 {
+      transform: rotate(180deg);
+    }
+
+    .content-wrapper {
+      background-color: $primary;
+
+      .content {
+        width: calc(100% - 100px);
+        max-width: 1920px;
+        margin: auto;
+        display: flex;
+        align-items: center;
+
+        img {
+          width: 40%;
+        }
+
+        .about-text {
+          width: 60%;
+          display: flex;
+          flex-direction: column;
+          h1, h2 {
+            color: white;
+          }
+
+          .title {
+            text-align: center;
+            margin-bottom: 50px;
+          }
+
+          .info {
+            margin-left: auto;
+            font-weight: normal;
+            width: 90%;
+          }
+        }
+      }
+    }
+  }
+
+  .get-started {
+    margin-left: 50px;
+    margin-bottom: 50px;
+
+    .text {
+      margin-top: 30px;
+      margin-bottom: 30px;
+      width: 60%;
     }
   }
 }

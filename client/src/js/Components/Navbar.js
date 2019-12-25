@@ -22,8 +22,8 @@ const Navbar = () => {
       case false:
         return (
           <div className={"btn-cont"}>
-            <button className={"button secondary"}>Login</button>
-            <button className={"button"}>Sign In</button>
+            <NavLink to={"/login"}><button className={"button secondary"}>Login</button></NavLink>
+            <NavLink to={"/register"}><button className={"button"}>Sign In</button></NavLink>
           </div>
         );
       default:
