@@ -1,9 +1,14 @@
 .nav-bar {
   display: flex;
   align-items: center;
+  padding-top: 10px;
 
-  h4 {
+  .brand {
     margin-left: 50px;
+
+    &.logged-in {
+      font-size: 24px;
+    }
   }
 
   .nav-options {
@@ -13,13 +18,19 @@
 
     .nav-links {
       display: flex;
+      align-items: center;
+      margin-right: 50px;
+      li {
+        margin: 0 20px;
+        font-size: 24px;
+      }
     }
 
     .btn-cont {
       display: flex;
       align-items: center;
       button {
-        margin-right: 15px;
+        margin-right: 30px;
       }
     }
   }

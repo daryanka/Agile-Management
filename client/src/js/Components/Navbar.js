@@ -34,7 +34,7 @@ const Navbar = () => {
 
   return (
     <nav className={"nav-bar"}>
-      <h4>Agile Management</h4>
+      <NavLink to={authenticated ? "/" : "/home"}><h3 className={`brand ${authenticated ? "logged-in" : ""}`}>Agile Management</h3></NavLink>
 
       <div className={"nav-options"}>
         {mapNav()}
