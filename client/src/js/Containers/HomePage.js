@@ -17,7 +17,7 @@ const HomePage = () => {
         </div>
       </section>
       <section className={"about"}>
-        <svg className={"wave-1"} xmlns="http://www.w3.org/2000/svg" width="100%" height="150" viewBox="0 0 1920 193.958" preserveAspectRatio="none">
+        <svg className={"wave-1"} xmlns="http://www.w3.org/2000/svg" width="100%" height="193.958" viewBox="0 0 1920 193.958" preserveAspectRatio="none">
           <path id="Path_29" data-name="Path 29"
                 fill="#e54848"
                 d="M1920,0H0V71.382c278.522,33.294,468.826,80.724,1060.124,42.809S1920,193.958,1920,193.958"
@@ -37,7 +37,7 @@ const HomePage = () => {
             </div>
           </div>
         </div>
-        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="150" viewBox="0 0 1920 193.958" preserveAspectRatio="none">
+        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="193.958" viewBox="0 0 1920 193.958" preserveAspectRatio="none">
           <path id="Path_29" data-name="Path 29"
                 fill="#e54848"
                 d="M1920,0H0V71.382c278.522,33.294,468.826,80.724,1060.124,42.809S1920,193.958,1920,193.958"

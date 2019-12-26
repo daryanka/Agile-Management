@@ -5,6 +5,14 @@
   max-width: 1920px;
 
   .form-wrapper {
-    margin-top: 50px;
+    margin-top: 30px;
+
+    .button {
+      margin: 20px 0;
+    }
+
+    .input-wrapper {
+      margin-top: 20px;
+    }
   }
 }
