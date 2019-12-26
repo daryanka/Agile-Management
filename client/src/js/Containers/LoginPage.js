@@ -19,7 +19,7 @@ const LoginPage = () => {
         <h1>Login</h1>
         <h4 className={"sub-heading"}>Wecome back, login below to access your dashboard</h4>
         <Form id={"register-form"}>
-          <Input wrapperClassName={"col-xs-12 input-wrapper"} name={"email"} handleChange={handleChange} validation={"required"} placeholder={""} label={"Email*"} />
+          <Input wrapperClassName={"col-xs-12 input-wrapper"} name={"email"} handleChange={handleChange} validation={"required|email"} placeholder={""} label={"Email*"} />
           <Input wrapperClassName={"col-xs-12 input-wrapper"} name={"password"} handleChange={handleChange} validation={"required"} placeholder={""} label={"Password*"} />
         </Form>
         <button className={"button"} type={"submit"} form={"register-form"}>Login</button>
