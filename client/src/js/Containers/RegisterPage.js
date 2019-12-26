@@ -25,12 +25,12 @@ const RegisterPage = () => {
       <div className={"form-wrapper"}>
         <Form onSubmit={submit} className={"grid"}>
           <Input wrapperClassName={"col-m-6 col-xs-12"} name={"name"} handleChange={handleChange} validation={"required"} placeholder={""} label={"Name*"} />
-          <Input name={"email"} handleChange={handleChange} validation={"required|email"} placeholder={""} label={"Email*"} />
-          <Input type={"password"} name={"password"} handleChange={handleChange} validation={"required|min:6"} placeholder={""} label={"Password*"} />
-          <Input type={"password"} name={"confirm_password"} handleChange={handleChange} validation={"required|identical:password:Password"} placeholder={""} label={"Confirm Password*"} />
-          <Input name={"organisation"} handleChange={handleChange} validation={"required"} placeholder={""} label={"Organisation Name*"} />
-          <button type={"submit"} className={"button"}>Sign Up</button>
+          <Input wrapperClassName={"col-m-6 col-xs-12"} name={"email"} handleChange={handleChange} validation={"required|email"} placeholder={""} label={"Email*"} />
+          <Input wrapperClassName={"col-m-6 col-xs-12"} type={"password"} name={"password"} handleChange={handleChange} validation={"required|min:6"} placeholder={""} label={"Password*"} />
+          <Input wrapperClassName={"col-m-6 col-xs-12"} type={"password"} name={"confirm_password"} handleChange={handleChange} validation={"required|identical:password:Password"} placeholder={""} label={"Confirm Password*"} />
+          <Input wrapperClassName={"col-m-6 col-xs-12"} name={"organisation"} handleChange={handleChange} validation={"required"} placeholder={""} label={"Organisation Name*"} />
         </Form>
+        <button type={"submit"} className={"button"}>Sign Up</button>
       </div>
     </div>
   )
