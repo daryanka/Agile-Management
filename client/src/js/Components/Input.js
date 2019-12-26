@@ -14,7 +14,7 @@ const Input = props => {
   return (
     <div
       style={props.style}
-      className={`col-${props.col} col-offset-${props.colOffset} ${props.wrapperClassName}`}
+      className={`${props.wrapperClassName}`}
     >
       {props.label ? (
         <div className="input-label-wrapper">
@@ -51,8 +51,6 @@ Input.defaultProps = {
   type: "text",
   name: "name",
   placeholder: "Placeholder",
-  col: "10",
-  colOffset: "1",
   refer: null,
   wrapperClassName: "",
   inputClassName: "",

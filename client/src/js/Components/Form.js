@@ -29,6 +29,7 @@ const Form = props => {
   required
   min
   max
+  identical (e.g. identical:confirm_password)
   type  (e.g. min:5)
 
   on submit
@@ -60,18 +61,32 @@ const Form = props => {
       switch (pairArr[0]) {
         case "min":
           if (inputVal.length < pairArr[1]) {
-            return (tempErr[fieldName] = `This field must be at least ${
-              pairArr[1]
-            } characters long!`);
+            return (tempErr[fieldName] = `This field must be at least ${pairArr[1]} characters long!`);
           }
           break;
         case "max":
           if (inputVal.length > pairArr[1]) {
-            return (tempErr[fieldName] = `This field must be below ${
-              pairArr[1]
-            } characters long!`);
+            return (tempErr[fieldName] = `This field must be below ${pairArr[1]} characters long!`);
           }
           break;
+        case "identical":
+          //Check that it is identical to other field
+          const otherField = pairArr[1];
+          const otherFieldName = pairArr[2];
+          let exists = false;
+          let index = -1;
+          for (let i = 0; i < fields.length; i++) {
+            if (fields[i].name == otherField) {
+              exists = true;
+              index = i;
+            }
+          }
+          if (!exists) {
+            return (tempErr[fieldName]) = `This field must be identical to ${otherFieldName}`
+          }
+          if (inputVal != data[fields[index].name]) {
+            return (tempErr[fieldName]) = `This field must be identical to ${otherFieldName}`
+          }
         default:
           break;
       }
@@ -83,6 +98,7 @@ const Form = props => {
   });
 
   const handleSubmit = e => {
+    console.log("fields",fields)
     e.preventDefault();
     setErrors({});
     fields.forEach(field => {
