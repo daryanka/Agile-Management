@@ -1,0 +1,29 @@
+.project-cont {
+  width: calc(100% - 100px);
+  max-width: 1920px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 70px;
+
+  .project-box {
+    width: 100%;
+
+    .box-header{
+      background-color: $primary;
+      border-radius: 7px 7px 0 0;
+      display: flex;
+      min-height: 80px;
+      align-items: center;
+      .title {
+        margin-left: auto;
+        width: 95%;
+        color: white;
+      }
+    }
+
+    .box-content {
+      min-height: 300px;
+      border: 2px solid $primary;
+    }
+  }
+}

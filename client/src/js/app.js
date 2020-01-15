@@ -7,6 +7,7 @@ import Footer from "./Components/Footer";
 import RegisterPage from "./Containers/RegisterPage";
 import LoginPage from "./Containers/LoginPage";
 import SearchProject from "./Containers/SearchProject";
+import Project from "./Containers/Project";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
         <Route path={"/register"} component={RegisterPage} />
         {/* Routes below need to be private */}
         <Route path={"/projects/search"} component={SearchProject} />
+        <Route path={"/projects/:id"} component={Project} />
         <Redirect to={"/home"} />
       </Switch>
       <Footer/>
