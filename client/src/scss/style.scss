@@ -11,9 +11,11 @@
 @import "components/Navbar";
 @import "components/Footer";
 @import "components/Input";
+@import "components/Divider";
 
 
 // Containers
 @import "containers/HomePage";
 @import "containers/RegisterPage";
 @import "containers/LoginPage";
+@import "containers/SearchPage";
