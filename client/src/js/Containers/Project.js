@@ -5,6 +5,7 @@ import { FaFileDownload } from "react-icons/fa"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 const Project = (props) => {
+  const divRef = React.useRef([React.createRef()])
   const [list, setList] = useState({
     "column-1": {
       id: "column-1",
@@ -48,8 +49,6 @@ const Project = (props) => {
       return;
     }
 
-    console.log("here")
-
     //remove from column and tasks, column = source.droppableId, task = draggableId, index = source.index
     //add to destination column and tasks, column = destination.droppableId, index = destination.index
     const tasks = [...list[source.droppableId].tasks]
@@ -85,6 +84,11 @@ const Project = (props) => {
     }
   }
 
+  React.useEffect(() => {
+    // divRef.current.test()
+    console.log(divRef)
+  }, [divRef])
+
   return (
     <div className={"project-cont"}>
       <div className={"project-box"}>
@@ -109,11 +113,12 @@ const Project = (props) => {
               </div>
 
               <Divider/>
+
               <div className={"links"}>
                 <h3>Links</h3>
-                <LinkComp name={"github"} url={"github.com"} />
-                <LinkComp name={"invision"} url={"invision.com"} />
-                <LinkComp name={"github"} url={"github.com"} />
+                <LinkComp ref={divRef.current[0]} name={"github"} url={"github.com"} />
+                <LinkComp ref={divRef.current[1]} name={"invision"} url={"invision.com"} />
+                <LinkComp ref={divRef.current[2]} name={"github"} url={"github.com"} />
               </div>
             </div>
 
@@ -231,7 +236,7 @@ const Project = (props) => {
 
             <Divider/>
 
-            <div className="comments">
+            <div className="comments comments-2">
               <h4>Logged Time</h4>
               <div className="comments-box">
                 <div className="comment">

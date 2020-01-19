@@ -98,7 +98,6 @@ const Form = props => {
   });
 
   const handleSubmit = e => {
-    console.log("fields",fields)
     e.preventDefault();
     setErrors({});
     fields.forEach(field => {

@@ -25,6 +25,7 @@
     .box-content {
       min-height: 300px;
       border: 2px solid $primary;
+      margin-bottom: 30px;
 
       .section {
         width: 95%;
@@ -220,8 +221,12 @@
                 border-radius: 7px;
                 border: 2px solid $primary;
                 padding-top: 10px;
+                min-height: 70px;
 
                 .single-task {
+                  min-height: 45px;
+                  display: flex;
+                  align-items: center;
                   border-radius: 7px;
                   border: 2px solid $primary;
                   margin-bottom: 10px;
@@ -243,6 +248,10 @@
         }
 
         .comments {
+          &.comments-2 {
+            margin-bottom: 20px;
+          }
+
           .comments-box {
             margin-top: 30px;
             border: 2px solid $primary;

@@ -15,9 +15,6 @@ const RegisterPage = () => {
     })
   };
 
-  React.useEffect(() => {
-    console.log(data)
-  });
 
   return(
     <div className={"register"}>
