@@ -1,11 +1,14 @@
-import React, { useState } from "react";
-import LinkComp from "../Components/LinkComp";
-import Divider from "../Components/Divider";
+import React, { useState, useRef } from "react";
+import LinkComp from "../../Components/LinkComp";
+import Divider from "../../Components/Divider";
 import { FaFileDownload } from "react-icons/fa"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import Modal from "../../Components/Modal";
+import AssignUserModal from "./AssignUserModal";
 
 const Project = (props) => {
-  const divRef = React.useRef([React.createRef()])
+  const assignModalRef = useRef()
+  const addTimeModalRef = useRef()
   const [list, setList] = useState({
     "column-1": {
       id: "column-1",
@@ -84,10 +87,7 @@ const Project = (props) => {
     }
   }
 
-  React.useEffect(() => {
-    // divRef.current.test()
-    console.log(divRef)
-  }, [divRef])
+  console.log(assignModalRef)
 
   return (
     <div className={"project-cont"}>
@@ -116,9 +116,9 @@ const Project = (props) => {
 
               <div className={"links"}>
                 <h3>Links</h3>
-                <LinkComp ref={divRef.current[0]} name={"github"} url={"github.com"} />
-                <LinkComp ref={divRef.current[1]} name={"invision"} url={"invision.com"} />
-                <LinkComp ref={divRef.current[2]} name={"github"} url={"github.com"} />
+                <LinkComp name={"github"} url={"github.com"} />
+                <LinkComp name={"invision"} url={"invision.com"} />
+                <LinkComp name={"github"} url={"github.com"} />
               </div>
             </div>
 
@@ -133,13 +133,16 @@ const Project = (props) => {
                 <p>John Doe</p>
                 <p>John Doe</p>
                 <p>Jane Smith</p>
-                <button className={"button"}>Add Assignee</button>
+                <Modal ref={assignModalRef}>
+                  <AssignUserModal/>
+                </Modal>
+                <button type={"button"} onClick={() => assignModalRef.current.open()} className={"button"}>Add Assignee</button>
               </div>
 
               <Divider/>
 
               <div className={"time"}>
-                <h4>Assigned to</h4>
+                <h4>Time Estimates</h4>
                 <p><strong>Estimated Time:</strong> 4d 12h 0m</p>
                 <p><strong>Time Spent:</strong> 4d 12h 0m</p>
                 <button className={"button"}>Add Time</button>

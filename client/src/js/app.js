@@ -7,7 +7,7 @@ import Footer from "./Components/Footer";
 import RegisterPage from "./Containers/RegisterPage";
 import LoginPage from "./Containers/LoginPage";
 import SearchProject from "./Containers/SearchProject";
-import Project from "./Containers/Project";
+import Project from "./Containers/Project/Project";
 
 const App = () => {
   return (
