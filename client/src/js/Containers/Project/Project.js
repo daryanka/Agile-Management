@@ -5,6 +5,7 @@ import { FaFileDownload } from "react-icons/fa"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Modal from "../../Components/Modal";
 import AssignUserModal from "./AssignUserModal";
+import TimeModal from "./TimeModal";
 
 const Project = (props) => {
   const assignModalRef = useRef()
@@ -145,7 +146,10 @@ const Project = (props) => {
                 <h4>Time Estimates</h4>
                 <p><strong>Estimated Time:</strong> 4d 12h 0m</p>
                 <p><strong>Time Spent:</strong> 4d 12h 0m</p>
-                <button className={"button"}>Add Time</button>
+                <Modal ref={addTimeModalRef}>
+                  <TimeModal/>
+                </Modal>
+                <button onClick={() => addTimeModalRef.current.open()} className={"button"}>Add Time</button>
               </div>
             </div>
           </div>

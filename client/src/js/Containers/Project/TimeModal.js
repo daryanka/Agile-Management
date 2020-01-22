@@ -1,13 +1,11 @@
 import React from "react";
-import Select from "react-select";
 import LoaderBtn from "../../Components/LoaderBtn";
 
-const AssignUserModal = () => {
+const TimeModal = () => {
   const [state, setState] = React.useState();
   const [loading, setLoading] = React.useState(false);
 
   const onChange = (val) => {
-    setState(val)
   };
 
   const toggleLoading = () => {
@@ -18,25 +16,19 @@ const AssignUserModal = () => {
   }
 
   return (
-    <>
-      <div className="assign-user">
-        <h1>Assign To Project</h1>
-        <Select className={"select-comp"} name={"select user"} onChange={onChange} options={[
-          {
-            label: "Daryan Amin",
-            value: 23,
-          },
-          {
-            label: "John Smith",
-            value: 11,
-          },
-          {
-            label: "Jane Doe",
-            value: 122,
-          }
-        ]}/>
+    <div className={"time-estimates"}>
+      <h1>Add Time</h1>
+      <div className={"time-estimates-box"}>
+        <div className={"left"}>
+          <p>Description</p>
+          <textarea className={"text-field"}></textarea>
+        </div>
+        <div className={"right"}>
+          <p>Time</p>
+          <input placeholder={"1w 4d 2h 21m"} />
+          <p>Time: 0 Minutes</p>
+        </div>
       </div>
-      <p></p>
       <div className={"modal-buttons-cont"}>
         <div className={"btns"}>
           <button className={"button secondary button-1"}>Cancel</button>
@@ -45,8 +37,8 @@ const AssignUserModal = () => {
           </LoaderBtn>
         </div>
       </div>
-    </>
+    </div>
   )
-}
+};
 
-export default AssignUserModal
+export default TimeModal;

@@ -1,7 +1,18 @@
 .button-loader {
   @extend .button;
-  width: auto;
   position: relative;
+  overflow: hidden;
+
+  &:disabled, &[disabled] {
+    background-color: #cccccc;
+    border: 1px solid #d7d7d7;
+    cursor: not-allowed;
+
+    .text {
+      color: white;
+    }
+  }
+
 
   .btn-placeholder {
     opacity: 0;
@@ -13,21 +24,47 @@
     left: 0;
     right: 0;
     bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: ease-in-out all 0.4s;
+
+
+    &.active {
+      left: -200%;
+    }
   }
 
-  #loading {
+
+
+  .loading {
     position: absolute;
     top: 50%;
-    left: 50%;
-    display: inline-block;
-    width: 30px;
-    height: 30px;
+    left: 200%;
+    display: flex;
+    margin-left: -12px;
+    margin-top: -12px;
+    transition: ease-in-out all 0.4s;
+
+    width: 24px;
+    height: 24px;
     border: 3px solid rgba(255,255,255,.3);
     border-radius: 50%;
     border-right-color: #fff;
     animation: spin 1s ease-in-out infinite;
     -webkit-animation: spin 1s ease-in-out infinite;
+
+    &.active {
+      left: 50%;
+    }
   }
+
+  //&:hover {
+  //  .loading {
+  //    border: 3px solid rgba($primary, 0.5);
+  //    border-right-color: $primary;
+  //  }
+  //}
 
   @keyframes spin {
     to { -webkit-transform: rotate(360deg); }
