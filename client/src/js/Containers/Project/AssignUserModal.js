@@ -1,11 +1,12 @@
 import React from "react";
 import Select from "react-select";
+import LoaderBtn from "../../Components/LoaderBtn";
 
 const AssignUserModal = () => {
   const [state, setState] = React.useState();
 
   const onChange = (val) => {
-    console.log(val)
+    setState(val)
   };
 
   return (
@@ -27,10 +28,11 @@ const AssignUserModal = () => {
           }
         ]}/>
       </div>
+      <p></p>
       <div className={"modal-buttons-cont"}>
         <div className={"btns"}>
           <button className={"button secondary button-1"}>Cancel</button>
-          <button className={"button button-2"}>Confirm</button>
+          <LoaderBtn className={"button-loader button-2"}>Confirm Loading</LoaderBtn>
         </div>
       </div>
     </>
