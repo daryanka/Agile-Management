@@ -1,0 +1,30 @@
+.time-estimates {
+
+  h1 {
+    margin-bottom: 20px;
+  }
+
+  .time-estimates-box {
+    display: flex;
+    justify-content: space-between;
+
+    .left, .right {
+      p {
+        margin-bottom: 10px;
+      }
+    }
+
+    .left {
+      width: 65%;
+      textarea {
+        width: 100%;
+
+        min-height: 120px;
+      }
+    }
+
+    .right {
+      width: 30%;
+    }
+  }
+}
