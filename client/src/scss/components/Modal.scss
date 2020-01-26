@@ -28,26 +28,52 @@
     padding: 40px;
     z-index: 1000;
     width: 70%;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.25);
+    box-shadow: 0 0 10px rgba(0,0,0,0.25);
 
     @include until($tablet) {
+      width: 90%;
       padding: 20px;
     }
-  }
-}
 
-.modal-buttons-cont {
-  width: 100%;
-  margin-top: auto;
-  display: flex;
-  flex-wrap: wrap;
+    .close-modal {
+      display: flex;
+      align-items: center;
+      .cross {
+        margin-left: auto;
+        height: 30px;
+        width: 30px;
+        position: relative;
+        transition: ease-in-out all 0.3s;
 
-  .btns {
-    width: auto;
-    margin-left: auto;
+        &:after {
+          position: absolute;
+          content: "";
+          top: 50%;
+          left: 50%;
+          display: block;
+          height: 2px;
+          width: 100%;
+          background-color: $primary;
+          transform: translate(-50%, -50%) rotate(45deg);
+        }
 
-    .button:last-child {
-      margin-left: 20px;
+        &:before {
+          position: absolute;
+          content: "";
+          top: 50%;
+          left: 50%;
+          display: block;
+          height: 2px;
+          width: 100%;
+          background-color: $primary;
+          transform: translate(-50%, -50%) rotate(135deg);
+        }
+
+        &:hover {
+          transform: rotate(90deg);
+          cursor: pointer;
+        }
+      }
     }
   }
 }

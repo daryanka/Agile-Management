@@ -11,7 +11,6 @@ const TimeModal = () => {
   };
 
   const toggleLoading = () => {
-    console.log("toggle")
     setLoading(!loading);
 
     setTimeout(() => setLoading(false), 2000)
@@ -23,7 +22,7 @@ const TimeModal = () => {
       <div className={"time-estimates-box"}>
         <div className={"left"}>
           <p>Description</p>
-          <textarea className={"text-field"}></textarea>
+          <textarea className={"text-field"}/>
         </div>
         <Form className={"right"}>
           <p>Time</p>
@@ -31,9 +30,8 @@ const TimeModal = () => {
           <p>Time: 0 Minutes</p>
           <div className={"modal-buttons-cont"}>
             <div className={"btns"}>
-              <button className={"button secondary button-1"}>Cancel</button>
               <LoaderBtn disabled={loading} loading={loading} onClick={toggleLoading} className={"button-loader button-2"}>
-                Confirm
+                Add Time
               </LoaderBtn>
             </div>
           </div>

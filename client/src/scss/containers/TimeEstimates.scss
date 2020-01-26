@@ -8,6 +8,10 @@
     display: flex;
     justify-content: space-between;
 
+    @include until(630px) {
+      flex-wrap: wrap;
+    }
+
     .left, .right {
       p {
         margin-bottom: 10px;
@@ -15,16 +19,30 @@
     }
 
     .left {
+      @include until(630px) {
+        width: 100%;
+      }
       width: 65%;
       textarea {
         width: 100%;
-
-        min-height: 120px;
+        min-height: 130px;
       }
     }
 
     .right {
       width: 30%;
+
+      @include until(630px) {
+        width: 100%;
+      }
+
+      .btns {
+        width: 100%;
+        .button {
+          width: 100%;
+          margin-left: 0 !important;
+        }
+      }
     }
   }
 }

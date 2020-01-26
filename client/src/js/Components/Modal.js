@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { FaTimes } from "react-icons/fa"
 
 const Modal = React.forwardRef((props, ref) => {
   const [show, setShow] = React.useState(false);
@@ -22,6 +23,11 @@ const Modal = React.forwardRef((props, ref) => {
       <div className={`modal-cont ${props.className ? <props className="className"></props> : ""}`}>
         <div onClick={() => close()} className="modal-backdrop" />
         <div className="modal-box">
+          {props.closeBtn ? (
+            <div className={"close-modal"}>
+              <div onClick={close} className={"cross"} />
+            </div>
+          ) : null}
           {props.children}
         </div>
       </div>
@@ -33,5 +39,9 @@ const Modal = React.forwardRef((props, ref) => {
   }
   return null;
 })
+
+Modal.defaultProps = {
+  closeBtn: true
+}
 
 export default Modal;
