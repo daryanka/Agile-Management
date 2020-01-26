@@ -87,6 +87,7 @@ const Form = props => {
           if (inputVal != data[fields[index].name]) {
             return (tempErr[fieldName]) = `This field must be identical to ${otherFieldName}`
           }
+          break;
         default:
           break;
       }
@@ -94,6 +95,10 @@ const Form = props => {
   };
 
   const childrenWithProps = React.Children.map(props.children, child => {
+    //Check if child is component or html dom node
+    if (typeof child.type === "string") {
+      return child && React.cloneElement(child);
+    }
     return child && React.cloneElement(child, { changedValue, errors });
   });
 
