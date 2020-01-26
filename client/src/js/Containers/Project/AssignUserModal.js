@@ -18,7 +18,7 @@ const AssignUserModal = () => {
   }
 
   return (
-    <>
+    <div className={"assign-wrapper"}>
       <div className="assign-user">
         <h1>Assign To Project</h1>
         <Select className={"select-comp"} name={"select user"} onChange={onChange} options={[
@@ -45,7 +45,7 @@ const AssignUserModal = () => {
           </LoaderBtn>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 
