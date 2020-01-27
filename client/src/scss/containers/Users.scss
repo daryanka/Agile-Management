@@ -1,0 +1,72 @@
+.users-cont {
+  margin-top: 70px;
+  width: calc(100% - 100px);
+  max-width: 1920px;
+  margin-left: auto;
+  margin-right: auto;
+
+  .add {
+    margin-bottom: 20px;
+  }
+
+  .users-table {
+    width: 100%;
+
+    .header {
+      background-color: $primary;
+      border-radius: 7px 7px 0 0;
+      border: 2px solid $primary;
+      display: flex;
+      p {
+        margin-left: 20px;
+        color: white;
+      }
+
+      .header-item {
+        padding: 5px 0 5px 0;
+      }
+
+      .header-1 {
+        width: 30%;
+      }
+
+      .header-2 {
+        width: 60%;
+      }
+
+      .header-3 {
+        width: 20%;
+        min-width: 154px;
+      }
+    }
+
+    .rows {
+      border: 2px solid $primary;
+      .row {
+        display: flex;
+        p {
+          margin-left: 20px;
+        }
+
+        .row-item-1 {
+          width: 30%;
+          padding: 5px 0 5px 0;
+          border-right: 2px solid $primary;
+        }
+
+        .row-item-2 {
+          width: 60%;
+          padding: 5px 0 5px 0;
+          border-right: 2px solid $primary;
+        }
+
+        .row-item-3 {
+          width: 20%;
+          min-width: 154px;
+          padding: 5px 0 5px 0;
+          border-right: 2px solid $primary;
+        }
+      }
+    }
+  }
+}

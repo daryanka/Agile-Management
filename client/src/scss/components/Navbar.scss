@@ -23,6 +23,34 @@
       li {
         margin: 0 20px;
         font-size: 24px;
+
+        a {
+          position: relative;
+          &:after {
+            transition: ease-in-out all 200ms;
+            position: absolute;
+            content: "";
+            display: block;
+            width: 0;
+            height: 2px;
+            background-color: $primary;
+            bottom: -2px;
+            left: 0;
+          }
+          &:hover {
+            &:after {
+              width: 100%;
+            }
+          }
+        }
+
+        .active-link {
+          font-weight: 600;
+
+          &:after {
+            width: 100%;
+          }
+        }
       }
     }
 

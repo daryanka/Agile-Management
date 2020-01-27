@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { NavLink } from "react-router-dom"
 
 const Navbar = () => {
-  const [authenticated, setAuthenticated] = useState(false);
+  const [authenticated, setAuthenticated] = useState(true);
   const [hamburger, setHamburger] = useState(false);
 
   const onHamburgerClick = () => {
@@ -14,9 +14,9 @@ const Navbar = () => {
       case true:
         return (
           <ul className={"nav-links"}>
-            <li><NavLink to={"/users"}>Users</NavLink></li>
-            <li><NavLink to={"/tasks"}>Tasks</NavLink></li>
-            <li><NavLink to={"/projects"}>Projects</NavLink></li>
+            <li><NavLink activeClassName={"active-link"} to={"/users"}>Users</NavLink></li>
+            <li><NavLink activeClassName={"active-link"} to={"/tasks"}>Tasks</NavLink></li>
+            <li><NavLink activeClassName={"active-link"} to={"/projects/search"}>Projects</NavLink></li>
           </ul>
         );
       case false:
