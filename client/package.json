@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest",
     "start": "webpack-dev-server --open --hot --mode development",
+    "dev-open": "webpack-dev-server --open --hot --mode development --host 0.0.0.0 --port 8080",
     "build": "webpack --mode production"
   },
   "author": "",

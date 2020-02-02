@@ -31,12 +31,46 @@ class ProjectController extends Controller
         $this->validate($this->request, [
             "project_name" => "required|string|max:255",
             "description" => "required|string",
+            "links" => "array",
+            "links.*.link_name" => "required|string",
+            "links.*.link_url" => "required|string",
+            "assignee" => "array",
+            "assignee.*.id" => "required|numeric",
+            "files.*" => "file|max:1999" //2mb max
         ]);
 
         $this->request["organisation_id"] = $this->request->user->organisation_id;
 
         //Get organisation_id
         $project = Project::create($this->request->all());
+
+        //Create links
+        if (!empty($this->request->links)) {
+            foreach ($this->request->links as $link) {
+                Link::create([
+                    "project_id" => $project->id,
+                    "link_name" => $link["link_name"],
+                    "link_url" => $link["link_url"],
+                ]);
+            }
+        }
+
+        //Assign to users
+        if (!empty($this->request->assignee)) {
+            foreach ($this->request->assignee as $assignee) {
+                DB::table("project_user")->insert([
+                    "user_id" => $assignee["id"],
+                    "project_id" => $project->id
+                ]);
+            }
+        }
+
+        //Upload files
+        if ($this->request->has("files")) {
+            foreach ($this->request->files as $file) {
+                $file =
+            }
+        }
 
         return response("Project Created", 200);
     }
