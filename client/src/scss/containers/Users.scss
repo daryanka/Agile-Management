@@ -44,7 +44,7 @@
       border: 2px solid $primary;
       .row {
         display: flex;
-        p {
+        p, svg {
           margin-left: 20px;
         }
 
@@ -65,6 +65,13 @@
           min-width: 154px;
           padding: 5px 0 5px 0;
           border-right: 2px solid $primary;
+          display: flex;
+          svg {
+            height: 30px;
+            width: 30px;
+            color: $primary;
+            cursor: pointer;
+          }
         }
       }
     }

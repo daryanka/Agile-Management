@@ -1,15 +1,39 @@
 import React from "react";
 import Modal from "../../Components/Modal";
 import AddUserModal from "./AddUserModal";
+import { FaUserEdit, FaUserMinus } from "react-icons/fa"
+import EditUserModal from "./EditUserModal";
+import DeleteConfirmModal from "./DeleteConfirmModal";
 
 const Users = () => {
-  const modalRef = React.useRef();
+  const [edit, setEdit] = React.useState(null);
+  const [deleteUser, setDeleteUser] = React.useState(null);
+  const addModalRef = React.useRef();
+  const editModalRef = React.useRef();
+  const deleteModalRef = React.useRef();
+
+  const openEdit = (id = null) => {
+    setEdit(id)
+    editModalRef.current.open()
+  }
+
+  const openDelete = (id = null) => {
+    setDeleteUser(id);
+    deleteModalRef.current.open()
+  }
+
   return (
     <div className={"users-cont"}>
-      <Modal ref={modalRef}>
+      <Modal ref={addModalRef}>
         <AddUserModal/>
       </Modal>
-      <button onClick={() => modalRef.current.open()} className={"button add"}>Add New User</button>
+      <Modal ref={editModalRef}>
+        <EditUserModal id={edit}/>
+      </Modal>
+      <Modal ref={deleteModalRef}>
+        <DeleteConfirmModal id={deleteUser}/>
+      </Modal>
+      <button onClick={() => addModalRef.current.open()} className={"button add"}>Add New User</button>
       <div className={"users-table"}>
         <div className={"header"}>
           <div className={"header-item header-1"}>
@@ -33,7 +57,8 @@ const Users = () => {
               <p>Daryan@hotmail.co.uk</p>
             </div>
             <div className={"row-item-3"}>
-              <p>Edit Delete</p>
+              <span onClick={() => openEdit(2)}><FaUserEdit /></span>
+              <span onClick={() => openDelete(1)}><FaUserMinus /></span>
             </div>
           </div>
         </div>

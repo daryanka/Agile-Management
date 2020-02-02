@@ -1,9 +1,17 @@
 import React from "react";
 import Divider from "../Components/Divider";
+import Modal from "../Components/Modal";
+import CreateProject from "./CreateProject";
 
 const SearchProject = () => {
+  const createModal = React.useRef();
+
   return(
     <div className={"search-cont"}>
+      <Modal ref={createModal}>
+        <CreateProject/>
+      </Modal>
+      <button className={"button"} onClick={() => createModal.current.open()}>Create New Project</button>
       <div className={"search-box"}>
         <div className={"box-head"}>
           <div className={"box-content"}>

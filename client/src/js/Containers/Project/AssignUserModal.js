@@ -21,7 +21,7 @@ const AssignUserModal = () => {
     <div className={"assign-wrapper"}>
       <div className="assign-user">
         <h1>Assign To Project</h1>
-        <Select className={"select-comp"} name={"select user"} onChange={onChange} options={[
+        <Select isMulti className={"select-comp"} name={"select user"} onChange={onChange} options={[
           {
             label: "Daryan Amin",
             value: 23,

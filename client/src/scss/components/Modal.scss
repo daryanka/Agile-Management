@@ -36,6 +36,10 @@
       padding: 20px;
     }
 
+    @include until($mobile) {
+      width: 100%;
+    }
+
     .close-modal {
       display: flex;
       align-items: center;
