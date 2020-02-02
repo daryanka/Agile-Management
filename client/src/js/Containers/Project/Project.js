@@ -39,6 +39,7 @@ const Project = (props) => {
       ]
     }
   })
+  const columnorder = ["column-1", "column-2", "column-3"];
 
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
@@ -61,7 +62,6 @@ const Project = (props) => {
     if (source.droppableId === destination.droppableId) {
       // Change index order only
       tasks.splice(destination.index, 0, removed)
-
       setList({
         ...list,
         [source.droppableId]: {
@@ -171,7 +171,9 @@ const Project = (props) => {
                 <DragDropContext
                   onDragEnd={onDragEnd}
                 >
-                  {Object.entries(list).map(([colId, column]) => {
+                  {columnorder.map((colName, index) => {
+                    const column = list[colName];
+                    const colId = colName;
                     return (
                       <Droppable
                         key={colId}
