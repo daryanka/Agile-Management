@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\File;
 use App\Link;
 use App\LoggedTime;
 use App\Project;
@@ -13,10 +14,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\Console\Input\Input;
 
 class ProjectController extends Controller
 {
     use Helper;
+    var $request;
     /**
      * Create a new controller instance.
      *
@@ -68,8 +71,19 @@ class ProjectController extends Controller
 
         //Upload files
         if ($this->request->has("files")) {
-            foreach ($this->request->files as $file) {
-                // TODO upload files
+            foreach ($this->request->file("files") as $file) {
+                $fileName = $file->getClientOriginalName();
+                $fileSaveName = time()."-".$fileName;
+                $destination_path = "upload/projectsFiles/{$project->id}";
+                $file->move($destination_path, $fileSaveName);
+
+                File::create([
+                    "project_id" => $project->id,
+                    "user_id" => $this->request->user->id,
+                    "file_name" => $fileName,
+                    "file_save_name" => $fileSaveName,
+                    "url" => $destination_path
+                ]);
             }
         }
 
@@ -208,14 +222,25 @@ class ProjectController extends Controller
 
     public function test() {
         $this->validate($this->request, [
-//            "file" => "file|max:1999|required"
+            "files.*" => "file|max:1999|required"
         ]);
 
-//        $fileName = $this->request->file('file')->getClientOriginalName();
+        $fileNames = [];
 
-//        $this->request->file("file")->move("public/test", $fileName);
+        if ($this->request->hasFile("files")) {
+            foreach ($this->request->file("files") as $file) {
+                $filename = $file->getClientOriginalName();
+                array_push($fileNames, $filename);
+            }
+        }
+
+        dd($fileNames);
+
+        $fileName = $this->request->file('file')->getClientOriginalName();
+
+        $this->request->file("file")->move("public/test", $fileName);
 
         $public = base_path();
-        return response()->download("$public/public/public/test/Udemy - Understanding TypeScript - 2020 Edition.torrent", "test");
+//        return response()->download("$public/public/public/test/Udemy - Understanding TypeScript - 2020 Edition.torrent", "test");
     }
 }
