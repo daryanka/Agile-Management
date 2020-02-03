@@ -12,6 +12,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -24,7 +25,7 @@ class ProjectController extends Controller
     public function __construct(Request $request)
     {
         $this->request = $request;
-        $this->middleware("auth");
+        $this->middleware("auth", ["except" => "test"]);
     }
 
     public function create() {
@@ -68,7 +69,7 @@ class ProjectController extends Controller
         //Upload files
         if ($this->request->has("files")) {
             foreach ($this->request->files as $file) {
-                $file =
+                // TODO upload files
             }
         }
 
@@ -203,5 +204,18 @@ class ProjectController extends Controller
             ->get();
 
         return response($data, 200);
+    }
+
+    public function test() {
+        $this->validate($this->request, [
+//            "file" => "file|max:1999|required"
+        ]);
+
+//        $fileName = $this->request->file('file')->getClientOriginalName();
+
+//        $this->request->file("file")->move("public/test", $fileName);
+
+        $public = base_path();
+        return response()->download("$public/public/public/test/Udemy - Understanding TypeScript - 2020 Edition.torrent", "test");
     }
 }

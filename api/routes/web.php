@@ -12,6 +12,8 @@
 */
 
 $router->group(["prefix" => "api/v1"], function() use($router) {
+
+    $router->get("/testing", "ProjectController@test");
     $router->group(["prefix" => "auth"], function() use($router) {
         $router->post("/register", "AuthController@register");
         $router->post("/login", "AuthController@login");
