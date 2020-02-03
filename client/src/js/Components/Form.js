@@ -7,14 +7,27 @@ const Form = props => {
   const [errors, setErrors] = React.useState({});
 
   let fields = [];
-  props.children.forEach(child => {
-    if (_.get(child, "props.handleChange")) {
-      fields.push({
-        name: child.props.name,
-        validation: child.props.validation
-      });
+
+  const nameAndValidationToField = (children) => {
+    if (Array.isArray(children)) {
+      children.forEach(child => {
+        if (Array.isArray(child) && child[0]) {
+          return nameAndValidationToField(child[0].props.children)
+        } else if (child?.props?.children && Array.isArray(child.props.children)) {
+          return nameAndValidationToField(child.props.children)
+        }
+        if (_.get(child, "props.handleChange")) {
+          fields.push({
+            name: child.props.name,
+            validation: child.props.validation
+          });
+        }
+      })
     }
-  });
+  }
+
+
+  nameAndValidationToField(props.children)
 
   React.useEffect(() => {}, [errors]);
 
@@ -30,13 +43,13 @@ const Form = props => {
   min
   max
   identical (e.g. identical:confirm_password)
+  email
   type  (e.g. min:5)
 
   on submit
   loop through fields in fields array
   in loop look at each fields validation
   use parser and then check each type of validation if not valid then set error message (using state) for that field
-
 
   */
   const tempErr = {};
@@ -94,13 +107,20 @@ const Form = props => {
     });
   };
 
-  const childrenWithProps = React.Children.map(props.children, child => {
-    //Check if child is component or html dom node
-    if (typeof child.type === "string") {
-      return child && React.cloneElement(child);
-    }
-    return child && React.cloneElement(child, { changedValue, errors });
-  });
+  const childrenWithProps = (children) => {
+    return React.Children.map(children, child => {
+      let childProps = {};
+      if (React.isValidElement(child)) {
+        childProps = { changedValue, errors };
+      }
+      if (child.props) {
+        // String has no Prop
+        childProps.children = childrenWithProps(child.props.children);
+        return React.cloneElement(child, childProps);
+      }
+      return child;
+    })
+  }
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -120,10 +140,10 @@ const Form = props => {
     <form
       noValidate={props.noValidate}
       onSubmit={handleSubmit}
-      id={props.id && props.id}
+      id={props.id ? props.id : ""}
       className={props.className}
     >
-      {childrenWithProps}
+      {childrenWithProps(props.children)}
     </form>
   );
 };

@@ -54,7 +54,8 @@ Input.defaultProps = {
   refer: null,
   wrapperClassName: "",
   inputClassName: "",
-  style: null
+  style: null,
+  isInput: true
 }
 
 export default Input
