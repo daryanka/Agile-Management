@@ -36,7 +36,7 @@ const CreateProject = () => {
           handleChange={handleChange}
           name={"project_name"}
           placeholder={""}
-          wrapperClassName={"col-xs-12 col-m-6"}
+          wrapperClassName={"col-xs-12"}
           label={"Project Name*"}
           validation={"required"}
         />
@@ -44,7 +44,7 @@ const CreateProject = () => {
           handleChange={handleChange}
           name={"description"}
           placeholder={""}
-          wrapperClassName={"col-xs-12 col-m-6"}
+          wrapperClassName={"col-xs-12 textarea-c"}
           label={"Description*"}
           validation={"required"}
         />

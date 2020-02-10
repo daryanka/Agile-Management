@@ -85,6 +85,9 @@
 }
 
 .create-project {
+  .textarea-c {
+    margin-top: 15px;
+  }
   .add-link {
     margin: 20px 0 20px 0;
   }
@@ -94,16 +97,29 @@
     display: flex;
 
     .link-input {
+      width: 100%;
       margin-right: 20px;
+      @include until(450px) {
+        margin-right: 10px;
+      }
+
+      .input-label {
+        height: 29px;
+        @include fluid-type(300px, 450px, 15px, 20px);
+      }
     }
 
     .button {
-      margin-top: 45.3px;
+      margin-top: 40px;
       padding: 0;
-      width: 60px;
+      min-width: 60px;
+      height: 44px;
       display: flex;
       justify-content: center;
       align-items: center;
+      @include until(450px) {
+        min-width: 50px;
+      }
       svg {
         height: 22px;
         width: 22px;
