@@ -6,10 +6,25 @@ const Textarea = props => {
     props.changedValue(val, name)
   }
 
+  console.log("textarea", props)
+
   return (
     <div
       className={`col-${props.col}  col-offset-${props.colOffset} ${props.wrapperClassName}`}
     >
+      {props.label ? (
+        <div className="input-label-wrapper">
+          <p className="input-label">
+            {props.label}
+            {!props.removeSemiColon && ":"}
+          </p>
+          {props.tooltip && (
+            <div onClick={props.tooltipClick} className="tooltip-wrapper">
+              <p className="label-tooltip">?</p>
+            </div>
+          )}
+        </div>
+      ) : null}
       <textarea
         style={{ width: "100%", height: props.height }}
         className={`${props.inputClassName} ${!props.removeBasicStyling &&
@@ -33,7 +48,8 @@ Textarea.defaultProps = {
   colOffset: "1",
   wrapperClassName: "",
   inputClassName: "",
-  height: "200px"
+  height: "200px",
+  isInput: true
 }
 
 export default Textarea

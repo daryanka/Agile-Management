@@ -1,6 +1,8 @@
 import React from "react";
 import Form from "../Components/Form";
 import Input from "../Components/Input";
+import { FaTimes } from "react-icons/fa"
+import Textarea from "../Components/Textarea";
 
 const CreateProject = () => {
   const [data, setData] = React.useState();
@@ -20,6 +22,12 @@ const CreateProject = () => {
     setLinks(prev => [...prev, {}])
   }
 
+  const removeLink = (index) => {
+    const linksCopy = [...links];
+    linksCopy.splice(index, 1);
+    setLinks(linksCopy)
+  }
+
   return(
     <div className={"create-project"}>
       <h1>Create New Project</h1>
@@ -30,25 +38,27 @@ const CreateProject = () => {
           placeholder={""}
           wrapperClassName={"col-xs-12 col-m-6"}
           label={"Project Name*"}
+          validation={"required"}
         />
-        <Input
+        <Textarea
           handleChange={handleChange}
           name={"description"}
           placeholder={""}
           wrapperClassName={"col-xs-12 col-m-6"}
           label={"Description*"}
+          validation={"required"}
         />
         <div className="col-xs-12">
-          <button type={"button"} className={"button"} onClick={addLink}>Add Link</button>
+          <button type={"button"} className={"button add-link"} onClick={addLink}>Add Link</button>
         </div>
         {links.map((link, i) => {
           return(
-            <React.Fragment key={i}>
+            <div className={"col-xs-12 link-cont"} key={i}>
               <Input
                 handleChange={handleChange}
                 name={"link_name"}
                 placeholder={""}
-                wrapperClassName={"col-xs-6"}
+                wrapperClassName={"link-input"}
                 validation={"required"}
                 label={"Link Name*"}
               />
@@ -57,13 +67,16 @@ const CreateProject = () => {
                 name={"link_url"}
                 placeholder={""}
                 validation={"required"}
-                wrapperClassName={"col-xs-6"}
+                wrapperClassName={"link-input"}
                 label={"URL*"}
               />
-            </React.Fragment>
+              <button type={"button"} onClick={() => removeLink(i)} className={"button secondary"}><FaTimes /></button>
+            </div>
           )
         })}
-        <button type={"submit"}>Submit</button>
+        <div className="col-xs-12">
+          <button className={"button"} type={"submit"}>Submit</button>
+        </div>
       </Form>
     </div>
   )

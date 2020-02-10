@@ -3,7 +3,10 @@ import _ from "lodash";
 
 const Form = props => {
   const [data, setData] = React.useState({});
-  const changedValue = (val, name) => setData({ ...data, [name]: val });
+  const changedValue = (val, name) => {
+    setData({ ...data, [name]: val })
+    setErrors(prev => ({...prev, [name]: null}))
+  };
   const [errors, setErrors] = React.useState({});
 
   let fields = [];
@@ -110,7 +113,7 @@ const Form = props => {
   const childrenWithProps = (children) => {
     return React.Children.map(children, child => {
       let childProps = {};
-      if (React.isValidElement(child)) {
+      if (React.isValidElement(child) && child?.props?.isInput) {
         childProps = { changedValue, errors };
       }
       if (child.props) {

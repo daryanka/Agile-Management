@@ -83,3 +83,31 @@
     }
   }
 }
+
+.create-project {
+  .add-link {
+    margin: 20px 0 20px 0;
+  }
+
+  .link-cont {
+    margin-bottom: 15px;
+    display: flex;
+
+    .link-input {
+      margin-right: 20px;
+    }
+
+    .button {
+      margin-top: 45.3px;
+      padding: 0;
+      width: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      svg {
+        height: 22px;
+        width: 22px;
+      }
+    }
+  }
+}
