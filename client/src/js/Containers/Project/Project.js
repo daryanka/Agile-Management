@@ -88,8 +88,6 @@ const Project = (props) => {
     }
   }
 
-  console.log(assignModalRef)
-
   return (
     <div className={"project-cont"}>
       <div className={"project-box"}>

@@ -11,11 +11,12 @@ const AssignUserModal = () => {
   };
 
   const toggleLoading = () => {
-    console.log("toggle")
     setLoading(!loading);
 
     setTimeout(() => setLoading(false), 2000)
   }
+
+  console.log("state", state);
 
   return (
     <div className={"assign-wrapper"}>

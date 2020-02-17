@@ -3,10 +3,19 @@ import Form from "../Components/Form";
 import Input from "../Components/Input";
 import { FaTimes } from "react-icons/fa"
 import Textarea from "../Components/Textarea";
+import Select from "react-select";
 
 const CreateProject = () => {
-  const [data, setData] = React.useState();
+  const [data, setData] = React.useState({
+    project_name: "",
+    description: ""
+  });
   const [links, setLinks] = React.useState([]);
+  const [assignees, setAssignees] = React.useState([]);
+
+  const handleAssignChange = (val) => {
+    setAssignees(val)
+  }
 
   const handleChange = (val, name) => {
     setData(prevState => {
@@ -14,8 +23,15 @@ const CreateProject = () => {
     })
   };
 
+  const boxesHandleChange = (val, name, i) => {
+    const prev = [...links];
+    prev[i][name.slice(0, -2)] = val;
+
+    setLinks(prev);
+  }
+
   const createProject = async () => {
-    console.log("here")
+
   }
 
   const addLink = () => {
@@ -28,6 +44,8 @@ const CreateProject = () => {
     setLinks(linksCopy)
   }
 
+  console.log("links", links)
+
   return(
     <div className={"create-project"}>
       <h1>Create New Project</h1>
@@ -37,6 +55,7 @@ const CreateProject = () => {
           name={"project_name"}
           placeholder={""}
           wrapperClassName={"col-xs-12"}
+          value={data.project_name}
           label={"Project Name*"}
           validation={"required"}
         />
@@ -46,8 +65,23 @@ const CreateProject = () => {
           placeholder={""}
           wrapperClassName={"col-xs-12 textarea-c"}
           label={"Description*"}
+          value={data.description}
           validation={"required"}
         />
+        <Select isMulti className={"select-comp col-xs-12"} name={"select user"} onChange={handleAssignChange} options={[
+          {
+            label: "Daryan Amin",
+            value: 23,
+          },
+          {
+            label: "John Smith",
+            value: 11,
+          },
+          {
+            label: "Jane Doe",
+            value: 122,
+          }
+        ]}/>
         <div className="col-xs-12">
           <button type={"button"} className={"button add-link"} onClick={addLink}>Add Link</button>
         </div>
@@ -55,7 +89,7 @@ const CreateProject = () => {
           return(
             <div className={"col-xs-12 link-cont"} key={`key-${i}`}>
               <Input
-                handleChange={handleChange}
+                handleChange={(val, name) => boxesHandleChange(val, name, i)}
                 name={`link_name-${i}`}
                 placeholder={""}
                 wrapperClassName={"link-input"}
@@ -63,7 +97,7 @@ const CreateProject = () => {
                 label={"Link Name*"}
               />
               <Input
-                handleChange={handleChange}
+                handleChange={(val, name) => boxesHandleChange(val, name, i)}
                 name={`link_url-${i}`}
                 placeholder={""}
                 validation={"required"}

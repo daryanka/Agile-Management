@@ -11,36 +11,15 @@ const Form = props => {
 
   let fields = [];
 
-  // const nameAndValidationToField = (children) => {
-  //   if (Array.isArray(children)) {
-  //     children.forEach(child => {
-  //       if (Array.isArray(child) && child[0]) {
-  //         return nameAndValidationToField(child[0].props.children)
-  //       } else if (child?.props?.children && Array.isArray(child.props.children)) {
-  //         return nameAndValidationToField(child.props.children)
-  //       }
-  //       if (_.get(child, "props.handleChange")) {
-  //         fields.push({
-  //           name: child.props.name,
-  //           validation: child.props.validation
-  //         });
-  //       }
-  //     })
-  //   }
-  // }
-
   const nameAndValidationToField = (children) => {
     if (Array.isArray(children)) {
       children.forEach(child => {
-        console.log("child", child)
         if (child?.props?.isInput) {
-          // console.log("adding to field", child)
           fields.push({
             name: child.props.name,
             validation: child.props.validation
           })
         } else if (child?.props?.children) {
-          // console.log("getting nested children of", child);
           nameAndValidationToField(child.props.children)
         } else if (Array.isArray(child)) {
           nameAndValidationToField(child)
@@ -169,8 +148,6 @@ const Form = props => {
       props.onSubmit();
     }
   };
-
-  console.log("fieds", fields)
 
   return (
     <form
