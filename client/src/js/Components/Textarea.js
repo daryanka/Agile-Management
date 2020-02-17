@@ -6,8 +6,6 @@ const Textarea = props => {
     props.changedValue(val, name)
   }
 
-  console.log("textarea", props)
-
   return (
     <div
       className={`col-${props.col}  col-offset-${props.colOffset} ${props.wrapperClassName}`}

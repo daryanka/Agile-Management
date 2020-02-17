@@ -11,8 +11,6 @@ const Input = props => {
     props.handleChange(val, name)
   }
 
-  console.log("input", props)
-
   return (
     <div
       style={props.style}

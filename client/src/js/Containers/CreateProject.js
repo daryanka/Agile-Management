@@ -53,10 +53,10 @@ const CreateProject = () => {
         </div>
         {links.map((link, i) => {
           return(
-            <div className={"col-xs-12 link-cont"} key={i}>
+            <div className={"col-xs-12 link-cont"} key={`key-${i}`}>
               <Input
                 handleChange={handleChange}
-                name={"link_name"}
+                name={`link_name-${i}`}
                 placeholder={""}
                 wrapperClassName={"link-input"}
                 validation={"required"}
@@ -64,7 +64,7 @@ const CreateProject = () => {
               />
               <Input
                 handleChange={handleChange}
-                name={"link_url"}
+                name={`link_url-${i}`}
                 placeholder={""}
                 validation={"required"}
                 wrapperClassName={"link-input"}
