@@ -5,12 +5,17 @@ import Form from "./Form";
 import LoaderBtn from "./LoaderBtn";
 import {useToasts} from "react-toast-notifications";
 import ContentEditable from "react-contenteditable";
+import {FiEdit3} from "react-icons/Fi"
+
 
 
 const LinkComp = (props) => {
   const {addToast} = useToasts();
   const [editable, setEditable] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [initialData, setInitalData] = useState({
+
+  })
   const [data, setData] = useState({
     link_name: "",
     link_url: ""
@@ -39,12 +44,43 @@ const LinkComp = (props) => {
 
   useEffect(() => {
     if (!props.isNew) {
+      setInitalData({
+        link_name: props.name,
+        link_url: props.url
+      })
+
       setData({
         link_name: props.name,
         link_url: props.url
       })
     }
   }, [])
+
+  const disableEnter = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault()
+    }
+  }
+
+  const saveChanges = async () => {
+    setLoading(true)
+
+    setTimeout(() => {
+      setLoading(false)
+      const newData = {
+        link_url: data.link_url.replace(/&nbsp;/g, ""),
+        link_name: data.link_name.replace(/&nbsp;/g, "")
+      }
+      console.log("newdata", newData)
+      setData(newData)
+      setEditable(false);
+    }, 1000)
+  }
+
+  const cancelChanges = () => {
+    setData(initialData)
+    setEditable(false);
+  }
 
   if (props.isNew) {
     return (
@@ -78,21 +114,35 @@ const LinkComp = (props) => {
   }
 
   return (
-    <div className={"link-comp"}>
-      <ContentEditable
-        html={data.name}
-        onChange={() => onChange(e.target.value, "name")}
-        disabled={!editable}
-        tagName={"p"}
-        className={"link-name"}
-      />
-      <ContentEditable
-        html={data.url}
-        onChange={() => onChange(e.target.value, "url")}
-        disabled={!editable}
-        tagName={"p"}
-        className={"link-url"}
-      />
+    <div className={`link-comp ${editable ? "editable" : ""}`}>
+      <div className={"link-name"}>
+        <ContentEditable
+          html={data.link_name}
+          onChange={(e) => onChange(e.target.value, "link_name")}
+          disabled={!editable}
+          tagName={"p"}
+          onKeyDown={disableEnter}
+        />
+      </div>
+      <div className={"link-url"}>
+        <ContentEditable
+          html={data.link_url}
+          onChange={(e) => onChange(e.target.value, "link_url")}
+          disabled={!editable}
+          tagName={"p"}
+          className={"link"}
+          onKeyDown={disableEnter}
+        />
+        {!editable && <p className={"edit"} onClick={() => setEditable(true)}>
+          <FiEdit3 />
+        </p>}
+      </div>
+      {editable && (
+        <div className={"btns"}>
+          <button onClick={cancelChanges} disabled={loading} className={"button secondary"}>Cancel</button>
+          <LoaderBtn onClick={saveChanges} disabled={loading} loading={loading} className={"button"}>Save</LoaderBtn>
+        </div>
+      )}
     </div>
   )
 }

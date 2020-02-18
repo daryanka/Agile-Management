@@ -32,7 +32,7 @@ const ProjectDescription = (props) => {
   }, [])
 
   const onChange = (e) => {
-    setData(e.target.value.replace("&nbsp;", ""))
+    setData(e.target.value.replace(/&nbsp;/g, ""))
   }
 
   const enable = () => {
