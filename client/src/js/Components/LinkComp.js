@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Input from "./Input";
 import {FaTimes} from "react-icons/fa";
 import Form from "./Form";
 import LoaderBtn from "./LoaderBtn";
 import {useToasts} from "react-toast-notifications";
+import ContentEditable from "react-contenteditable";
 
 
 const LinkComp = (props) => {
   const {addToast} = useToasts();
-
+  const [editable, setEditable] = useState(false);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({
     link_name: "",
@@ -35,6 +36,15 @@ const LinkComp = (props) => {
 
     }, 1000);
   }
+
+  useEffect(() => {
+    if (!props.isNew) {
+      setData({
+        link_name: props.name,
+        link_url: props.url
+      })
+    }
+  }, [])
 
   if (props.isNew) {
     return (
@@ -69,10 +79,20 @@ const LinkComp = (props) => {
 
   return (
     <div className={"link-comp"}>
-      <p className={"link-name"}>{props.name}</p>
-      <p onClick={newWindow} className={"link-url"}>
-        {props.url}
-      </p>
+      <ContentEditable
+        html={data.name}
+        onChange={() => onChange(e.target.value, "name")}
+        disabled={!editable}
+        tagName={"p"}
+        className={"link-name"}
+      />
+      <ContentEditable
+        html={data.url}
+        onChange={() => onChange(e.target.value, "url")}
+        disabled={!editable}
+        tagName={"p"}
+        className={"link-url"}
+      />
     </div>
   )
 }
