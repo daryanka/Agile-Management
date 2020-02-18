@@ -1,5 +1,5 @@
 // Colors
-$primary: #E54848; // Red
+$primary: #e54848; // Red
 $secondary: #fff; // White
 $gray: #707070; // Gray
 
@@ -20,10 +20,13 @@ $small-mobile: 350px;
 // Border radius for buttons and inputs
 $border-radius: 7px;
 
+//Font Family
+$font-family: "Poppins", "Arial", sans-serif;
+
 // Typography
 h1, h2, h3, h4, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, a, p, .p, .a  {
   color: $primary;
-  font-family: "Poppins", "Arial", sans-serif;
+  font-family: $font-family;
   text-decoration: none;
 }
 

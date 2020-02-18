@@ -1,6 +1,7 @@
 import React from "react";
 import Form from "../Components/Form";
 import Input from "../Components/Input";
+import {useToasts} from "react-toast-notifications";
 
 const RegisterPage = () => {
   const [data, setData] = React.useState({});

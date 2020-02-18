@@ -1,17 +1,24 @@
-import React from "react";
+import React, {useCallback, useState} from "react";
 import Form from "../Components/Form";
 import Input from "../Components/Input";
 import { FaTimes } from "react-icons/fa"
 import Textarea from "../Components/Textarea";
 import Select from "react-select";
+import {useDropzone} from 'react-dropzone'
+import _ from "lodash";
+import { useToasts } from 'react-toast-notifications'
 
 const CreateProject = () => {
-  const [data, setData] = React.useState({
+  const [data, setData] = useState({
     project_name: "",
     description: ""
   });
-  const [links, setLinks] = React.useState([]);
-  const [assignees, setAssignees] = React.useState([]);
+  const [links, setLinks] = useState([]);
+  const [assignees, setAssignees] = useState([]);
+  const [files, setFiles] = useState([]);
+  const availableDataTypes = ["png", "txt", "zip", "jpeg", "jpg"];
+  const { addToast } = useToasts()
+
 
   const handleAssignChange = (val) => {
     setAssignees(val)
@@ -35,6 +42,7 @@ const CreateProject = () => {
   }
 
   const addLink = () => {
+
     setLinks(prev => [...prev, {}])
   }
 
@@ -44,8 +52,33 @@ const CreateProject = () => {
     setLinks(linksCopy)
   }
 
-  console.log("links", links)
+  const onDrop = useCallback((acceptedFiles) => {
+    acceptedFiles.forEach((file) => {
+      const extension = file.name.slice((Math.max(0, file.name.lastIndexOf(".")) || Infinity) + 1);
 
+      if (availableDataTypes.includes(extension)) {
+        setFiles(prev => [...prev, file])
+      } else {
+        //Send Notification
+        addToast(`Cannot upload files with extension ${extension}.`, {
+          appearance: "error",
+          autoDismiss: true,
+          transitionState: "entered"
+        })
+      }
+    })
+  }, [])
+
+  const removeFile = (i) => {
+    const copy = [...files];
+    copy.splice(i, 1);
+    setFiles(copy);
+  }
+
+
+  const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
+
+  console.log(files);
   return(
     <div className={"create-project"}>
       <h1>Create New Project</h1>
@@ -82,6 +115,23 @@ const CreateProject = () => {
             value: 122,
           }
         ]}/>
+        <div className={`drop-zone ${isDragActive ? "active" : ""}`} {...getRootProps()}>
+          <input {...getInputProps()} />
+          <p>Drop files here, or click to select files (optional) <span>Allowed file types: {availableDataTypes.map((fileType, i) => {
+            if (i === availableDataTypes.length - 1) {
+              return `${fileType}`
+            }
+            return `${fileType}, `
+          })}</span></p>
+
+        </div>
+        {!_.isEmpty(files) && (
+          <div className={"files-list"}>
+            {files.map((file, i) => {
+              return <p key={`file-${i}`} className={"single-file"}>{file.name} <FaTimes onClick={() => removeFile(i)}/></p>
+            })}
+          </div>
+        )}
         <div className="col-xs-12">
           <button type={"button"} className={"button add-link"} onClick={addLink}>Add Link</button>
         </div>

@@ -126,7 +126,7 @@ const Form = props => {
       if (React.isValidElement(child) && child?.props?.isInput) {
         childProps = { changedValue, errors };
       }
-      if (child.props) {
+      if (child?.props) {
         // String has no Prop
         childProps.children = childrenWithProps(child.props.children);
         return React.cloneElement(child, childProps);
