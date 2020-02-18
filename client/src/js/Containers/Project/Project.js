@@ -7,6 +7,7 @@ import Modal from "../../Components/Modal";
 import AssignUserModal from "./AssignUserModal";
 import TimeModal from "./TimeModal";
 import ProjectDescription from "./ProjectDescription";
+import LinksSection from "./LinksSection";
 
 const Project = (props) => {
   const assignModalRef = useRef()
@@ -100,22 +101,27 @@ const Project = (props) => {
           <div className={"section-1 section"}>
             <div className={"left"}>
               <ProjectDescription description={`
-   Lorem ipsum dolor sit amet, consectetur adipiscing elit
-    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-    ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
-    in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-    occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
-    id est laborum.`}/>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+                ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+                in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+                occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
+                id est laborum.`}
+              />
 
               <Divider/>
 
-              <div className={"links"}>
-                <h3>Links</h3>
-                <LinkComp name={"github"} url={"github.com"} />
-                <LinkComp name={"invision"} url={"invision.com"} />
-                <LinkComp name={"github"} url={"github.com"} />
-              </div>
+              <LinksSection links={[
+                {
+                  name: "github",
+                  url :"github.com"
+                },
+                {
+                  name: "invision",
+                  url: "invision.com"
+                }
+              ]} />
             </div>
 
             <div className={"right"}>
