@@ -7,6 +7,7 @@ import Select from "react-select";
 import {useDropzone} from 'react-dropzone'
 import _ from "lodash";
 import { useToasts } from 'react-toast-notifications'
+import constants from "../constants";
 
 const CreateProject = () => {
   const [data, setData] = useState({
@@ -16,7 +17,6 @@ const CreateProject = () => {
   const [links, setLinks] = useState([]);
   const [assignees, setAssignees] = useState([]);
   const [files, setFiles] = useState([]);
-  const availableDataTypes = ["png", "txt", "zip", "jpeg", "jpg"];
   const { addToast } = useToasts()
 
 
@@ -56,7 +56,7 @@ const CreateProject = () => {
     acceptedFiles.forEach((file) => {
       const extension = file.name.slice((Math.max(0, file.name.lastIndexOf(".")) || Infinity) + 1);
 
-      if (availableDataTypes.includes(extension)) {
+      if (constants.availableDataTypes.includes(extension)) {
         setFiles(prev => [...prev, file])
       } else {
         //Send Notification
@@ -78,7 +78,6 @@ const CreateProject = () => {
 
   const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
 
-  console.log(files);
   return(
     <div className={"create-project"}>
       <h1>Create New Project</h1>

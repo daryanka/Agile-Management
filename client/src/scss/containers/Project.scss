@@ -55,22 +55,32 @@
               display: flex;
               align-items: center;
               margin-bottom: 20px;
-
-              svg {
-                margin-left: 15px;
-                height: 25px;
-                width: 25px;
-                &:hover {
-                  cursor: pointer;
-                }
-              }
             }
 
             .options {
               margin-top: 10px;
 
+              svg {
+                cursor: pointer;
+              }
+
               .two {
                 margin-left: 20px;
+              }
+
+              @include until(510px) {
+                .button {
+                  padding: 5px 10px;
+                }
+              }
+
+              @include until(380px) {
+                display: flex;
+                flex-direction: column;
+                .two {
+                  margin-left: 0;
+                  margin-top: 10px;
+                }
               }
             }
 
@@ -146,8 +156,36 @@
               display: flex;
               margin-bottom: 15px;
               min-height: 54px;
+              flex-wrap: wrap;
+
+              .btns {
+                display: flex;
+                align-items: center;
+
+                .button {
+                  margin-top: 10px;
+                  height: 54px;
+
+                  &.two {
+                    margin-left: 10px;
+                  }
+                }
+
+                @include until(410px) {
+                  width: 100%;
+                  flex-direction: column;
+                  .button {
+                    height: unset;
+                    width: 100%;
+                    &.two {
+                      margin-left: 0;
+                    }
+                  }
+                }
+              }
 
               .link-name {
+                margin-top: 10px;
                 text-transform: capitalize;
                 padding: 10px;
                 color: white;
@@ -161,6 +199,8 @@
               }
 
               .link-url {
+                margin-top: 10px;
+                margin-right: 10px;
                 padding: 10px;
                 font-style: italic;
                 border: 2px solid $primary;
@@ -283,6 +323,73 @@
 
       .section-2 {
         .files {
+          .drop-zone {
+            &.loading {
+              opacity: 0.5;
+              &:hover {
+                cursor: default;
+              }
+            }
+            width: 100%;
+            min-height: 150px;
+            border: 2px dashed $primary;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: ease all 250ms;
+            overflow-y: auto;
+            outline: none;
+            text-align: center;
+            flex-direction: column;
+            p {
+              display: flex;
+              flex-direction: column;
+            }
+
+            span {
+              font-style: italic;
+              font-size: 16px;
+            }
+            &:hover {
+              cursor: pointer;
+            }
+
+            &.active {
+              background-color: rgba(231, 82, 82, 0.07);
+            }
+          }
+
+          .files-list {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            margin-top: 5px;
+
+            .button {
+              height: 44px;
+              margin-top: 0 !important;
+              margin-bottom: 0 !important;
+            }
+
+            .single-file {
+              margin-right: 15px;
+              border: 2px solid $primary;
+              padding: 5px 10px 5px 15px;
+              margin-bottom: 5px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              border-radius: 7px;
+
+              svg {
+                margin-left: 10px;
+                &:hover {
+                  cursor: pointer;
+                }
+              }
+            }
+          }
+
           .files-box {
             margin-top: 30px;
             margin-bottom: 30px;
@@ -297,6 +404,7 @@
               margin: 5px;
               position: relative;
               padding-left: 15px;
+              word-break: break-all;
 
               svg {
                 position: absolute;

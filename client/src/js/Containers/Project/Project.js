@@ -1,13 +1,13 @@
 import React, { useState, useRef } from "react";
 import LinkComp from "../../Components/LinkComp";
 import Divider from "../../Components/Divider";
-import { FaFileDownload } from "react-icons/fa"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Modal from "../../Components/Modal";
 import AssignUserModal from "./AssignUserModal";
 import TimeModal from "./TimeModal";
 import ProjectDescription from "./ProjectDescription";
 import LinksSection from "./LinksSection";
+import DownloadFiles from "./DownloadFiles";
 
 const Project = (props) => {
   const assignModalRef = useRef()
@@ -156,13 +156,17 @@ const Project = (props) => {
           </div>
           <div className="section-2 section">
             <Divider/>
-            <div className={"files"}>
-              <h3>Files</h3>
-              <div className={"files-box"}>
-                <button className={"button"}>Wireframe.png <FaFileDownload/></button>
-                <button className={"button"}>Downloadable File.png <FaFileDownload/></button>
-              </div>
-            </div>
+
+            <DownloadFiles files={[
+              {
+                name: "Wireframe.png",
+                url: "google.com"
+              },
+              {
+                name: "Downloadable File.jpeg",
+                url: "youtube.com"
+              }
+            ]}/>
 
             <Divider/>
 

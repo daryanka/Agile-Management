@@ -16,8 +16,6 @@ const AssignUserModal = () => {
     setTimeout(() => setLoading(false), 2000)
   }
 
-  console.log("state", state);
-
   return (
     <div className={"assign-wrapper"}>
       <div className="assign-user">

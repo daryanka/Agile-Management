@@ -21,7 +21,10 @@ const LinkComp = (props) => {
     link_url: ""
   })
   const newWindow = () => {
-    window.open(props.url, '_blank');
+    if (!editable) {
+      window.open(props.url, '_blank');
+
+    }
   }
 
   const onChange = (val, name) => {
@@ -71,9 +74,12 @@ const LinkComp = (props) => {
         link_url: data.link_url.replace(/&nbsp;/g, ""),
         link_name: data.link_name.replace(/&nbsp;/g, "")
       }
-      console.log("newdata", newData)
       setData(newData)
       setEditable(false);
+      addToast(`Link updated.`, {
+        appearance: "success",
+        autoDismiss: true,
+      })
     }, 1000)
   }
 
@@ -132,6 +138,7 @@ const LinkComp = (props) => {
           tagName={"p"}
           className={"link"}
           onKeyDown={disableEnter}
+          onClick={newWindow}
         />
         {!editable && <p className={"edit"} onClick={() => setEditable(true)}>
           <FiEdit3 />
@@ -140,7 +147,7 @@ const LinkComp = (props) => {
       {editable && (
         <div className={"btns"}>
           <button onClick={cancelChanges} disabled={loading} className={"button secondary"}>Cancel</button>
-          <LoaderBtn onClick={saveChanges} disabled={loading} loading={loading} className={"button"}>Save</LoaderBtn>
+          <LoaderBtn onClick={saveChanges} disabled={loading} loading={loading} className={"button two"}>Save</LoaderBtn>
         </div>
       )}
     </div>

@@ -6,7 +6,6 @@ const LinksSection = (props) => {
   const [links, setLinks] = useState([]);
 
   const addNew = (name, url) => {
-    console.log("here", name, url)
     setLinks(prev => [...prev, {
       name,
       url
