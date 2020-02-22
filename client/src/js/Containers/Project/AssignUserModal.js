@@ -2,7 +2,7 @@ import React from "react";
 import Select from "react-select";
 import LoaderBtn from "../../Components/LoaderBtn";
 
-const AssignUserModal = () => {
+const AssignUserModal = (props) => {
   const [state, setState] = React.useState();
   const [loading, setLoading] = React.useState(false);
 
@@ -38,7 +38,7 @@ const AssignUserModal = () => {
       <p></p>
       <div className={"modal-buttons-cont"}>
         <div className={"btns"}>
-          <button className={"button secondary button-1"}>Cancel</button>
+          <button className={"button secondary button-1"} onClick={props.close}>Cancel</button>
           <LoaderBtn disabled={loading} loading={loading} onClick={toggleLoading} className={"button-loader button-2"}>
             Confirm
           </LoaderBtn>

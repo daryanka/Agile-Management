@@ -8,6 +8,7 @@ import TimeModal from "./TimeModal";
 import ProjectDescription from "./ProjectDescription";
 import LinksSection from "./LinksSection";
 import DownloadFiles from "./DownloadFiles";
+import Tasks from "./Tasks";
 
 const Project = (props) => {
   const assignModalRef = useRef()
@@ -170,54 +171,7 @@ const Project = (props) => {
 
             <Divider/>
 
-            <div className={"tasks"}>
-              <h3>Tasks</h3>
-              <div className={"tasks-cont"}>
-                <DragDropContext
-                  onDragEnd={onDragEnd}
-                >
-                  {columnorder.map((colName, index) => {
-                    const column = list[colName];
-                    const colId = colName;
-                    return (
-                      <Droppable
-                        key={colId}
-                        droppableId={colId}
-                      >
-                        {(provided) => {
-                          return (
-                            <div className={"col-wrapper"}>
-                              <h5>{column.title}</h5>
-                              <div className={"column"} {...provided.droppableProps} ref={provided.innerRef}>
-                                {column.tasks.map((item, index) => {
-                                  return (
-                                    <Draggable key={item.id} draggableId={item.id} index={index}>
-                                      {(provided, snapshot) => {
-                                        return (
-                                          <div
-                                            ref={provided.innerRef}
-                                            {...provided.draggableProps}
-                                            {...provided.dragHandleProps}
-                                            className={`single-task ${snapshot.isDragging ? "dragging" : ""}`}
-                                          >
-                                            <p>{item.content}</p>
-                                          </div>
-                                        )
-                                      }}
-                                    </Draggable>
-                                  )
-                                })}
-                                {provided.placeholder}
-                              </div>
-                            </div>
-                          )
-                        }}
-                      </Droppable>
-                    )
-                  })}
-                </DragDropContext>
-              </div>
-            </div>
+            <Tasks/>
 
             <Divider/>
 

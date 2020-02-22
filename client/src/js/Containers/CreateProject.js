@@ -116,8 +116,8 @@ const CreateProject = () => {
         ]}/>
         <div className={`drop-zone ${isDragActive ? "active" : ""}`} {...getRootProps()}>
           <input {...getInputProps()} />
-          <p>Drop files here, or click to select files (optional) <span>Allowed file types: {availableDataTypes.map((fileType, i) => {
-            if (i === availableDataTypes.length - 1) {
+          <p>Drop files here, or click to select files (optional) <span>Allowed file types: {constants.availableDataTypes.map((fileType, i) => {
+            if (i === constants.availableDataTypes.length - 1) {
               return `${fileType}`
             }
             return `${fileType}, `

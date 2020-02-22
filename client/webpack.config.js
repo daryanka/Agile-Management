@@ -1,4 +1,6 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const ErrorOverlayPlugin = require('error-overlay-webpack-plugin')
+
 module.exports = {
   module: {
     rules: [
@@ -42,7 +44,8 @@ module.exports = {
     new HtmlWebPackPlugin({
       template: "./src/index.html",
       filename: "./index.html"
-    })
+    }),
+    new ErrorOverlayPlugin()
   ],
   devServer: {
     historyApiFallback: true,

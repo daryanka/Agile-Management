@@ -17,6 +17,10 @@ const Modal = React.forwardRef((props, ref) => {
     setShow(false)
   }
 
+  const children = React.cloneElement(props.children, {
+    close: () => close()
+  })
+
   const content = () => {
     return (
       <div className={`modal-cont ${props.className ? props.className : ""}`}>
@@ -27,7 +31,7 @@ const Modal = React.forwardRef((props, ref) => {
               <div onClick={close} className={"cross"} />
             </div>
           ) : null}
-          {props.children}
+          {children}
         </div>
       </div>
     )
