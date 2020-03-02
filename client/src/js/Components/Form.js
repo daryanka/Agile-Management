@@ -1,5 +1,6 @@
 import React from "react";
 import _ from "lodash";
+import propTypes from "prop-types";
 
 const Form = props => {
   const [data, setData] = React.useState({});
@@ -162,8 +163,13 @@ const Form = props => {
 };
 
 Form.defaultProps = {
-  onSubmit: () => {},
   noValidate: true
 };
+
+Form.propTypes = {
+  noValidate: propTypes.bool,
+  className: propTypes.string,
+  onSubmit: propTypes.func.isRequired,
+}
 
 export default Form;

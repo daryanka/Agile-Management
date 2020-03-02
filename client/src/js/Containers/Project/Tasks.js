@@ -2,10 +2,12 @@ import React, { useState, useRef } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Modal from "../../Components/Modal";
 import EditTaskModal from "./EditTaskModal";
+import AddTaskModal from "./AddTaskModal";
 
 
 const Tasks = () => {
   const editRef = useRef();
+  const addRef = useRef();
   const [editId, setEditid] = useState(null);
   const [list, setList] = useState({
     "column-1": {
@@ -91,12 +93,20 @@ const Tasks = () => {
     setEditid(id)
   }
 
+  const addTaskOpen = () => {
+    addRef.current.open();
+  }
+
   return(
     <div className={"tasks"}>
       <Modal ref={editRef}>
         <EditTaskModal id={editId} />
       </Modal>
+      <Modal ref={addRef}>
+        <AddTaskModal/>
+      </Modal>
       <h3>Tasks</h3>
+      <button className={"button add-task"} onClick={addTaskOpen}>Create New Task</button>
       <div className={"tasks-cont"}>
         <DragDropContext
           onDragEnd={onDragEnd}

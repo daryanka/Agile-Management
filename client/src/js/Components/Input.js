@@ -1,4 +1,5 @@
 import React from "react"
+import propTypes from "prop-types";
 
 const Input = props => {
   if (props.validation) {
@@ -52,13 +53,22 @@ const Input = props => {
 
 Input.defaultProps = {
   type: "text",
-  name: "name",
-  placeholder: "Placeholder",
+  placeholder: "",
   refer: null,
   wrapperClassName: "",
   inputClassName: "",
   style: null,
   isInput: true
+}
+
+Input.propTypes = {
+  type: propTypes.string,
+  name: propTypes.string.isRequired,
+  placeholder: propTypes.string,
+  wrapperClassName: propTypes.string,
+  inputClassName: propTypes.string,
+  style: propTypes.object,
+  handleChange: propTypes.func.isRequired
 }
 
 export default Input
