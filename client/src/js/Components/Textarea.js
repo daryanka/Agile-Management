@@ -1,4 +1,6 @@
 import React from "react"
+import propTypes from "prop-types";
+import Input from "./Input";
 
 const Textarea = props => {
   const handleChange = (val, name) => {
@@ -8,7 +10,7 @@ const Textarea = props => {
 
   return (
     <div
-      className={`col-${props.col}  col-offset-${props.colOffset} ${props.wrapperClassName}`}
+      className={`${props.wrapperClassName}`}
     >
       {props.label ? (
         <div className="input-label-wrapper">
@@ -41,13 +43,23 @@ const Textarea = props => {
 
 Textarea.defaultProps = {
   name: "name",
-  placeholder: "placeholder",
-  col: "10",
-  colOffset: "1",
+  placeholder: "",
   wrapperClassName: "",
   inputClassName: "",
   height: "200px",
   isInput: true
+}
+
+Input.propTypes = {
+  type: propTypes.string,
+  name: propTypes.string.isRequired,
+  placeholder: propTypes.string,
+  wrapperClassName: propTypes.string,
+  inputClassName: propTypes.string,
+  style: propTypes.object,
+  handleChange: propTypes.func.isRequired,
+  label: propTypes.string,
+  height: propTypes.string
 }
 
 export default Textarea

@@ -1,4 +1,5 @@
 import React from "react";
+import propTypes from "prop-types";
 
 const LoaderBtn = (props) => {
   return (
@@ -18,6 +19,13 @@ LoaderBtn.defaultProps = {
   className: "",
   loading: false,
   disabled: false
+}
+
+LoaderBtn.propTypes = {
+  type: propTypes.string,
+  className: propTypes.string,
+  loading: propTypes.bool,
+  disabled: propTypes.bool
 }
 
 export default LoaderBtn;

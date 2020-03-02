@@ -68,7 +68,8 @@ Input.propTypes = {
   wrapperClassName: propTypes.string,
   inputClassName: propTypes.string,
   style: propTypes.object,
-  handleChange: propTypes.func.isRequired
+  handleChange: propTypes.func.isRequired,
+  label: propTypes.string
 }
 
 export default Input
