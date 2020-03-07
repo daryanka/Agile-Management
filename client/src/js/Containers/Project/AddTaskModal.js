@@ -25,10 +25,10 @@ const AddTaskModal = () => {
     <div className={"add-task-modal"}>
       <h1>Add New Task</h1>
       <Form onSubmit={addTask}>
-        <Input label={"Title"} validation={"required"} handleChange={handleChange} name={"title"} placeholder={"Task title..."}/>
-        <Textarea label={"Description"} validation={"required"} handleChange={handleChange} name={"description"} placeholder={"Task description..."}/>
-        <Select onChange={(val) => setSelectVal(val)} />
-        <LoaderBtn loading={loading} disabled={loading} type={"submit"}>Create Task</LoaderBtn>
+        <Input wrapperClassName={"title"} label={"Title"} validation={"required"} handleChange={handleChange} name={"title"} placeholder={"Task title..."}/>
+        <Textarea wrapperClassName={"desc"} label={"Description"} validation={"required"} handleChange={handleChange} name={"description"} placeholder={"Task description..."}/>
+        <Select className={"select"} onChange={(val) => setSelectVal(val)} />
+        <LoaderBtn loading={loading} className={"btn"} disabled={loading} type={"submit"}>Create Task</LoaderBtn>
       </Form>
     </div>
   )
