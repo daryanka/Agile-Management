@@ -4,8 +4,8 @@ import Input from "./Input";
 
 const Textarea = props => {
   const handleChange = (val, name) => {
-    props.handleChange(val, name)
-    props.changedValue(val, name)
+    props.handleChange(val, name) // Parent Component
+    props.changedValue(val, name) // Form Component
   }
 
   return (

@@ -2,14 +2,9 @@ import React from "react"
 import propTypes from "prop-types";
 
 const Input = props => {
-  if (props.validation) {
-    const list = props.validation.split("|")
-    list.forEach(el => {})
-  }
-
   const handleChange = (val, name) => {
-    props.changedValue(val, name)
-    props.handleChange(val, name)
+    props.handleChange(val, name)// Parent Component
+    props.changedValue(val, name)// Form Component
   }
 
   return (

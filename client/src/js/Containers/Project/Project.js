@@ -9,6 +9,7 @@ import ProjectDescription from "./ProjectDescription";
 import LinksSection from "./LinksSection";
 import DownloadFiles from "./DownloadFiles";
 import Tasks from "./Tasks";
+import Comments from "./Comments/Comments";
 
 const Project = (props) => {
   const assignModalRef = useRef()
@@ -175,32 +176,7 @@ const Project = (props) => {
 
             <Divider/>
 
-            <div className="comments">
-              <h4>Comments</h4>
-              <div className="comments-box">
-                <div className="comment">
-                  <p className="comment-title">Daryan Amin</p>
-                  <p className="comment-text">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                  </p>
-                </div>
-
-                <Divider/>
-
-                <div className="comment">
-                  <p className="comment-title">Daryan Amin</p>
-                  <p className="comment-text">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                  </p>
-                </div>
-              </div>
-            </div>
+            <Comments/>
 
             <Divider/>
 

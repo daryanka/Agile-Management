@@ -9,6 +9,7 @@ input[type=number] {
   outline: none;
   font-size: 16px;
   color: #2e2e2e;
+  font: $font-family;
 }
 
 textarea {
@@ -19,4 +20,5 @@ textarea {
   resize: none;
   font-size: 16px;
   color: #2e2e2e;
+  font: $font-family;
 }
