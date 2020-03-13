@@ -2,16 +2,52 @@ import React from "react";
 import LoaderBtn from "../../Components/LoaderBtn";
 import Input from "../../Components/Input";
 import Form from "../../Components/Form";
+import Textarea from "../../Components/Textarea";
 
 const TimeModal = () => {
-  const [state, setState] = React.useState();
+  const [state, setState] = React.useState({});
   const [loading, setLoading] = React.useState(false);
 
   const onChange = (val, name) => {
+    setState(prev => ({
+      ...prev,
+      [name]: value
+    }))
   };
 
-  const toggleLoading = () => {
+  const submit = () => {
     setLoading(!loading);
+    //Split at every space
+    const timesArr = state.time.split(" ");
+    //Allowed Structures:
+    //nnL
+    //nL
+    //Rules:
+    //Letter must be one of w,d,h,n,s
+    //Number must be max 2 digits
+
+    let valid = true;
+    for (let i = 0; i < timesArr.length; i++) {
+      if (timesArr[i].length === 3) {
+        const regex = /^[0-9]{2}[wdmh]$/;
+        if (!regex.test(timesArr[i])) {
+          valid = false;
+          break;
+        }
+      } else if (timesArr[i].length === 2) {
+        const regex = /^[0-9][wdmh]$/;
+        if (!regex.test(timesArr[i])) {
+          valid = false;
+          break;
+        }
+      } else {
+        console.log("here");
+        valid = false;
+        break;
+      }
+    }
+
+    valid ? console.log("Success!") : console.log("Failed!");
 
     setTimeout(() => setLoading(false), 2000)
   }
@@ -22,15 +58,15 @@ const TimeModal = () => {
       <div className={"time-estimates-box"}>
         <div className={"left"}>
           <p>Description</p>
-          <textarea className={"text-field"}/>
+          <Textarea handleChange={onChange} name={"description"} className={"text-field"}/>
         </div>
-        <Form className={"right"}>
+        <Form onSubmit={submit} className={"right"}>
           <p>Time</p>
-          <Input handleChange={onChange} placeholder={"1w 4d 2h 31m"} name={"time"} />
+          <Input validation={"required"} handleChange={onChange} placeholder={"1w 4d 2h 31m"} name={"time"} />
           <p>Time: 0 Minutes</p>
           <div className={"modal-buttons-cont"}>
             <div className={"btns"}>
-              <LoaderBtn disabled={loading} loading={loading} onClick={toggleLoading} className={"button-loader button-2"}>
+              <LoaderBtn disabled={loading} loading={loading} type={"submit"} className={"button-loader button-2"}>
                 Add Time
               </LoaderBtn>
             </div>
