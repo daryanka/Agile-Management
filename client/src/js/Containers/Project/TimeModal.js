@@ -55,12 +55,12 @@ const TimeModal = () => {
   return (
     <div className={"time-estimates"}>
       <h1>Add Time</h1>
-      <div className={"time-estimates-box"}>
+      <Form onSubmit={submit} className={"time-estimates-box"}>
         <div className={"left"}>
           <p>Description</p>
           <Textarea handleChange={onChange} name={"description"} className={"text-field"}/>
         </div>
-        <Form onSubmit={submit} className={"right"}>
+        <div  className={"right"}>
           <p>Time</p>
           <Input validation={"required"} handleChange={onChange} placeholder={"1w 4d 2h 31m"} name={"time"} />
           <p>Time: 0 Minutes</p>
@@ -71,8 +71,8 @@ const TimeModal = () => {
               </LoaderBtn>
             </div>
           </div>
-        </Form>
-      </div>
+        </div>
+      </Form>
     </div>
   )
 };

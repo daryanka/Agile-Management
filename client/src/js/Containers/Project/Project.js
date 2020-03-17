@@ -181,7 +181,7 @@ const Project = (props) => {
 
             <Divider/>
 
-            <TimeLogged/>
+            <TimeLogged />
           </div>
         </div>
       </div>

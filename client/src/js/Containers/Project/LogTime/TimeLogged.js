@@ -1,19 +1,30 @@
 import React from "react";
+import Single from "./Single";
+import Modal from "../../../Components/Modal";
+import EditModal from "./EditModal";
+import Divider from "../../../Components/Divider";
 
 const TimeLogged = () => {
+  const editRef = React.useRef();
+  const [edit, setEdit] = React.useState(null);
+
+  const editModal = (id) => {
+    setEdit(id)
+    editRef.current.open()
+  }
+
   return(
     <div className="comments comments-2">
+      <Modal ref={editRef}>
+        <EditModal id={edit}/>
+      </Modal>
       <h4>Logged Time</h4>
       <div className="comments-box">
-        <div className="comment">
-          <p className="comment-title">Daryan Amin - 12 Hours</p>
-          <p className="comment-text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            sed do eiusmod tempor incididunt ut labore et dolore magna
-            aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-            ullamco laboris nisi ut aliquip ex ea commodo consequat.
-          </p>
-        </div>
+        <Single id={1} edit={editModal} />
+        <Divider/>
+        <Single id={2} edit={editModal} />
+        <Divider/>
+        <Single id={3} edit={editModal} />
       </div>
     </div>
   )

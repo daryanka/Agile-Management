@@ -471,6 +471,20 @@
             margin-bottom: 20px;
           }
 
+          .comment-title {
+            display: flex;
+            align-items: center;
+            svg {
+              width: 20px;
+              height: 20px;
+              margin-left: 10px;
+
+              &:hover {
+                cursor: pointer;
+              }
+            }
+          }
+
           .comments-box {
             margin-top: 30px;
             border: 2px solid $primary;
