@@ -8,6 +8,11 @@ const Textarea = props => {
     props.changedValue(val, name) // Form Component
   }
 
+  React.useEffect(() => {
+    console.log("props .value is", props.value)
+    props.value && props.changedValue(props.value, props.name)
+  }, [props.value])
+
   return (
     <div
       className={`${props.wrapperClassName}`}
