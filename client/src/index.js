@@ -4,7 +4,7 @@ import App from "./js/app";
 import history from "./js/History";
 import { Router } from "react-router-dom";
 import { Provider } from "react-redux";
-import store from "./js/Reducers";
+import store from "./js/Store";
 
 ReactDOM.render(
   <Provider store={store}>
