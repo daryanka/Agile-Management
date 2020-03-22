@@ -24,8 +24,13 @@
         margin: 0 20px;
         font-size: 24px;
 
-        a {
+        a, button {
           position: relative;
+          color: $primary;
+          font-size: 20px;
+          background: transparent;
+          border: none;
+          outline: none;
           &:after {
             transition: ease-in-out all 200ms;
             position: absolute;
@@ -38,6 +43,7 @@
             left: 0;
           }
           &:hover {
+            cursor: pointer;
             &:after {
               width: 100%;
             }

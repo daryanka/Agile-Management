@@ -1,22 +1,34 @@
 import React, {useState} from "react";
 import { NavLink } from "react-router-dom"
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../Store"
+import {LOGIN_LOGOUT_USER} from "../types/userDispatchTypes";
 
 const Navbar = () => {
-  const [authenticated, setAuthenticated] = useState(true);
+  const dispatch = useDispatch();
+  const auth = useSelector((state: RootState) => state.auth)
+  const isAuthenticated =  auth.isAuthenticated
   const [hamburger, setHamburger] = useState(false);
 
   const onHamburgerClick = () => {
     setHamburger(!hamburger)
   };
 
+  const logout = () => {
+    dispatch({
+      type: LOGIN_LOGOUT_USER
+    })
+  }
+
   const mapNav = () => {
-    switch (authenticated) {
+    switch (isAuthenticated) {
       case true:
         return (
           <ul className={"nav-links"}>
-            <li><NavLink activeClassName={"active-link"} to={"/users"}>Users</NavLink></li>
+            {auth.role === "admin" && <li><NavLink activeClassName={"active-link"} to={"/users"}>Users</NavLink></li>}
             <li><NavLink activeClassName={"active-link"} to={"/tasks"}>Tasks</NavLink></li>
             <li><NavLink activeClassName={"active-link"} to={"/projects/search"}>Projects</NavLink></li>
+            <li><button onClick={logout}>Logout</button></li>
           </ul>
         );
       case false:
@@ -34,7 +46,7 @@ const Navbar = () => {
 
   return (
     <nav className={"nav-bar"}>
-      <NavLink to={authenticated ? "/" : "/home"}><h3 className={`brand ${authenticated ? "logged-in" : ""}`}>Agile Management</h3></NavLink>
+      <NavLink to={isAuthenticated ? "/" : "/home"}><h3 className={`brand ${isAuthenticated ? "logged-in" : ""}`}>Agile Management</h3></NavLink>
 
       <div className={"nav-options"}>
         {mapNav()}

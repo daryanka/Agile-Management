@@ -1,3 +1,4 @@
+const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const ErrorOverlayPlugin = require('error-overlay-webpack-plugin')
 
@@ -38,6 +39,11 @@ module.exports = {
     ]
   },
   entry: "./src/index.tsx",
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: "bundle.js",
+    publicPath: "/"
+  },
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx"]
   },
@@ -50,5 +56,6 @@ module.exports = {
   ],
   devServer: {
     historyApiFallback: true,
+    open: true,
   }
 };

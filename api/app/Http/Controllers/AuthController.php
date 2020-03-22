@@ -18,7 +18,7 @@ class AuthController extends Controller
     public function __construct(Request $request)
     {
         $this->request = $request;
-        $this->middleware("auth",["only" => ["test"]]);
+        $this->middleware("auth",["only" => ["me"]]);
     }
 
     protected function jwt($user) {
@@ -77,5 +77,13 @@ class AuthController extends Controller
         return response(["token" => $this->jwt($user)], 200);
 
         return response($user, 200);
+    }
+
+    public function me() {
+        return response([
+            "role" => $this->request->user->role,
+            "id" => $this->request->user->id,
+            "organisation_id" => $this->request->user->organisation_id
+        ], 200);
     }
 }

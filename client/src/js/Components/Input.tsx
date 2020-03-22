@@ -7,10 +7,10 @@ interface errorType<T> {
 
 interface CompProps {
   handleChange: (val: string, name: string) => void,
-  changedValue: (val: string, name: string) => void,
+  changedValue?: (val: string, name: string) => void,
   value?: string,
   name: string,
-  style: any,
+  style?: any,
   wrapperClassName?: string,
   label?: string,
   removeSemiColon?: boolean,
@@ -20,19 +20,22 @@ interface CompProps {
   placeholder?: string,
   removeBasicStyling?: boolean,
   inputClassName?: string,
-  errors: errorType<string>,
-  isInput?: boolean
+  errors?: errorType<string>,
+  isInput?: boolean,
+  validation?: string
 }
 
 const Input:FC<CompProps> = props => {
   const handleChange = (val: string, name: string) => {
     props.handleChange(val, name)// Parent Component
-    props.changedValue(val, name)// Form Component
+    props.changedValue && props.changedValue(val, name)// Form Component
   }
 
   React.useEffect(() => {
     console.log("props .value is", props.value)
-    props.value && props.changedValue(props.value, props.name)
+    if (props.changedValue && props.value) {
+      props.changedValue(props.value, props.name)
+    }
   }, [props.value])
 
   return (
@@ -65,7 +68,7 @@ const Input:FC<CompProps> = props => {
         value={props.value}
       />
 
-      {props.errors[props.name] && (
+      {(props.errors && props.errors[props.name]) && (
         <p className="error-message">
           {props.errors[props.name]}
         </p>

@@ -2,7 +2,6 @@ import React from "react";
 import Divider from "../Components/Divider";
 import Modal from "../Components/Modal";
 import CreateProject from "./CreateProject";
-import {useToasts} from "react-toast-notifications";
 
 const SearchProject = () => {
   const createModal = React.useRef();

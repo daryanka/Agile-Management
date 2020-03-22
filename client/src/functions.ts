@@ -1,17 +1,18 @@
 import axios, {AxiosResponse} from "axios";
 import cookie from "js-cookie";
 import store from "./js/Store";
+import history from "./js/History";
 
 type Methods = "GET" | "PUT" | "PATCH" | "POST" | "DELETE";
 
 const functions = {
   send: async (method: Methods, url: string, data?: object) => {
     const headers: {
-      Authorization?: string
+      token?: string
     } = {};
 
     if (cookie.get("token")) {
-      headers.Authorization = `Bearer ${cookie.get("token")}`
+      headers.token = `${cookie.get("token")}`
     }
 
     url = `http://localhost:3000/api/v1${url}`;
@@ -24,7 +25,7 @@ const functions = {
         data: data
       })
 
-      return res.data;
+      return res;
     } catch (err) {
       if (err.response.status === 401) {
         cookie.remove("token");
@@ -38,11 +39,11 @@ const functions = {
   },
 
   post: (url: string, data: object) => {
-    return functions.send("GET", url)
+    return functions.send("POST", url, data)
   },
 
   delete: (url: string, data: object) => {
-    return functions.send("GET", url)
+    return functions.send("DELETE", url, data)
   },
 
   getRole: () => {
@@ -57,6 +58,10 @@ const functions = {
 
   apiError: (response: AxiosResponse): boolean => {
     return response.status !== 200
+  },
+
+  pushTo: (url: string) => {
+    history.push(url)
   }
 }
 

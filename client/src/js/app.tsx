@@ -10,8 +10,21 @@ import SearchProject from "./Containers/SearchProject";
 import Project from "./Containers/Project/Project";
 import Users from "./Containers/Users/Users";
 import {ToastProvider} from "react-toast-notifications";
+import cookie from "js-cookie";
+import {useDispatch} from "react-redux";
+import {USER_ME} from "./types/userDispatchTypes";
+
 
 const App = () => {
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    if (cookie.get("token")) {
+      dispatch({
+        type: USER_ME
+      })
+    }
+  }, [])
+
   return (
     <ToastProvider>
       <div id={"content-wrapper"}>
