@@ -1,8 +1,31 @@
-import React from "react"
+import React, {FC} from "react"
 import propTypes from "prop-types";
 
-const Input = props => {
-  const handleChange = (val, name) => {
+interface errorType<T> {
+  [key: string]: T
+}
+
+interface CompProps {
+  handleChange: (val: string, name: string) => void,
+  changedValue: (val: string, name: string) => void,
+  value?: string,
+  name: string,
+  style: any,
+  wrapperClassName?: string,
+  label?: string,
+  removeSemiColon?: boolean,
+  tooltip?: boolean,
+  tooltipClick?: any
+  type?: string,
+  placeholder?: string,
+  removeBasicStyling?: boolean,
+  inputClassName?: string,
+  errors: errorType<string>,
+  isInput?: boolean
+}
+
+const Input:FC<CompProps> = props => {
+  const handleChange = (val: string, name: string) => {
     props.handleChange(val, name)// Parent Component
     props.changedValue(val, name)// Form Component
   }
@@ -54,7 +77,6 @@ const Input = props => {
 Input.defaultProps = {
   type: "text",
   placeholder: "",
-  refer: null,
   wrapperClassName: "",
   inputClassName: "",
   style: null,
@@ -72,4 +94,5 @@ Input.propTypes = {
   label: propTypes.string
 }
 
+// @ts-ignore
 export default Input

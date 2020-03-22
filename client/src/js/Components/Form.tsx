@@ -1,18 +1,25 @@
-import React from "react";
+import React, {FC, FormEvent} from "react";
 import _ from "lodash";
 import propTypes from "prop-types";
 
-const Form = props => {
-  const [data, setData] = React.useState({});
-  const changedValue = (val, name) => {
+interface Props {
+  className?: string;
+  onSubmit: () => void;
+  noValidate?: boolean,
+  id?: string
+}
+
+const Form:FC<Props> = props => {
+  const [data, setData] = React.useState<any>({});
+  const changedValue = (val: string, name: string) => {
     setData({ ...data, [name]: val })
     setErrors(prev => ({...prev, [name]: null}))
   };
   const [errors, setErrors] = React.useState({});
 
-  let fields = [];
+  let fields: any[] = [];
 
-  const nameAndValidationToField = (children) => {
+  const nameAndValidationToField = (children: any) => {
     if (Array.isArray(children)) {
       children.forEach(child => {
         if (child?.props?.isInput) {
@@ -45,7 +52,7 @@ const Form = props => {
 
   React.useEffect(() => {}, [errors]);
 
-  const validateEmail = email => {
+  const validateEmail = (email: string) => {
     //If valid email return true, else false
     var re = /\S+@\S+\.\S+/;
     return re.test(email);
@@ -66,8 +73,10 @@ const Form = props => {
   use parser and then check each type of validation if not valid then set error message (using state) for that field
 
   */
-  const tempErr = {};
-  const validationParser = (inputVal, validationStr, fieldName) => {
+
+  const tempErr: any = {};
+
+  const validationParser = (inputVal: string, validationStr: string, fieldName: string) => {
     //Parse validationStr
     if (!validationStr) {
       return true;
@@ -75,7 +84,8 @@ const Form = props => {
     const validationArr = validationStr.split("|");
 
     if (validationArr.includes("required") && !inputVal) {
-      return (tempErr[fieldName] = "This field is required!");
+      tempErr[fieldName] = "This field is required!"
+      return;
     }
 
     if (validationArr.includes("email") && !validateEmail(inputVal)) {
@@ -87,12 +97,12 @@ const Form = props => {
       const pairArr = el.split(":");
       switch (pairArr[0]) {
         case "min":
-          if (inputVal.length < pairArr[1]) {
+          if (inputVal.length <  parseInt(pairArr[1])) {
             return (tempErr[fieldName] = `This field must be at least ${pairArr[1]} characters long!`);
           }
           break;
         case "max":
-          if (inputVal.length > pairArr[1]) {
+          if (inputVal.length > parseInt(pairArr[1])) {
             return (tempErr[fieldName] = `This field must be below ${pairArr[1]} characters long!`);
           }
           break;
@@ -121,9 +131,10 @@ const Form = props => {
     });
   };
 
-  const childrenWithProps = (children) => {
+  const childrenWithProps = (children: JSX.Element | React.ReactNode | any) => {
     return React.Children.map(children, child => {
-      let childProps = {};
+      let childProps: any = {};
+      // @ts-ignore
       if (React.isValidElement(child) && child?.props?.isInput) {
         childProps = { changedValue, errors };
       }
@@ -136,7 +147,7 @@ const Form = props => {
     })
   }
 
-  const handleSubmit = e => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrors({});
     fields.forEach(field => {
@@ -170,6 +181,7 @@ Form.propTypes = {
   noValidate: propTypes.bool,
   className: propTypes.string,
   onSubmit: propTypes.func.isRequired,
+  id: propTypes.string
 }
 
 export default Form;

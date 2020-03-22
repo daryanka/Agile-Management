@@ -1,11 +1,11 @@
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 import cookie from "js-cookie";
 import store from "./js/Store";
 
 type Methods = "GET" | "PUT" | "PATCH" | "POST" | "DELETE";
 
 const functions = {
-  send: (method: Methods, url: string, data?: object) => {
+  send: async (method: Methods, url: string, data?: object) => {
     const headers: {
       Authorization?: string
     } = {};
@@ -14,19 +14,23 @@ const functions = {
       headers.Authorization = `Bearer ${cookie.get("token")}`
     }
 
-    axios({
-      method: method,
-      url: url,
-      headers: headers,
-      data: data
-    }).then(res => {
+    url = `http://localhost:3000/api/v1${url}`;
+
+    try {
+      const res = await axios({
+        method: method,
+        url: url,
+        headers: headers,
+        data: data
+      })
+
       return res.data;
-    }).catch(err => {
+    } catch (err) {
       if (err.response.status === 401) {
         cookie.remove("token");
       }
       return err;
-    })
+    }
   },
 
   get: (url: string) => {
@@ -34,16 +38,25 @@ const functions = {
   },
 
   post: (url: string, data: object) => {
-    functions.send("GET", url)
+    return functions.send("GET", url)
   },
 
   delete: (url: string, data: object) => {
-    functions.send("GET", url)
+    return functions.send("GET", url)
   },
 
   getRole: () => {
     const state = store.getState();
     return state?.auth?.role;
+  },
+
+  isAdmin: () : boolean => {
+    const state = store.getState();
+    return state?.auth?.role === "admin"
+  },
+
+  apiError: (response: AxiosResponse): boolean => {
+    return response.status !== 200
   }
 }
 

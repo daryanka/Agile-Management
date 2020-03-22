@@ -5,7 +5,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(ts|tsx|js|jsx)$/,
+        test: /\.(js|jsx|ts|tsx)$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader"
@@ -37,8 +37,9 @@ module.exports = {
       }
     ]
   },
-  output: {
-    publicPath: "/"
+  entry: "./src/index.tsx",
+  resolve: {
+    extensions: [".ts", ".tsx", ".js", ".jsx"]
   },
   plugins: [
     new HtmlWebPackPlugin({

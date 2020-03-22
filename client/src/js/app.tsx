@@ -1,6 +1,6 @@
-import React from "react"
-import "../scss/style.scss"
-import { Route, Switch, Redirect } from "react-router-dom"
+import React from "react";
+import "../scss/style.scss";
+import { Route, Switch, Redirect } from "react-router-dom";
 import Navbar from "./Components/Navbar";
 import HomePage from "./Containers/HomePage";
 import Footer from "./Components/Footer";
@@ -13,7 +13,7 @@ import {ToastProvider} from "react-toast-notifications";
 
 const App = () => {
   return (
-    <ToastProvider TransitionState={"exited"}>
+    <ToastProvider>
       <div id={"content-wrapper"}>
         <Navbar />
         <Switch>
