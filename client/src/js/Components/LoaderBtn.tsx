@@ -4,7 +4,7 @@ import propTypes from "prop-types";
 interface Props {
   disabled: boolean,
   onClick?: () => void;
-  type: "submit" | "button",
+  type?: "submit" | "button",
   className?: string,
   loading: boolean,
   form?: string

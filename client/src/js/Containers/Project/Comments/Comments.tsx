@@ -1,23 +1,21 @@
-import React from "react";
+import React, {FC, useState} from "react";
 import Divider from "../../../Components/Divider";
 import SingleComment from "./SingleComment";
-import Modal from "../../../Components/Modal";
+import Modal, {ModalRef} from "../../../Components/Modal";
 import AddComment from "./AddComment";
+import {Comment} from "../Project";
 
-const Comments = () => {
-  const addModal = React.useRef();
-  const comments = [
-    {
-      username: "Sara Jane",
-      text: "lorem ipsumn asiodjas jdaskdj askldj aslkdj aslkjd",
-      id: 123
-    },
-    {
-      username: "John Doe",
-      text: "lorem ipsumn asiodjas jdaskdj askldj aslkdj aslkjd",
-      id: 22
-    },
-  ]
+interface Props {
+  comments?: Comment[]
+}
+
+const Comments: FC<Props> = (props) => {
+  const addModal = React.useRef<ModalRef>(null);
+  const [comments, setComments] = useState<Comment[]>([]);
+
+  React.useEffect(() => {
+    setComments(props.comments ? props.comments : []);
+  }, [])
 
   return(
     <div className="comments">
@@ -25,13 +23,13 @@ const Comments = () => {
         <AddComment />
       </Modal>
       <h4>Comments</h4>
-      <button onClick={() => addModal.current.open()} className={"button add-btn"}>Add Comment</button>
+      <button onClick={() => addModal!.current!.open()} className={"button add-btn"}>Add Comment</button>
       <div className="comments-box">
         {comments.map((com, i) => {
           console.log(i === comments.length - 1)
           return (
             <React.Fragment key={com.id}>
-              <SingleComment  username={com.username} text={com.text}/>
+              <SingleComment  username={com.name} text={com.comment_text}/>
               {i === comments.length - 1 ? null : <Divider/>}
             </React.Fragment>
             )

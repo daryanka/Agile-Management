@@ -99,10 +99,26 @@ class ProjectController extends Controller
         }
 
         //Get Comments Page
-        $comments = Comment::where("project_id", "=", $id)->get();
+        $comments = Comment::select(
+            "comments.id AS id",
+            "comments.user_id AS user_id",
+            "comment_text",
+            "users.name"
+        )
+            ->leftJoin("users", "users.id", "=", "comments.user_id")
+            ->where("project_id", "=", $id)
+            ->get();
 
         //Get Logged Work
-        $logged_work = LoggedTime::where("project_id", "=", $id)->get();
+        $logged_work = LoggedTime::select(
+            "logged_time.id AS id",
+            "minutes_logged",
+            "description",
+            "users.name AS name"
+        )
+            ->leftJoin("users", "users.id", "=", "logged_time.user_id")
+            ->where("project_id", "=", $id)
+            ->get();
 
         //Links
         $links = Link::where("project_id" , "=", $id)->get();
@@ -124,7 +140,8 @@ class ProjectController extends Controller
             "comments" => $comments,
             "links" => $links,
             "users" => $assignedUsers,
-            "tasks" => $tasks
+            "tasks" => $tasks,
+            "logged_time" => $logged_work
         ], 200);
     }
 
@@ -208,13 +225,23 @@ class ProjectController extends Controller
 
     public function search() {
         $this->validate($this->request, [
-            "search" => "required|string|max:255"
+            "search" => "string|max:255"
         ]);
         $organisationID = $this->request->user->organisation_id;
 
-        $data = DB::table("projects")->select("project_name", "description", "priority")
+        if (empty($this->request->search)) {
+            $data = DB::table("projects")->select("project_name", "description", "priority", "id")
+                ->where("organisation_id", "=", $organisationID)
+                ->limit(20)
+                ->get();
+
+            return response($data, 200);
+        }
+
+        $data = DB::table("projects")->select("project_name", "description", "priority", "id")
             ->where("organisation_id", "=", $organisationID)
-            ->where("project_name", "like", "%" . $this->request->search . "%")
+            ->where("project_name", "LIKE", "%" . $this->request->search . "%")
+            ->limit(20)
             ->get();
 
         return response($data, 200);

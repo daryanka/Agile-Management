@@ -1,10 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-const Modal = React.forwardRef((props, ref) => {
+export interface ModalRef {
+  open: () => void,
+  close: () => void
+}
+
+interface Props {
+  children: JSX.Element | React.ReactNode | string | any,
+  className?: string,
+  closeBtn?: boolean
+}
+
+const Modal = React.forwardRef<ModalRef, Props>((props, ref) => {
   const [show, setShow] = React.useState(false);
 
-  React.useImperativeHandle(ref, () => ({
+  React.useImperativeHandle(ref, (): ModalRef => ({
     open: () => open(),
     close: () => close()
   }))
@@ -38,7 +49,8 @@ const Modal = React.forwardRef((props, ref) => {
   }
 
   if (show) {
-    return ReactDOM.createPortal(content(), document.getElementById("modal-root"))
+    const el = document.getElementById("modal-root") as Element;
+    return ReactDOM.createPortal(content(), el)
   }
   return null;
 })

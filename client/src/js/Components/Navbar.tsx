@@ -43,7 +43,6 @@ const Navbar = () => {
     }
   };
 
-
   return (
     <nav className={"nav-bar"}>
       <NavLink to={isAuthenticated ? "/" : "/home"}><h3 className={`brand ${isAuthenticated ? "logged-in" : ""}`}>Agile Management</h3></NavLink>

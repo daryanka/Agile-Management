@@ -18,14 +18,12 @@ const functions = {
     url = `http://localhost:3000/api/v1${url}`;
 
     try {
-      const res = await axios({
+      return await axios({
         method: method,
         url: url,
         headers: headers,
         data: data
-      })
-
-      return res;
+      });
     } catch (err) {
       if (err.response.status === 401) {
         cookie.remove("token");

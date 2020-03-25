@@ -41,6 +41,10 @@ export const getUser = (email: string, password: string) => async (dispatch: Dis
 
     if (res.response?.data && (typeof res.response?.data === "string")) {
       message = res.response?.data;
+    } else if (res.response?.data?.message) {
+      message = res.response?.data?.message;
+    } else {
+      message = "Server error, please try again later."
     }
 
     dispatch({
