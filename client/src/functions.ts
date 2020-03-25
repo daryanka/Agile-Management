@@ -60,6 +60,28 @@ const functions = {
 
   pushTo: (url: string) => {
     history.push(url)
+  },
+
+  minutesToTime: (minutes: number) => {
+    const time = {
+      m: 0,
+      hours: 0,
+      days: 0
+    }
+
+    time.days = Math.floor(minutes / 3600);
+    minutes = minutes % 3600;
+    time.hours = Math.floor(minutes / 60);
+    minutes = minutes % 60;
+    time.m = minutes;
+
+    let str: string[] = [];
+
+    time.days > 0 && str.push(`${time.days} Days`);
+    time.hours > 0 && str.push(`${time.hours} Hours`);
+    time.m > 0 && str.push(`${time.m} Minutes`);
+
+    return str.join(" ")
   }
 }
 

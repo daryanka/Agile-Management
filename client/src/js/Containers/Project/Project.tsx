@@ -17,6 +17,13 @@ interface MatchParams {
   id: string
 }
 
+export interface Time {
+  id: number,
+  minutes_logged: number,
+  description: string,
+  name: string
+}
+
 export interface Comment {
   id: number,
   user_id: number,
@@ -40,12 +47,7 @@ interface ProjectData {
     user_name: string,
     user_id: number
   }[],
-  logged_time: {
-    id: number,
-    minutes_logged: number | string,
-    description: string,
-    name: string
-  }[]
+  logged_time: Time[]
 }
 
 const Project: FC<RouteComponentProps<MatchParams>> = (props) => {
@@ -146,7 +148,7 @@ const Project: FC<RouteComponentProps<MatchParams>> = (props) => {
 
                 <Divider/>
 
-                <TimeLogged />
+                <TimeLogged time={data?.logged_time} />
               </div>
             </div>
           </>

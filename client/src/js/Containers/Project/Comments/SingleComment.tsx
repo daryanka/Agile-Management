@@ -45,7 +45,6 @@ const SingleComment: FC<Props>  = (props) => {
 
   const undoChanges = () => {
     setEditing(false);
-    console.log("here")
     setText(initialText);
   }
 
@@ -67,7 +66,7 @@ const SingleComment: FC<Props>  = (props) => {
           <>
             <div className={"delete-com-modal"}>
               <h1>Delete Comment</h1>
-              <p>Are you sure you want to delete this comment? This action cannot be reversed.</p>
+              <p>Are you sure you  want to delete this comment? This action cannot be reversed.</p>
               <div className={"btns"}>
                 <button className={"button secondary"} onClick={() => modalRef!.current!.close()}>Close</button>
                 <LoaderBtn disabled={deleteLoading} loading={deleteLoading} className={"button"} onClick={deleteComment}>Save Changes</LoaderBtn>

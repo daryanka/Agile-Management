@@ -40,7 +40,7 @@ class ProjectController extends Controller
             "links.*.link_url" => "required|string",
             "assignee" => "array",
             "assignee.*.id" => "required|numeric",
-            "files.*" => "file|max:1999" //2mb max
+            "files.*" => "file|max:1999", //2mb max
         ]);
 
         $this->request["organisation_id"] = $this->request->user->organisation_id;
@@ -70,19 +70,19 @@ class ProjectController extends Controller
         }
 
         //Upload files
-        if ($this->request->has("files")) {
+        if ($this->request->file("files")) {
             foreach ($this->request->file("files") as $file) {
                 $fileName = $file->getClientOriginalName();
                 $fileSaveName = time()."-".$fileName;
-                $destination_path = "upload/projectsFiles/{$project->id}";
-                $file->move($destination_path, $fileSaveName);
 
-                File::create([
-                    "project_id" => $project->id,
+                Storage::put("/projects/{$project->id}/{$fileSaveName}", file_get_contents($file));
+
+                file::create([
                     "user_id" => $this->request->user->id,
+                    "project_id" => $project->id,
+                    "url" => "projects/{$project->id}/{$fileSaveName}",
                     "file_name" => $fileName,
-                    "file_save_name" => $fileSaveName,
-                    "url" => $destination_path
+                    "file_save_name" => $fileSaveName
                 ]);
             }
         }

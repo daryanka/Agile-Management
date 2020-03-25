@@ -4,6 +4,7 @@ import SingleComment from "./SingleComment";
 import Modal, {ModalRef} from "../../../Components/Modal";
 import AddComment from "./AddComment";
 import {Comment} from "../Project";
+import _ from "lodash";
 
 interface Props {
   comments?: Comment[]
@@ -25,15 +26,15 @@ const Comments: FC<Props> = (props) => {
       <h4>Comments</h4>
       <button onClick={() => addModal!.current!.open()} className={"button add-btn"}>Add Comment</button>
       <div className="comments-box">
-        {comments.map((com, i) => {
-          console.log(i === comments.length - 1)
-          return (
-            <React.Fragment key={com.id}>
-              <SingleComment  username={com.name} text={com.comment_text}/>
-              {i === comments.length - 1 ? null : <Divider/>}
-            </React.Fragment>
+        {_.isEmpty(comments) ? <p>No Comments found.</p>: comments.map((com, i) => {
+            console.log(i === comments.length - 1)
+            return (
+              <React.Fragment key={com.id}>
+                <SingleComment  username={com.name} text={com.comment_text}/>
+                {i === comments.length - 1 ? null : <Divider/>}
+              </React.Fragment>
             )
-        })}
+          })}
       </div>
     </div>
   )
