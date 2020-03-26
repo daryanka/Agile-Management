@@ -37,17 +37,17 @@ interface ProjectData {
     project_name: string,
     description?: string,
     created_at: string
-  },
-  comments: Comment[],
-  links: {
-    link_name: string,
-    link_url: string,
-  }[],
-  users: {
-    user_name: string,
-    user_id: number
-  }[],
-  logged_time: Time[]
+    comments: Comment[],
+    links: {
+      link_name: string,
+      link_url: string,
+    }[],
+    users: {
+      user_name: string,
+      user_id: number
+    }[],
+    logged_work: Time[]
+  }
 }
 
 const Project: FC<RouteComponentProps<MatchParams>> = (props) => {
@@ -91,7 +91,7 @@ const Project: FC<RouteComponentProps<MatchParams>> = (props) => {
 
                   <Divider/>
 
-                  <LinksSection links={data?.links} />
+                  <LinksSection links={data?.project.links} />
                 </div>
 
                 <div className={"right"}>
@@ -144,11 +144,11 @@ const Project: FC<RouteComponentProps<MatchParams>> = (props) => {
 
                 <Divider/>
 
-                <Comments comments={data?.comments}/>
+                <Comments comments={data?.project.comments}/>
 
                 <Divider/>
 
-                <TimeLogged time={data?.logged_time} />
+                <TimeLogged time={data?.project.logged_work} />
               </div>
             </div>
           </>

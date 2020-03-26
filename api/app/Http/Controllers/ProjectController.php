@@ -91,57 +91,40 @@ class ProjectController extends Controller
     }
 
     public function getProject($id) {
-        $project = Project::findOrFail($id);
+        $project = Project::select(
+            "id",
+            "project_name",
+            "description",
+            "organisation_id",
+            "priority",
+            "created_at",
+            "updated_at"
+        )
+            ->with(["comments" => function($query) {
+                $query->select("comments.id AS id", "comment_text", "users.name", "comments.user_id AS user_id", "project_id")
+                    ->leftJoin("users", "users.id", "=", "comments.user_id");
+            }])
+            ->with(["logged_work" => function($query) {
+                $query->select("logged_time.id AS id", "minutes_logged", "description", "users.name AS name", "project_id")
+                    ->leftJoin("users", "users.id", "=", "logged_time.user_id");
+            }])
+            ->with("links")
+            ->with("users")
+            ->with("tasks")
+            ->where("projects.id", "=", $id)
+            ->first();
+
+        if (empty($project)) {
+            return response(["message" => "Project not found."], 404);
+        }
 
         //Check that user has access to the project
         if ($project->organisation_id !== $this->request->user->organisation_id) {
             return response("Unauthorized", 401);
         }
 
-        //Get Comments Page
-        $comments = Comment::select(
-            "comments.id AS id",
-            "comments.user_id AS user_id",
-            "comment_text",
-            "users.name"
-        )
-            ->leftJoin("users", "users.id", "=", "comments.user_id")
-            ->where("project_id", "=", $id)
-            ->get();
-
-        //Get Logged Work
-        $logged_work = LoggedTime::select(
-            "logged_time.id AS id",
-            "minutes_logged",
-            "description",
-            "users.name AS name"
-        )
-            ->leftJoin("users", "users.id", "=", "logged_time.user_id")
-            ->where("project_id", "=", $id)
-            ->get();
-
-        //Links
-        $links = Link::where("project_id" , "=", $id)->get();
-
-        //Users Assigned
-        $assignedUsers = DB::table("project_user")->select(
-            "users.name AS user_name",
-            "users.id AS user_id"
-            )
-            ->leftJoin("users", "project_user.user_id", "=", "users.id")
-            ->where("project_user.project_id", "=", $id)
-            ->get();
-
-        //Tasks
-        $tasks = Task::where("project_id", "=", $id)->get();
-
         return response([
             "project" => $project,
-            "comments" => $comments,
-            "links" => $links,
-            "users" => $assignedUsers,
-            "tasks" => $tasks,
-            "logged_time" => $logged_work
         ], 200);
     }
 
