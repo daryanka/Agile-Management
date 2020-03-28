@@ -2,11 +2,12 @@ import axios, {AxiosResponse} from "axios";
 import cookie from "js-cookie";
 import store from "./js/Store";
 import history from "./js/History";
+import _ from "lodash";
 
 type Methods = "GET" | "PUT" | "PATCH" | "POST" | "DELETE";
 
 const functions = {
-  send: async (method: Methods, url: string, data?: object) => {
+  send: async (method: Methods, url: string, data?: object, additionalConfig?: object) => {
     const headers: {
       token?: string
     } = {};
@@ -17,13 +18,15 @@ const functions = {
 
     url = `http://localhost:3000/api/v1${url}`;
 
+    const config = _.merge(additionalConfig ? additionalConfig : {}, {
+      method: method,
+      url: url,
+      headers: headers,
+      data: data
+    });
+
     try {
-      return await axios({
-        method: method,
-        url: url,
-        headers: headers,
-        data: data
-      });
+      return await axios(config);
     } catch (err) {
       if (err.response.status === 401) {
         cookie.remove("token");
@@ -32,8 +35,8 @@ const functions = {
     }
   },
 
-  get: (url: string) => {
-    return functions.send("GET", url)
+  get: (url: string, config?: object) => {
+    return functions.send("GET", url, undefined, config)
   },
 
   post: (url: string, data: object) => {

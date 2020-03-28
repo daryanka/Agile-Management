@@ -31,6 +31,25 @@ export interface Comment {
   name: string
 }
 
+export interface FileType {
+  id: number,
+  file_name: string,
+}
+
+export interface User {
+  id: number,
+  name: string,
+}
+
+export interface Task {
+  id: number,
+  title: string,
+  description?: string,
+  user_id?: number,
+  user_name?: string,
+  status: number
+}
+
 interface ProjectData {
   project: {
     id: number,
@@ -46,8 +65,11 @@ interface ProjectData {
       user_name: string,
       user_id: number
     }[],
-    logged_work: Time[]
+    logged_work: Time[],
+    files: FileType[],
+    tasks: Task[]
   }
+  all_users: User[]
 }
 
 const Project: FC<RouteComponentProps<MatchParams>> = (props) => {
@@ -127,20 +149,11 @@ const Project: FC<RouteComponentProps<MatchParams>> = (props) => {
               <div className="section-2 section">
                 <Divider/>
 
-                <DownloadFiles files={[
-                  {
-                    name: "Wireframe.png",
-                    url: "google.com"
-                  },
-                  {
-                    name: "Downloadable File.jpeg",
-                    url: "youtube.com"
-                  }
-                ]}/>
+                <DownloadFiles files={data?.project.files} project_id={data?.project.id}/>
 
                 <Divider/>
 
-                <Tasks/>
+                <Tasks tasks={data?.project.tasks}/>
 
                 <Divider/>
 

@@ -16,10 +16,10 @@ const TimeLogged: FC<Props> = (props) => {
       <div className="comments-box">
         {_.isEmpty(props.time) ? <p>No time logged.</p> : props!.time!.map((time, i) => {
           return(
-            <>
-              <Single key={`time-${i}`} time={time} />
+            <React.Fragment key={`time-${i}`}>
+              <Single time={time} />
               {i !== props!.time!.length - 1 && <Divider/>}
-            </>
+            </React.Fragment>
           )
         })}
       </div>

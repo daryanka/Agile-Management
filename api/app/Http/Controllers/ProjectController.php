@@ -111,6 +111,7 @@ class ProjectController extends Controller
             ->with("links")
             ->with("users")
             ->with("tasks")
+            ->with("files")
             ->where("projects.id", "=", $id)
             ->first();
 
@@ -123,8 +124,11 @@ class ProjectController extends Controller
             return response("Unauthorized", 401);
         }
 
+        $allUsers = User::where("organisation_id", "=", $project->organisation_id)->get();
+
         return response([
             "project" => $project,
+            "all_users" => $allUsers
         ], 200);
     }
 

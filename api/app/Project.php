@@ -38,6 +38,18 @@ class Project extends Model
     }
 
     public function tasks() {
-        return $this->hasMany("App\Task", "project_id", "id");
+        return $this->hasMany("App\Task", "project_id", "id")->select(
+            "tasks.id AS id",
+            "users.id AS user_id",
+            "project_id",
+            "description",
+            "status",
+            "users.name AS user_name",
+            "tasks.title AS title"
+        )->leftJoin("users", "users.id", "=", "tasks.user_id");
+    }
+
+    public function files() {
+        return $this->hasMany("App\File", "project_id", "id")->select("id", "file_name", "project_id");
     }
 }
