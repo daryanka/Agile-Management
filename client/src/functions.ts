@@ -43,6 +43,10 @@ const functions = {
     return functions.send("POST", url, data)
   },
 
+  patch: (url: string, data: object) => {
+    return functions.send("PATCH", url, data)
+  },
+
   delete: (url: string, data: object) => {
     return functions.send("DELETE", url, data)
   },

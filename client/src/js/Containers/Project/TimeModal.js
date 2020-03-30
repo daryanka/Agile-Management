@@ -41,13 +41,10 @@ const TimeModal = () => {
           break;
         }
       } else {
-        console.log("here");
         valid = false;
         break;
       }
     }
-
-    valid ? console.log("Success!") : console.log("Failed!");
 
     setTimeout(() => setLoading(false), 2000)
   }

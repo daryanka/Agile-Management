@@ -22,7 +22,6 @@ const DownloadFiles: FC<Props> = (props) => {
   const [apiFiles, setApiFiles] = useState<FileType[]>([])
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
-    console.log(typeof acceptedFiles);
 
     for (let i = 0; i < acceptedFiles.length; i++) {
       const file = acceptedFiles[i]
@@ -107,7 +106,6 @@ const DownloadFiles: FC<Props> = (props) => {
     });
 
     if (!fn.apiError(res)) {
-      console.log(res)
       const blob = new Blob([res.data], {type: res.headers["content-type"]})
 
       const url = window.URL.createObjectURL(blob);
@@ -121,8 +119,6 @@ const DownloadFiles: FC<Props> = (props) => {
       window.URL.revokeObjectURL(url);
       document.removeChild(a)
     }
-
-    console.log("res is", res);
   }
 
   const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop, disabled: loading})

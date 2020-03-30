@@ -32,6 +32,18 @@ const Modal = React.forwardRef<ModalRef, Props>((props, ref) => {
     close: () => close()
   })
 
+  const handleKeyDown = (e: KeyboardEvent) => {
+    console.log(e.key)
+    if (e.key === "Escape") {
+      close();
+    }
+  }
+
+  React.useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   const content = () => {
     return (
       <div className={`modal-cont ${props.className ? props.className : ""}`}>

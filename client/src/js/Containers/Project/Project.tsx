@@ -94,8 +94,6 @@ const Project: FC<RouteComponentProps<MatchParams>> = (props) => {
     }
   }
 
-  console.log(data);
-
   return (
     <div className={"project-cont"}>
       <div className={"project-box"}>

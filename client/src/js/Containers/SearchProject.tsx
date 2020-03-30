@@ -28,7 +28,7 @@ const SearchProject: FC<RouteComponentProps> = (props) => {
   const createModal = React.useRef<ModalRef>(null);
 
   const goToProject = (id: number) => {
-    console.log(props.history.push(`/projects/${id}`))
+    props.history.push(`/projects/${id}`)
   }
 
   return(

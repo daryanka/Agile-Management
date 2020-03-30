@@ -32,7 +32,6 @@ const Input:FC<CompProps> = props => {
   }
 
   React.useEffect(() => {
-    console.log("props .value is", props.value)
     if (props.changedValue && props.value) {
       props.changedValue(props.value, props.name)
     }

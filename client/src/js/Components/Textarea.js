@@ -9,7 +9,6 @@ const Textarea = props => {
   }
 
   React.useEffect(() => {
-    console.log("props .value is", props.value)
     props.value && props.changedValue(props.value, props.name)
   }, [props.value])
 

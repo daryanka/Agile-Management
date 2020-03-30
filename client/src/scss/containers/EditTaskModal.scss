@@ -25,7 +25,24 @@
     color: $primary;
   }
 
-  .button {
+
+  .btns-wrapper {
+    display: flex;
+    justify-content: flex-end;
     margin-top: 20px;
+    .button {
+      &.secondary {
+        margin-right: 20px;
+      }
+    }
+
+    @include until(500px) {
+      flex-direction: column;
+      .secondary {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 10px;
+      }
+    }
   }
 }

@@ -27,7 +27,6 @@ const Comments: FC<Props> = (props) => {
       <button onClick={() => addModal!.current!.open()} className={"button add-btn"}>Add Comment</button>
       <div className="comments-box">
         {_.isEmpty(comments) ? <p>No Comments found.</p>: comments.map((com, i) => {
-            console.log(i === comments.length - 1)
             return (
               <React.Fragment key={com.id}>
                 <SingleComment  username={com.name} text={com.comment_text}/>

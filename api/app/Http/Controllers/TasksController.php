@@ -12,6 +12,11 @@ class TasksController extends Controller
 {
     use Helper;
     /**
+     * @var Request
+     */
+    private $request;
+
+    /**
      * Create a new controller instance.
      *
      * @return void
@@ -56,17 +61,22 @@ class TasksController extends Controller
 
     public function update($id) {
         //Check that the project to which the task belongs to is of the same organisation as the user
-        $projectId = Task::findOrFail($id)->project_id;
+        $task = Task::find($id);
+
+        if (empty($task)) {
+            return response(["message" => "No task found."], 404);
+        }
 
         //Check user belongs to project
-        if (!$this->userBelongsToProject($this->request->user->organisation_id, $projectId)) {
+        if (!$this->userBelongsToProject($this->request->user->organisation_id, $task->project_id)) {
             return response("Unauthorized", 401);
         }
 
         $this->validate($this->request, [
             "title" => "|string|max:255",
             "description" => "|string",
-            "user_id" => "integer"
+            "user_id" => "integer",
+            "status" => "in:0,1,2"
         ]);
 
         if ($this->request->user_id) {
@@ -79,7 +89,7 @@ class TasksController extends Controller
             }
         }
 
-        Task::where("id", "=", $id)->update($this->request->only(["title", "description", "user_id"]));
+        $task->update($this->request->only(["title", "description", "user_id", "status"]));
 
 
         return response("Updated task", 200);

@@ -6,7 +6,6 @@ import AddTaskModal from "./AddTaskModal";
 import {Task} from "./Project";
 import fn from "../../../functions";
 import ContentLoader from "../../Components/ContentLoader";
-import {Simulate} from "react-dom/test-utils";
 
 interface Props {
   tasks?: Task[]
@@ -30,51 +29,42 @@ const Tasks: FC<Props> = (props) => {
   const editRef = useRef<ModalRef>(null);
   const addRef = useRef<ModalRef>(null);
   const [loading, setLoading] = useState(false);
-  const [editId, setEditid] = useState<null | undefined | string>(null);
+  const [editId, setEditid] = useState<number>();
   const [list, setList] = useState<ListType>({
     "column-1": {
       id: "column-1",
       title: "Incomplete",
-      tasks: [
-        {id: "task-1", content: "Make React hooks video 1"},
-        {id: "task-2", content: "Make more videos 2"},
-        {id: "task-3", content: "React beautiful dnd 3"},
-      ]
+      tasks: []
     },
     "column-2": {
       id: "column-2",
       title: "In-Progress",
-      tasks: [
-        {id: "task-4", content: "Some task"},
-        {id: "task-5", content: "More tasks"},
-        {id: "task-6", content: "even more stuff to do"},
-      ]
+      tasks: []
     },
     "column-3": {
       id: "column-3",
       title: "Complete",
-      tasks: [
-        {id: "task-7", content: "seven"},
-        {id: "task-8", content: "eight"},
-        {id: "task-9", content: "nine"},
-      ]
+      tasks: []
     }
   })
 
   React.useEffect(() => {
     //map props to list
-    const tempList: any = {
+    const tempList: ListType = {
       "column-1": {
         id: "column-1",
-        title: "Incomplete"
+        title: "Incomplete",
+        tasks: []
       },
       "column-2": {
         id: "column-2",
-        title: "In-Progress"
+        title: "In-Progress",
+        tasks: []
       },
       "column-3": {
         id: "column-3",
-        title: "Complete"
+        title: "Complete",
+        tasks: []
       }
     };
 
@@ -107,9 +97,9 @@ const Tasks: FC<Props> = (props) => {
       }
     })
 
-    tempList["column-1"]["tasks"] = incomplete;
-    tempList["column-2"]["tasks"] = inprogress;
-    tempList["column-3"]["tasks"] = complete;
+    tempList["column-1"].tasks = incomplete;
+    tempList["column-2"].tasks = inprogress;
+    tempList["column-3"].tasks = complete;
 
     setList(tempList);
   }, []);
@@ -175,11 +165,9 @@ const Tasks: FC<Props> = (props) => {
     }
   }
 
-  console.log(list);
-
   const columnorder: columnKeys[] = ["column-1", "column-2", "column-3"];
 
-  const onDragEnd = (result: DropResult) => {
+  const onDragEnd = async (result: DropResult) => {
     const { destination, source } = result;
     if (!destination) {
       return;
@@ -212,6 +200,9 @@ const Tasks: FC<Props> = (props) => {
       const otherTasks = [...list[destination.droppableId as columnKeys].tasks]
       otherTasks.splice(destination.index, 0, removed)
 
+      console.log(destination.droppableId)
+      console.log(removed);
+
       setList({
         ...list,
         [source.droppableId]: {
@@ -225,12 +216,35 @@ const Tasks: FC<Props> = (props) => {
       })
 
       //Change status of item
+      let status: number;
+      switch (destination.droppableId) {
+        case "column-1":
+          status = 0;
+          break;
+        case "column-2":
+          status = 1;
+          break;
+        case "column-3":
+          status = 2;
+          break;
+        default:
+          status = 0;
+          break;
+      }
+
+      const id = removed.id;
+
+      const res = await fn.patch(`/tasks/${id}`, {status: status});
+
+      if (fn.apiError(res)) {
+        //Handle Error
+      }
     }
   }
 
   const openEdit = (id: string) => {
+    setEditid(parseInt(id))
     editRef!.current!.open();
-    setEditid(id)
   }
 
   const addTaskOpen = () => {
@@ -240,7 +254,7 @@ const Tasks: FC<Props> = (props) => {
   return(
     <div className={"tasks"}>
       <Modal ref={editRef}>
-        <EditTaskModal id={editId} />
+        <EditTaskModal id={editId} tasks={props.tasks} />
       </Modal>
       <Modal ref={addRef}>
         <AddTaskModal/>
