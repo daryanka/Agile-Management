@@ -11,19 +11,22 @@ import Project from "./Containers/Project/Project";
 import Users from "./Containers/Users/Users";
 import {ToastProvider} from "react-toast-notifications";
 import cookie from "js-cookie";
-import {useDispatch} from "react-redux";
-import {USER_ME} from "./types/userDispatchTypes";
+import {useDispatch, useSelector} from "react-redux";
+import {userMe} from "./Actions/UserActions";
+import {getUsers} from "./Actions/OrganisationUserActions";
+import {RootState} from "./Store";
 
 
 const App = () => {
+  const authId = useSelector((state: RootState) => state.auth.id);
   const dispatch = useDispatch();
   React.useEffect(() => {
     if (cookie.get("token")) {
-      dispatch({
-        type: USER_ME
-      })
+      dispatch(userMe())
+      dispatch(getUsers())
     }
   }, [])
+  React.useEffect(() => {dispatch(getUsers())}, [authId])
 
   return (
     <ToastProvider>

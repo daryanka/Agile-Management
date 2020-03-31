@@ -12,6 +12,7 @@ import TimeLogged from "./LogTime/TimeLogged";
 import {RouteComponentProps} from "react-router";
 import fn from "../../../functions";
 import ContentLoader from "../../Components/ContentLoader";
+import ProjectTitle from "./ProjectTitle";
 
 interface MatchParams {
   id: string
@@ -58,6 +59,7 @@ interface ProjectData {
     created_at: string
     comments: Comment[],
     links: {
+      id: number,
       link_name: string,
       link_url: string,
     }[],
@@ -94,24 +96,27 @@ const Project: FC<RouteComponentProps<MatchParams>> = (props) => {
     }
   }
 
+  const updateTitle = async () => {
+
+  }
+
   return (
     <div className={"project-cont"}>
       <div className={"project-box"}>
         <ContentLoader loading={loading} data={data} message={"Unable to find project."}>
           <>
             <div className={"box-header"}>
-              <h3 className={"title"}>{data?.project?.project_name}</h3>
+              <ProjectTitle title={data?.project.project_name} projectID={props.match.params.id}/>
             </div>
 
             <div className={"box-content"}>
               <div className={"section-1 section"}>
                 <div className={"left"}>
-                  <ProjectDescription description={data?.project?.description}
-                  />
+                  <ProjectDescription description={data?.project?.description} projectID={props.match.params.id}/>
 
                   <Divider/>
 
-                  <LinksSection links={data?.project.links} />
+                  <LinksSection links={data?.project.links} projectID={props.match.params.id} />
                 </div>
 
                 <div className={"right"}>
@@ -151,11 +156,11 @@ const Project: FC<RouteComponentProps<MatchParams>> = (props) => {
 
                 <Divider/>
 
-                <Tasks tasks={data?.project.tasks}/>
+                <Tasks tasks={data?.project.tasks} id={props.match.params.id}/>
 
                 <Divider/>
 
-                <Comments comments={data?.project.comments}/>
+                <Comments comments={data?.project.comments} projectID={props.match.params.id}/>
 
                 <Divider/>
 

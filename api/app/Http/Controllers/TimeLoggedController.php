@@ -55,4 +55,12 @@ class TimeLoggedController extends Controller
 
         return response("Updated", 200);
     }
+
+    public function delete($id) {
+        $LoggedTime = LoggedTime::findOrFail($id);
+
+        if ($LoggedTime->user_id !== $this->request->user->id) {
+            return response("Unauthorized", 401);
+        }
+    }
 }

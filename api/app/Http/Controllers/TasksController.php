@@ -36,18 +36,20 @@ class TasksController extends Controller
         $this->validate($this->request, [
             "title" => "required|string|max:255",
             "description" => "required|string",
-            "user_id" => "required|integer"
+            "user_id" => "integer|nullable"
         ]);
 
         //Check user id is part of this organisation
 
         $userIDCheck = DB::table("users")->where("id", "=", $this->request->user_id)->first();
-        if (!$userIDCheck) {
-            return response("User does not exist", 400);
-        }
+        if (!empty($this->request->user_id)) {
+            if (!$userIDCheck) {
+                return response("User does not exist", 400);
+            }
 
-        if ($userIDCheck->organisation_id !== $this->request->user->organisation_id) {
-            return respones("Cannot assign user to this task", 400);
+            if ($userIDCheck->organisation_id !== $this->request->user->organisation_id) {
+                return respones("Cannot assign user to this task", 400);
+            }
         }
 
         //Status + Project ID
@@ -57,6 +59,21 @@ class TasksController extends Controller
         Task::create($this->request->all());
 
         return response("Task created", 200);
+    }
+
+    public function single($id) {
+        $task = Task::find($id);
+
+        if (empty($task)) {
+            return response(["message" => "No task found."], 404);
+        }
+
+        //Check user belongs to project
+        if (!$this->userBelongsToProject($this->request->user->organisation_id, $task->project_id)) {
+            return response("Unauthorized", 401);
+        }
+
+        return response($task, 200);
     }
 
     public function update($id) {
@@ -73,9 +90,9 @@ class TasksController extends Controller
         }
 
         $this->validate($this->request, [
-            "title" => "|string|max:255",
+            "title" => "string|max:255",
             "description" => "|string",
-            "user_id" => "integer",
+            "user_id" => "integer|nullable",
             "status" => "in:0,1,2"
         ]);
 
@@ -93,5 +110,22 @@ class TasksController extends Controller
 
 
         return response("Updated task", 200);
+    }
+
+    public function delete($id) {
+        $task = Task::find($id);
+
+        if (empty($task)) {
+            return response(["message" => "No task found."], 404);
+        }
+
+        //Check user belongs to project
+        if (!$this->userBelongsToProject($this->request->user->organisation_id, $task->project_id)) {
+            return response("Unauthorized", 401);
+        }
+
+        $task->delete();
+
+        return response("Deleted Task", 200);
     }
 }

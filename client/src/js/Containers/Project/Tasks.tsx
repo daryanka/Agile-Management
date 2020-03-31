@@ -8,7 +8,8 @@ import fn from "../../../functions";
 import ContentLoader from "../../Components/ContentLoader";
 
 interface Props {
-  tasks?: Task[]
+  tasks?: Task[],
+  id: string
 }
 
 type columnKeys = "column-1" | "column-2" | "column-3";
@@ -106,7 +107,7 @@ const Tasks: FC<Props> = (props) => {
 
   const updateTasks = async () => {
     setLoading(true);
-    const res = await fn.get("");
+    const res = await fn.get(`/projects/individual/${props.id}`);
 
     if (!fn.apiError(res)) {
       //map props to list
@@ -200,9 +201,6 @@ const Tasks: FC<Props> = (props) => {
       const otherTasks = [...list[destination.droppableId as columnKeys].tasks]
       otherTasks.splice(destination.index, 0, removed)
 
-      console.log(destination.droppableId)
-      console.log(removed);
-
       setList({
         ...list,
         [source.droppableId]: {
@@ -254,10 +252,10 @@ const Tasks: FC<Props> = (props) => {
   return(
     <div className={"tasks"}>
       <Modal ref={editRef}>
-        <EditTaskModal id={editId} tasks={props.tasks} />
+        <EditTaskModal id={editId} updateTasks={updateTasks} />
       </Modal>
       <Modal ref={addRef}>
-        <AddTaskModal/>
+        <AddTaskModal updateTasks={updateTasks} projectID={props.id}/>
       </Modal>
       <h3>Tasks</h3>
       <button className={"button add-task"} onClick={addTaskOpen}>Create New Task</button>

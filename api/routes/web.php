@@ -25,6 +25,7 @@ $router->group(["prefix" => "api/v1"], function() use($router) {
         $router->get("/me", "ProjectController@me");
         $router->get("/individual/{id}", "ProjectController@getProject");
         $router->get("/search", "ProjectController@search");
+        $router->patch("/{id}", "ProjectController@update");
 
 
         $router->post("/assign/{id}", "ProjectController@assignUser");
@@ -34,11 +35,15 @@ $router->group(["prefix" => "api/v1"], function() use($router) {
     $router->group(["prefix" => "comments"], function () use($router) {
         $router->get("/{id}", "CommentsController@index");
         $router->post("/{id}", "CommentsController@create");
+        $router->patch("/{id}", "CommentsController@update");
+        $router->delete("/{id}", "CommentsController@delete");
     });
 
     $router->group(["prefix" => "links"], function () use($router) {
         $router->get("/{id}", "LinksController@index");
         $router->post("/{id}", "LinksController@create");
+        $router->patch("/{id}", "LinksController@update");
+        $router->delete("/{id}", "LinksController@delete");
     });
 
     $router->group(["prefix" => "time"], function () use ($router) {
@@ -55,6 +60,8 @@ $router->group(["prefix" => "api/v1"], function() use($router) {
     $router->group(["prefix" => "tasks"], function () use ($router) {
         $router->post("/{id}", "TasksController@create");
         $router->patch("/{id}", "TasksController@update");
+        $router->get("/{id}", "TasksController@single");
+        $router->delete("/{id}", "TasksController@delete");
     });
 
     $router->group(["prefix" => "files"], function () use ($router) {

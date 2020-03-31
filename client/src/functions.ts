@@ -30,6 +30,7 @@ const functions = {
     } catch (err) {
       if (err.response.status === 401) {
         cookie.remove("token");
+        functions.pushTo("/login")
       }
       return err;
     }
@@ -47,7 +48,7 @@ const functions = {
     return functions.send("PATCH", url, data)
   },
 
-  delete: (url: string, data: object) => {
+  delete: (url: string, data?: object) => {
     return functions.send("DELETE", url, data)
   },
 

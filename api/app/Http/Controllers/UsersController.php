@@ -20,7 +20,7 @@ class UsersController extends Controller
     }
 
     public function index() {
-        $users = User::where("organisation_id", "=", $this->request->user->organisation_id)->get();
+        $users = User::select("id", "name", "email")->where("organisation_id", "=", $this->request->user->organisation_id)->get();
 
         return response($users, 200);
     }

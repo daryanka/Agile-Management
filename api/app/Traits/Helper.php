@@ -5,6 +5,11 @@ namespace App\Traits;
 use App\Project;
 
 trait Helper {
+    /**
+     * @param $userOrganisationId
+     * @param $projectId
+     * @return bool
+     */
     public function userBelongsToProject($userOrganisationId, $projectId) {
         $project = Project::find($projectId);
 

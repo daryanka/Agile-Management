@@ -10,6 +10,12 @@
       width: 100%;
     }
   }
+
+  .btns {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
 }
 
 .delete-confirm {

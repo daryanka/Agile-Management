@@ -90,6 +90,31 @@ class ProjectController extends Controller
         return response("Project Created", 200);
     }
 
+    public function update($id) {
+        $project = Project::find($id);
+
+        $this->validate($this->request, [
+            "description" => "string",
+            "title" => "string"
+        ]);
+
+        if (empty($project)) {
+            return response(["message" => "Project not found."], 404);
+        }
+
+        //Check that user has access to the project
+        if ($project->organisation_id !== $this->request->user->organisation_id) {
+            return response("Unauthorized", 401);
+        }
+
+        if ($this->request->has("description")) { $project->description = $this->request->description; }
+        if ($this->request->has("title")) { $project->project_name = $this->request->title; }
+
+        $project->save();
+
+        return response("Updated Project", 200);
+    }
+
     public function getProject($id) {
         $project = Project::select(
             "id",

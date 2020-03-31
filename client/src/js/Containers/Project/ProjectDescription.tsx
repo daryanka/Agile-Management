@@ -3,9 +3,11 @@ import ContentEditable, {ContentEditableEvent} from "react-contenteditable";
 import {FiEdit3} from "react-icons/Fi"
 import LoaderBtn from "../../Components/LoaderBtn";
 import {useToasts} from "react-toast-notifications";
+import fn from "../../../functions";
 
 interface Props {
-  description?: string
+  description?: string,
+  projectID: string
 }
 
 const ProjectDescription:FC<Props> = (props) => {
@@ -45,16 +47,22 @@ const ProjectDescription:FC<Props> = (props) => {
 
   const saveChanges = async () => {
     setLoading(true);
+    setEditable(false)
+    setInitialData(data)
 
-    setTimeout(() => {
-      setEditable(false)
-      setInitialData(data)
-      setLoading(false)
+    const res = await fn.patch(`/projects/${props.projectID}`, {
+      description: data
+    })
+
+    setLoading(false)
+
+    if (!fn.apiError(res)) {
       addToast(`Updated project description.`, {
         appearance: "success",
         autoDismiss: true,
       })
-    }, 1000);
+    }
+
     //Make api call
   }
 

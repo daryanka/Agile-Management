@@ -33,7 +33,6 @@ const Modal = React.forwardRef<ModalRef, Props>((props, ref) => {
   })
 
   const handleKeyDown = (e: KeyboardEvent) => {
-    console.log(e.key)
     if (e.key === "Escape") {
       close();
     }

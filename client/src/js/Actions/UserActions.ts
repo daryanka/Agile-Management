@@ -4,6 +4,7 @@ import {USER_ME, UserDispatchTypes} from "../types/userDispatchTypes";
 
 import {LOGIN_FAIL, LOGIN_LOADING, LOGIN_SUCCESS} from "../types/userDispatchTypes";
 import Cookie from "js-cookie";
+import {getUsers} from "./OrganisationUserActions";
 
 
 export const getUser = (email: string, password: string) => async (dispatch: Dispatch<UserDispatchTypes>) => {

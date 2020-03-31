@@ -5,10 +5,13 @@ import {FaTimes} from "react-icons/Fa"
 import LoaderBtn from "../../../Components/LoaderBtn";
 import Modal, {ModalRef} from "../../../Components/Modal";
 import {useToasts} from "react-toast-notifications";
+import fn from "../../../../functions";
 
 interface Props {
   username: string,
-  text: string
+  text: string,
+  id: number,
+  update: () => void;
 }
 
 const SingleComment: FC<Props>  = (props) => {
@@ -24,7 +27,7 @@ const SingleComment: FC<Props>  = (props) => {
   React.useEffect(() => {
     setText(props.text)
     setInitialText(props.text)
-  }, [])
+  }, [props.text])
 
   const disableEnter = (e: { key: string; preventDefault: () => void; }) => {
     if (e.key === "Enter") {
@@ -34,13 +37,28 @@ const SingleComment: FC<Props>  = (props) => {
 
   const saveChanges = async () => {
     //Make api request
-    addToast(`Successfully edited comment.`, {
-      appearance: "success",
-      autoDismiss: true
+    setLoading(true)
+    const res = await fn.patch(`/comments/${props.id}`, {
+      comment_text: text
     })
+    setLoading(false)
 
-    setInitialText(text);
-    setEditing(false);
+
+    if (!fn.apiError(res)) {
+      setEditing(false);
+      props.update()
+      addToast(`Successfully edited comment.`, {
+        appearance: "success",
+        autoDismiss: true
+      })
+
+
+    } else {
+      addToast(`Unable edited comment.`, {
+        appearance: "error",
+        autoDismiss: true
+      })
+    }
   }
 
   const undoChanges = () => {
@@ -50,13 +68,29 @@ const SingleComment: FC<Props>  = (props) => {
 
   const deleteComment = async () => {
     //Close modal on success
-    modalRef!.current!.close()
+    setDeleteLoading(true);
+    const res = await fn.delete(`/comments/${props.id}`)
+    setDeleteLoading(false);
 
-    //On success close and send notification
-    addToast(`Successfully deleted comment.`, {
-      appearance: "success",
-      autoDismiss: true
-    })
+    if (!fn.apiError(res)) {
+      props.update()
+      //On success close and send notification
+      addToast(`Successfully deleted comment.`, {
+        appearance: "success",
+        autoDismiss: true
+      })
+      modalRef!.current!.close()
+
+
+    } else {
+      modalRef!.current!.close()
+
+      //On success close and send notification
+      addToast(`Unable to deleted comment.`, {
+        appearance: "error",
+        autoDismiss: true
+      })
+    }
   }
 
   return (
@@ -69,7 +103,9 @@ const SingleComment: FC<Props>  = (props) => {
               <p>Are you sure you  want to delete this comment? This action cannot be reversed.</p>
               <div className={"btns"}>
                 <button className={"button secondary"} onClick={() => modalRef!.current!.close()}>Close</button>
-                <LoaderBtn disabled={deleteLoading} loading={deleteLoading} className={"button"} onClick={deleteComment}>Save Changes</LoaderBtn>
+                <LoaderBtn disabled={deleteLoading} loading={deleteLoading} className={"button"} onClick={deleteComment}>
+                  Delete Comment
+                </LoaderBtn>
               </div>
             </div>
           </>

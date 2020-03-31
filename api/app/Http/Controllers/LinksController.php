@@ -47,4 +47,44 @@ class LinksController extends Controller
 
         return response($links, 200);
     }
+
+    public function update($id) {
+        $link = Link::find($id);
+
+        if (empty($link)) {
+            return response("Unable to find link", 404);
+        }
+
+        if (!$this->userBelongsToProject($this->request->user->organisation_id, $link->project_id)) {
+            return response("Unauthorized", 401);
+        }
+
+        $this->validate($this->request, [
+            "link_url" => "string",
+            "link_name" => "string"
+        ]);
+
+        if ($this->request->has("link_url")) { $link->link_url = $this->request->link_url; }
+        if ($this->request->has("link_name")) { $link->link_name = $this->request->link_name; }
+
+        $link->save();
+
+        return response("Updated link", 200);
+    }
+
+    public function delete($id) {
+        $link = Link::find($id);
+
+        if (empty($link)) {
+            return response("Unable to find link", 404);
+        }
+
+        if (!$this->userBelongsToProject($this->request->user->organisation_id, $link->project_id)) {
+            return response("Unauthorized", 401);
+        }
+
+        $link->delete();
+
+        return response("Deleted Link", 200);
+    }
 }
