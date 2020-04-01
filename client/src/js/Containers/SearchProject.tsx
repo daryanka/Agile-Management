@@ -34,7 +34,7 @@ const SearchProject: FC<RouteComponentProps> = (props) => {
   return(
     <div className={"search-cont"}>
       <Modal ref={createModal}>
-        <CreateProject/>
+        <CreateProject update={fetchData}/>
       </Modal>
       <button className={"button"} onClick={() => createModal!.current!.open()}>Create New Project</button>
       <div className={"search-box"}>

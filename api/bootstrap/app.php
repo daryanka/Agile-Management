@@ -71,6 +71,7 @@ $app->singleton(
 
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\JWTMiddleware::class,
+    'role' => App\Http\Middleware\RolesMiddleware::class
 ]);
 
 /*

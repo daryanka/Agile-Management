@@ -11,10 +11,21 @@
     }
   }
 
-  .btns {
+  .btn-wrap {
     width: 100%;
     display: flex;
     justify-content: flex-end;
+    .btns {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+
+  @include until($tablet) {
+    .i-1 {
+      margin-top: 10px;
+    }
   }
 }
 

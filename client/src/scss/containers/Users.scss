@@ -11,6 +11,15 @@
 
   .users-table {
     width: 100%;
+    margin-bottom: 50px;
+
+    .m {
+      display: none;
+    }
+
+    .bar {
+      display: none;
+    }
 
     .header {
       background-color: $primary;
@@ -42,10 +51,18 @@
 
     .rows {
       border: 2px solid $primary;
+      border-top: none;
+      border-right: none;
       .row {
         display: flex;
         p, svg {
           margin-left: 20px;
+        }
+
+        .row-p {
+          text-overflow: ellipsis;
+          overflow: hidden;
+          margin-right: 5px;
         }
 
         .row-item-1 {
@@ -71,6 +88,81 @@
             width: 30px;
             color: $primary;
             cursor: pointer;
+          }
+        }
+      }
+    }
+
+    @include until($tablet) {
+      .header {
+        display: none;
+      }
+
+      .bar {
+        display: block;
+        width: 100%;
+        height: 3px;
+        background: $primary;
+        border-radius: 1px;
+        margin: 30px 0;
+      }
+
+      .m {
+        display: block;
+      }
+
+      .rows, .row-item-1, .row-item-2, .row-item-3 {
+        border: unset !important;
+        width: 100% !important;
+      }
+
+      .row {
+        display: flex;
+        flex-direction: column;
+
+        p, svg {
+          margin-left: 0 !important;
+        }
+
+        .row-item-1, .row-item-2 {
+          p {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+          }
+        }
+
+        .row-item-2 {
+          margin: 10px 0;
+        }
+
+        .row-item-3 {
+          display: flex;
+          justify-content: space-between;
+          span {
+            transition: ease-in-out all 0.3s;
+            width: 48%;
+            display: flex;
+            justify-content: center;
+
+            border: 2px solid $primary;
+            border-radius: 7px;
+            padding: 5px 0;
+            background: $primary;
+
+            svg {
+              fill: white;
+            }
+
+            &:hover {
+              cursor: pointer;
+              background: white;
+
+              svg {
+                fill: $primary;
+              }
+            }
           }
         }
       }

@@ -54,7 +54,8 @@ $router->group(["prefix" => "api/v1"], function() use($router) {
     $router->group(["prefix" => "users"], function () use ($router){
         $router->get("/", "UsersController@index");
         $router->post("/", "UsersController@create");
-        $router->patch("/", "UserController@update");
+        $router->patch("/{id}", "UsersController@update");
+        $router->delete("/{id}", "UsersController@delete");
     });
 
     $router->group(["prefix" => "tasks"], function () use ($router) {

@@ -22,7 +22,7 @@ const usersReducer = (state:StateType  = initialState, action: OrganisationUserD
     case "USERS_LOADING":
       return {
         ...state,
-        loading: false
+        loading: true
       }
     default:
       return state;

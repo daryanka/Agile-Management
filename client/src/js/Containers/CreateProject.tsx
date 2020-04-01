@@ -1,59 +1,107 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useState, FC} from "react";
 import Form from "../Components/Form";
 import Input from "../Components/Input";
 import { FaTimes } from "react-icons/fa"
 import Textarea from "../Components/Textarea";
-import Select from "react-select";
+import Select, {OptionsType, ValueType} from "react-select";
 import {useDropzone} from 'react-dropzone'
 import _ from "lodash";
 import { useToasts } from 'react-toast-notifications'
 import constants from "../constants";
+import fn from "../../functions";
+import LoaderBtn from "../Components/LoaderBtn";
+import {useSelector} from "react-redux";
+import {RootState} from "../Store";
 
-const CreateProject = () => {
+interface Props {
+  close?: () => void
+  update: () => void
+}
+
+const CreateProject: FC<Props> = (props) => {
   const [data, setData] = useState({
     project_name: "",
     description: ""
   });
-  const [links, setLinks] = useState([]);
-  const [assignees, setAssignees] = useState([]);
-  const [files, setFiles] = useState([]);
+  const users = useSelector((state: RootState) => state.users)
+  const [links, setLinks] = useState<{link_url: string, link_name: string}[]>([]);
+  const [assignees, setAssignees] = useState<{label: string, value: number}>();
+  const [files, setFiles] = useState<File[]>([]);
+  const [loading, setLoading] = useState(false);
   const { addToast } = useToasts()
 
 
-  const handleAssignChange = (val) => {
-    setAssignees(val)
+  const handleAssignChange = (val: ValueType<{ label: string; value: number; }>) => {
+    setAssignees(val as { label: string; value: number; })
   }
 
-  const handleChange = (val, name) => {
+  const handleChange = (val: string, name: string) => {
     setData(prevState => {
       return {...prevState, [name]: val}
     })
   };
 
-  const boxesHandleChange = (val, name, i) => {
+  const boxesHandleChange = (val: string, n: string, i: number) => {
+    let name: string;
+
+    const link = /^link_url/;
+    if (link.test(n)) {
+      name = "link_url"
+    } else {
+      name = "link_name"
+    }
+
     const prev = [...links];
-    prev[i][name.slice(0, -2)] = val;
+    // @ts-ignore
+    prev[i][name] = val;
 
     setLinks(prev);
   }
 
   const createProject = async () => {
+    const formData = new FormData();
 
+    formData.append("project_name", data.project_name);
+    formData.append("description", data.description);
+
+    for (let i = 0; i < links.length; i++) {
+      formData.append(`links[${i}][link_name]`, links[i].link_name);
+      formData.append(`links[${i}][link_url]`, links[i].link_url);
+    }
+
+    if (assignees?.value) {
+      formData.append("assignee", assignees.value.toString());
+    }
+
+    for (let i = 0; i < files.length; i++) {
+      formData.append(`files[${i}]`,files[i]);
+    }
+
+    setLoading(true);
+    const res = await fn.post(`/projects`, formData);
+    setLoading(false);
+
+    if (!fn.apiError(res)) {
+      props.close!()
+      props.update();
+    }
   }
 
   const addLink = () => {
-
-    setLinks(prev => [...prev, {}])
+    setLinks(prev => [...prev, {
+      link_name: "",
+      link_url: ""
+    }])
   }
 
-  const removeLink = (index) => {
+  const removeLink = (index: number) => {
     const linksCopy = [...links];
     linksCopy.splice(index, 1);
     setLinks(linksCopy)
   }
 
   const onDrop = useCallback((acceptedFiles) => {
-    acceptedFiles.forEach((file) => {
+    acceptedFiles.forEach((file: File) => {
       const extension = file.name.slice((Math.max(0, file.name.lastIndexOf(".")) || Infinity) + 1);
 
       if (constants.availableDataTypes.includes(extension)) {
@@ -63,13 +111,12 @@ const CreateProject = () => {
         addToast(`Cannot upload files with extension ${extension}.`, {
           appearance: "error",
           autoDismiss: true,
-          transitionState: "entered"
         })
       }
     })
   }, [])
 
-  const removeFile = (i) => {
+  const removeFile = (i: number) => {
     const copy = [...files];
     copy.splice(i, 1);
     setFiles(copy);
@@ -100,20 +147,13 @@ const CreateProject = () => {
           value={data.description}
           validation={"required"}
         />
-        <Select isMulti className={"select-comp col-xs-12"} name={"select user"} onChange={handleAssignChange} options={[
-          {
-            label: "Daryan Amin",
-            value: 23,
-          },
-          {
-            label: "John Smith",
-            value: 11,
-          },
-          {
-            label: "Jane Doe",
-            value: 122,
-          }
-        ]}/>
+        <Select
+          className={"select-comp col-xs-12"}
+          name={"select user"}
+          onChange={handleAssignChange}
+          value={assignees}
+          options={users.users.map(user => ({label: user.name, value: user.id}))}
+        />
         <div className={`drop-zone ${isDragActive ? "active" : ""}`} {...getRootProps()}>
           <input {...getInputProps()} />
           <p>Drop files here, or click to select files (optional) <span>Allowed file types: {constants.availableDataTypes.map((fileType, i) => {
@@ -158,7 +198,7 @@ const CreateProject = () => {
           )
         })}
         <div className="col-xs-12">
-          <button className={"button"} type={"submit"}>Submit</button>
+          <LoaderBtn loading={loading} disabled={loading} className={"button"} type={"submit"}>Submit</LoaderBtn>
         </div>
       </Form>
     </div>
