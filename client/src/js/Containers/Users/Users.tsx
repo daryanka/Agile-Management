@@ -39,9 +39,6 @@ const Users: FC = () => {
     dispatch(getUsers())
   }
 
-
-  console.log("users", users)
-
   return (
     <div className={"users-cont"}>
       <Modal ref={addModalRef}>

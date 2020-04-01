@@ -19,7 +19,6 @@ const ProjectTitle: FC<Props> = (props) => {
     setInitialValue(props.title)
     setTitle(props.title)
 
-    console.log("here 123");
   }, [])
 
   const keyDown = async (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -30,7 +29,6 @@ const ProjectTitle: FC<Props> = (props) => {
   }
 
   const update = async (e: ContentEditable) => {
-    console.log("title is", ref.current!.el.current.innerText)
     const res = await fn.patch(`/projects/${props.projectID}`, {
       title: ref.current!.el.current.innerText
     });
@@ -43,12 +41,8 @@ const ProjectTitle: FC<Props> = (props) => {
     }
   }
 
-  console.log(initialValue);
-
   const handleChange = (e: ContentEditableEvent) => {
     setTitle(e.target.value);
-
-    console.log(title);
   }
 
   return(

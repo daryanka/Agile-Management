@@ -38,8 +38,6 @@ const LinksSection: FC<Props> = (props) => {
     }
   }, [])
 
-  console.log(links);
-
   return(
     <div className={"links"}>
       <h3>Links</h3>

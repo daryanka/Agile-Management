@@ -75,7 +75,6 @@ const EditUserModal: FC<Props> = (props) => {
         validationSchema={Schema}
       >
         {({handleChange, errors, values, handleSubmit, touched, handleBlur}) => {
-          console.log(errors);
           return(
             <form className={"grid"} onSubmit={handleSubmit}>
               <div className={"i-1 col-m-6 col-xs-12"}>

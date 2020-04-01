@@ -28,12 +28,9 @@ const Comments: FC<Props> = (props) => {
     setLoading(false)
 
     if (!functions.apiError(res)) {
-      console.log("res.data ", res.data)
       setComments(res.data)
     }
   }
-
-  console.log(comments)
 
   return(
     <div className="comments">
