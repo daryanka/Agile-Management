@@ -38,15 +38,18 @@ class ProjectController extends Controller
             "links" => "array",
             "links.*.link_name" => "required|string",
             "links.*.link_url" => "required|string",
-            "assignee" => "array",
-            "assignee.*.id" => "required|numeric",
+            "assignee" => "integer",
             "files.*" => "file|max:1999", //2mb max
         ]);
 
         $this->request["organisation_id"] = $this->request->user->organisation_id;
 
         //Get organisation_id
-        $project = Project::create($this->request->all());
+        $project = Project::create([
+            "project_name" => $this->request->project_name,
+            "description" => $this->request->description,
+            "organisation_id" => $this->request->user->organisation_id,
+        ]);
 
         //Create links
         if (!empty($this->request->links)) {
@@ -61,12 +64,10 @@ class ProjectController extends Controller
 
         //Assign to users
         if (!empty($this->request->assignee)) {
-            foreach ($this->request->assignee as $assignee) {
-                DB::table("project_user")->insert([
-                    "user_id" => $assignee["id"],
-                    "project_id" => $project->id
-                ]);
-            }
+            DB::table("project_user")->insert([
+                "user_id" => $this->request->assignee,
+                "project_id" => $project->id
+            ]);
         }
 
         //Upload files
@@ -123,7 +124,7 @@ class ProjectController extends Controller
             "organisation_id",
             "priority",
             "created_at",
-            "updated_at"
+            "updated_at",
         )
             ->with(["comments" => function($query) {
                 $query->select("comments.id AS id", "comment_text", "users.name", "comments.user_id AS user_id", "project_id")
@@ -150,10 +151,23 @@ class ProjectController extends Controller
         }
 
         $allUsers = User::where("organisation_id", "=", $project->organisation_id)->get();
+        $time_logged = LoggedTime::select(
+            DB::raw("SUM(minutes_logged) AS total_time")
+        )
+            ->where("project_id", "=", $id)
+            ->groupBy("project_id")
+            ->first();
+
+        if (empty($time_logged)) {
+            $time_logged = 0;
+        } else {
+            $time_logged = $time_logged->total_time;
+        }
 
         return response([
             "project" => $project,
-            "all_users" => $allUsers
+            "all_users" => $allUsers,
+            "time_logged" => $time_logged
         ], 200);
     }
 
@@ -163,61 +177,43 @@ class ProjectController extends Controller
         }
 
         $this->validate($this->request, [
-            "user_id" => "required|integer"
+            "users" => "array|present",
+            "users.*" => "integer"
         ]);
 
-        //Check user exists
-        if (!User::where("id" , "=" ,$this->request->user_id)->exists()) {
-            return response("User does not exist", 422);
-        };
-
-        //Check if user already associated with project
-        $alreadyAssigned = DB::table("project_user")
-            ->where("project_id", "=", $id)
-            ->where("user_id", "=", $this->request->user_id)
-            ->exists();
-
-        if ($alreadyAssigned) {
-            return response("User already assigned to this project", 400);
+        foreach ($this->request->users as $userID) {
+            //Check user exists
+            if (!User::where("id" , "=" ,$userID)->exists()) {
+                return response("User does not exist", 422);
+            };
         }
 
-        DB::table("project_user")->insert([
-            "user_id" => $this->request->user_id,
-            "project_id" => $id,
-        ]);
+        DB::table("project_user")->delete();
 
-        return response("User assigned to project", 200);
+        foreach ($this->request->users as $userID) {
+            DB::table("project_user")->insert([
+                "user_id" => $userID,
+                "project_id" => $id,
+            ]);
+        }
+
+        return response("Project users updated.", 200);
     }
 
-    public function unassignUser($id) {
+    public function getAssignedUsers($id) {
         if (!$this->userBelongsToProject($this->request->user->organisation_id, $id)) {
             return response("Unauthorized", 401);
         }
 
-        $this->validate($this->request, [
-            "user_id" => "required|integer"
-        ]);
+        $users = DB::table("project_user")->select(
+            "users.id AS user_id",
+            "users.name AS user_name"
+        )
+            ->leftJoin("users", "users.id", "=", "project_user.user_id")
+            ->where("project_user.project_id", "=", $id)
+            ->get();
 
-        //Check user exists
-        if (!User::where("id" , "=" ,$this->request->user_id)->exists()) {
-            return response("User does not exist", 422);
-        };
-
-        $alreadyAssigned = DB::table("project_user")
-            ->where("project_id", "=", $id)
-            ->where("user_id", "=", $this->request->user_id)
-            ->first();
-
-        if (!$alreadyAssigned) {
-            return response("User not assigned to project", 400);
-        }
-
-        DB::table("project_user")
-            ->where("project_id", "=", $id)
-            ->where("user_id", "=", $this->request->user_id)
-            ->delete();
-
-        return response("User unassigned to project", 200);
+        return response($users, 200);
     }
 
     public function me() {

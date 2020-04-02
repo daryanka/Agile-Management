@@ -26,10 +26,9 @@ $router->group(["prefix" => "api/v1"], function() use($router) {
         $router->get("/individual/{id}", "ProjectController@getProject");
         $router->get("/search", "ProjectController@search");
         $router->patch("/{id}", "ProjectController@update");
-
+        $router->get("/users/{id}", "ProjectController@getAssignedUsers");
 
         $router->post("/assign/{id}", "ProjectController@assignUser");
-        $router->post("/unassign/{id}", "ProjectController@unassignUser");
     });
 
     $router->group(["prefix" => "comments"], function () use($router) {

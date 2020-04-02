@@ -1,52 +1,58 @@
-import React from "react";
+import React, {FC, useState} from "react";
 import LoaderBtn from "../../Components/LoaderBtn";
 import Input from "../../Components/Input";
 import Form from "../../Components/Form";
 import Textarea from "../../Components/Textarea";
+import fn from "../../../functions";
 
-const TimeModal = () => {
-  const [state, setState] = React.useState({});
+interface Props {
+  update: () => void,
+  close?: () => void
+}
+
+const TimeModal: FC<Props> = () => {
+  const [state, setState] = React.useState<{
+    description: string,
+    time: string
+  }>({
+    description: "",
+    time: ""
+  });
+  const [t, setT] = useState({
+    valid: true,
+    str: ""
+  });
   const [loading, setLoading] = React.useState(false);
 
-  const onChange = (val, name) => {
+  const onChange = (val: string | number, name: string) => {
+    if (name === "time") {
+      const t = fn.WDHMToMinutes(val as string);
+
+      if (t.valid) {
+        const str = fn.minutesToTime(t.minutes);
+
+        setT({
+          valid: t.valid,
+          str
+        })
+      } else {
+        setT({
+          valid: t.valid,
+          str: ""
+        })
+      }
+    }
     setState(prev => ({
       ...prev,
-      [name]: value
+      [name]: val
     }))
   };
 
   const submit = () => {
     setLoading(!loading);
     //Split at every space
-    const timesArr = state.time.split(" ");
-    //Allowed Structures:
-    //nnL
-    //nL
-    //Rules:
-    //Letter must be one of w,d,h,n,s
-    //Number must be max 2 digits
-
-    let valid = true;
-    for (let i = 0; i < timesArr.length; i++) {
-      if (timesArr[i].length === 3) {
-        const regex = /^[0-9]{2}[wdmh]$/;
-        if (!regex.test(timesArr[i])) {
-          valid = false;
-          break;
-        }
-      } else if (timesArr[i].length === 2) {
-        const regex = /^[0-9][wdmh]$/;
-        if (!regex.test(timesArr[i])) {
-          valid = false;
-          break;
-        }
-      } else {
-        valid = false;
-        break;
-      }
-    }
-
-    setTimeout(() => setLoading(false), 2000)
+    const timesArr = state.time;
+    setLoading(false);
   }
 
   return (
@@ -60,7 +66,11 @@ const TimeModal = () => {
         <div  className={"right"}>
           <p>Time</p>
           <Input validation={"required"} handleChange={onChange} placeholder={"1w 4d 2h 31m"} name={"time"} />
-          <p>Time: 0 Minutes</p>
+          {t.valid ? (
+            <p>{t.str}</p>
+          ) : (
+            <p>Invalid Structure</p>
+          )}
           <div className={"modal-buttons-cont"}>
             <div className={"btns"}>
               <LoaderBtn disabled={loading} loading={loading} type={"submit"} className={"button-loader button-2"}>

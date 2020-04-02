@@ -2,10 +2,10 @@ import React, {FC} from "react";
 import Single from "./Single";
 import Divider from "../../../Components/Divider";
 import _ from "lodash";
-import {Time} from "../Project";
+import {TimeType} from "../Project";
 
 interface Props {
-  time?: Time[]
+  time?: TimeType[]
 }
 
 const TimeLogged: FC<Props> = (props) => {

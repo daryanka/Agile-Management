@@ -4,11 +4,11 @@ import Modal, {ModalRef} from "../../../Components/Modal";
 import EditModal from "./EditModal";
 import { FaTimes } from "react-icons/fa"
 import DeleteTime from "./DeleteTime";
-import {Time} from "../Project";
+import {TimeType} from "../Project";
 import functions from "../../../../functions";
 
 interface Props {
-  time: Time
+  time: TimeType
 }
 
 const Single: FC<Props> = (props) => {
