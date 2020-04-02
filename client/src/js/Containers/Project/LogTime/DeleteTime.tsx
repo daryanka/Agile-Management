@@ -1,10 +1,24 @@
-import React from "react";
+import React, {FC} from "react";
 import LoaderBtn from "../../../Components/LoaderBtn";
+import fn from "../../../../functions";
 
-const DeleteTime = (props) => {
+interface Props {
+  close?: () => void,
+  update: () => void,
+  id: number
+}
+
+const DeleteTime: FC<Props> = (props) => {
   const [loading, setLoading] = React.useState(false);
-  const confirm = () => {
+  const confirm = async () => {
+    setLoading(true);
+    const res = await fn.delete(`/time/${props.id}`)
+    setLoading(false);
 
+    if (!fn.apiError(res)) {
+      props.update();
+      props.close!();
+    }
   }
 
   return(

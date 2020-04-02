@@ -18,7 +18,7 @@ interface MatchParams {
   id: string
 }
 
-interface TimeType {
+export interface TimeType {
   id: number,
   minutes_logged: number,
   description: string,
@@ -124,7 +124,7 @@ const Project: FC<RouteComponentProps<MatchParams>> = (props) => {
 
                   <Divider/>
 
-                  <TimeComp time={data?.time_logged} projectID={props.match.params.id} />
+                  <TimeComp fetchData={fetchData} time={data?.time_logged} projectID={props.match.params.id} />
                 </div>
               </div>
               <div className="section-2 section">
@@ -142,7 +142,7 @@ const Project: FC<RouteComponentProps<MatchParams>> = (props) => {
 
                 <Divider/>
 
-                <TimeLogged time={data?.project.logged_work} />
+                <TimeLogged time={data?.project.logged_work} projectID={props.match.params.id} />
               </div>
             </div>
           </>

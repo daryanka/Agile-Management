@@ -48,6 +48,7 @@ $router->group(["prefix" => "api/v1"], function() use($router) {
     $router->group(["prefix" => "time"], function () use ($router) {
         $router->post("/{id}", "TimeLoggedController@add");
         $router->patch("/{id}", "TimeLoggedController@update");
+        $router->delete("/{id}", "TimeLoggedController@delete");
     });
 
     $router->group(["prefix" => "users"], function () use ($router){

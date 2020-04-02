@@ -106,18 +106,18 @@ const functions = {
 
     time.weeks = Math.floor(minutes / 10080)
     minutes = minutes % 10080;
-    time.days = Math.floor(minutes / 3600);
-    minutes = minutes % 3600;
+    time.days = Math.floor(minutes / 1440);
+    minutes = minutes % 1440;
     time.hours = Math.floor(minutes / 60);
     minutes = minutes % 60;
     time.m = minutes;
 
     let str: string[] = [];
 
-    time.weeks > 0 && str.push(`${time.weeks} w `);
-    time.days > 0 && str.push(`${time.days} d`);
-    time.hours > 0 && str.push(`${time.hours} h`);
-    time.m > 0 && str.push(`${time.m} m`);
+    time.weeks > 0 && str.push(`${time.weeks}w `);
+    time.days > 0 && str.push(`${time.days}d`);
+    time.hours > 0 && str.push(`${time.hours}h`);
+    time.m > 0 && str.push(`${time.m}m`);
 
     return str.join(" ")
   },
@@ -137,7 +137,6 @@ const functions = {
     let valid: boolean = true;
     for (let i = 0; i < timesArr.length; i++) {
       const regex = /^([0-9]+)([wdmh])$/;
-      console.log(regex.exec(timesArr[i]))
       if (!regex.test(timesArr[i])) {
         //Invalid
         valid = false;

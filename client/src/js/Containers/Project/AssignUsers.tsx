@@ -38,7 +38,7 @@ const AssignUsers: FC<Props> = (props) => {
       <ContentLoader loading={loading} data={assignedUsers} message={"No users assigned to this project."}>
         <h4>Assigned to</h4>
         {assignedUsers.map(user => {
-          return <p style={{textTransform: "capitalize"}}>{user.user_name}</p>
+          return <p key={`assign-users-${user.user_id}`} style={{textTransform: "capitalize"}}>{user.user_name}</p>
         })}
       </ContentLoader>
       <button type={"button"} onClick={() => assignModalRef!.current!.open()} className={"button"}>Add Assignee</button>

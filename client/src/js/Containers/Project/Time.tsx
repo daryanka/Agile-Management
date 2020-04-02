@@ -6,7 +6,8 @@ import fn from "../../../functions";
 
 interface Props {
   projectID: string,
-  time?: string
+  time?: string,
+  fetchData: () => void
 }
 
 const Time: FC<Props> = (props) => {
@@ -19,23 +20,17 @@ const Time: FC<Props> = (props) => {
   }, [])
 
   const update = async () => {
-    setLoading(true);
-    const res = await fn.get(`/projects/individual/${props.projectID}`);
-    setLoading(false);
-
-    if (!fn.apiError(res)) {
-      setTime(parseInt(res.data.time_logged));
-    }
+    props.fetchData();
   }
 
   return (
     <div className={"time"}>
       <Modal ref={addTimeModalRef}>
-        <TimeModal update={update}/>
+        <TimeModal projectID={props.projectID} update={update}/>
       </Modal>
       <ContentLoader loading={loading} data={["test"]}>
           <h4>Time Estimates</h4>
-          <p><strong>Time Spent:</strong> 4d 12h 0m</p>
+          <p><strong>Time Spent:</strong> {fn.minutesToTime(time)}</p>
       </ContentLoader>
       <button onClick={() => addTimeModalRef!.current!.open()} className={"button"}>Add Time</button>
     </div>

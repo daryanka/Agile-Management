@@ -8,7 +8,9 @@ import {TimeType} from "../Project";
 import functions from "../../../../functions";
 
 interface Props {
-  time: TimeType
+  time: TimeType,
+  projectID: string,
+  update: () => void
 }
 
 const Single: FC<Props> = (props) => {
@@ -18,10 +20,15 @@ const Single: FC<Props> = (props) => {
   return(
     <div className="comment">
       <Modal ref={editRef}>
-        <EditModal description={"lorem ipsum"} time={"2w 3d"} id={props.time.id}/>
+        <EditModal
+          description={props.time.description}
+          minutes={props.time.minutes_logged}
+          id={props.time.id}
+          update={props.update}
+        />
       </Modal>
       <Modal ref={deleteRef}>
-        <DeleteTime id={props.time.id}/>
+        <DeleteTime update={props.update} id={props.time.id}/>
       </Modal>
       <FaTimes className={"del"} onClick={() => deleteRef!.current!.open()}/>
       <p className="comment-title">{props.time.name} - {functions.minutesToTime(props.time.minutes_logged)} <FiEdit3 onClick={() => editRef!.current!.open()} /></p>

@@ -62,5 +62,9 @@ class TimeLoggedController extends Controller
         if ($LoggedTime->user_id !== $this->request->user->id) {
             return response("Unauthorized", 401);
         }
+
+        $LoggedTime->delete();
+
+        return response("Deleted", 200);
     }
 }
