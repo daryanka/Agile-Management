@@ -26,7 +26,7 @@ const Navbar = () => {
         return (
           <ul className={"nav-links"}>
             {auth.role === "admin" && <li><NavLink activeClassName={"active-link"} to={"/users"}>Users</NavLink></li>}
-            <li><NavLink activeClassName={"active-link"} to={"/tasks"}>Tasks</NavLink></li>
+            <li><NavLink activeClassName={"active-link"} to={"/my-tasks"}>My Tasks</NavLink></li>
             <li><NavLink activeClassName={"active-link"} to={"/projects/search"}>Projects</NavLink></li>
             <li><button onClick={logout}>Logout</button></li>
           </ul>

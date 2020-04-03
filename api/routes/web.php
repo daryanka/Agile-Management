@@ -61,8 +61,10 @@ $router->group(["prefix" => "api/v1"], function() use($router) {
     $router->group(["prefix" => "tasks"], function () use ($router) {
         $router->post("/{id}", "TasksController@create");
         $router->patch("/{id}", "TasksController@update");
+        $router->get("/my-tasks", "TasksController@myTasks");
         $router->get("/{id}", "TasksController@single");
         $router->delete("/{id}", "TasksController@delete");
+
     });
 
     $router->group(["prefix" => "files"], function () use ($router) {

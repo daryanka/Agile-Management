@@ -15,6 +15,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {userMe} from "./Actions/UserActions";
 import {getUsers} from "./Actions/OrganisationUserActions";
 import {RootState} from "./Store";
+import MyTasks from "./Containers/MyTasks/MyTasks";
 
 
 const App = () => {
@@ -40,6 +41,7 @@ const App = () => {
           <Route path={"/projects/search"} component={SearchProject} />
           <Route path={"/projects/:id"} component={Project} />
           <Route path={"/users"} component={Users} />
+          <Route path={"/my-tasks"} component={MyTasks} />
           <Redirect to={"/home"} />
         </Switch>
         <Footer/>

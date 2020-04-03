@@ -28,6 +28,10 @@
       border: 2px solid $primary;
       margin-bottom: 30px;
 
+      &.my-tasks {
+        border: none
+      }
+
       .section {
         width: 95%;
         margin-left: auto;
