@@ -11,9 +11,37 @@
       <user-name>root</user-name>
       <schema-mapping>
         <introspection-scope>
+          <node kind="schema">
+            <name qname="agile_management" />
+            <name qname="blog_db" />
+            <name qname="journal" />
+          </node>
+        </introspection-scope>
+      </schema-mapping>
+    </data-source>
+    <data-source name="DigitalOcean" uuid="bb4014fe-4e26-4ff1-902d-6d4b9f8cc8fe">
+      <database-info product="MySQL" version="5.7.30-0ubuntu0.18.04.1" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.15 (Revision: 79a4336f140499bd22dd07f02b708e163844e3d5)" dbms="MYSQL" exact-version="5.7.30" exact-driver-version="8.0">
+        <extra-name-characters>#@</extra-name-characters>
+        <identifier-quote-string>`</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>daryan</user-name>
+      <schema-mapping>
+        <introspection-scope>
           <node kind="schema" qname="@" />
         </introspection-scope>
       </schema-mapping>
+      <ssh-properties>
+        <enabled>true</enabled>
+        <proxy-host>178.62.1.120</proxy-host>
+        <proxy-port>22</proxy-port>
+        <secret-storage>master_key</secret-storage>
+        <user>root</user>
+        <use-password>false</use-password>
+        <auth-type>KEY_PAIR</auth-type>
+        <private-key-path>C:\Users\Darya\.ssh\private_key.ppk</private-key-path>
+      </ssh-properties>
     </data-source>
   </component>
 </project>
