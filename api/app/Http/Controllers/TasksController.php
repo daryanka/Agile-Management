@@ -128,4 +128,10 @@ class TasksController extends Controller
 
         return response("Deleted Task", 200);
     }
+
+    public function myTasks() {
+        $tasks = Task::where("user_id", "=", $this->request->user->id)->get();
+
+        return response($tasks, 200);
+    }
 }
