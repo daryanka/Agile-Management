@@ -255,27 +255,9 @@ class ProjectController extends Controller
         return response($data, 200);
     }
 
-    public function test() {
-        $this->validate($this->request, [
-            "files.*" => "file|max:1999|required"
-        ]);
-
-        $fileNames = [];
-
-        if ($this->request->hasFile("files")) {
-            foreach ($this->request->file("files") as $file) {
-                $filename = $file->getClientOriginalName();
-                array_push($fileNames, $filename);
-            }
-        }
-
-        dd($fileNames);
-
-        $fileName = $this->request->file('file')->getClientOriginalName();
-
-        $this->request->file("file")->move("public/test", $fileName);
-
-        $public = base_path();
-//        return response()->download("$public/public/public/test/Udemy - Understanding TypeScript - 2020 Edition.torrent", "test");
+    public function health() {
+        return response([
+            "status" => "OK",
+        ], 200);
     }
 }
