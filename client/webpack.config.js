@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const ErrorOverlayPlugin = require('error-overlay-webpack-plugin')
+const webpack = require("webpack");
 
 module.exports = {
   module: {
@@ -52,7 +53,12 @@ module.exports = {
       template: "./src/index.html",
       filename: "./index.html"
     }),
-    new ErrorOverlayPlugin()
+    new ErrorOverlayPlugin(),
+    new webpack.DefinePlugin({
+      "process.env": {
+        "RELEASE_STAGE": JSON.stringify(process.env.RELEASE_STAGE)
+      }
+    }),
   ],
   devServer: {
     historyApiFallback: true,

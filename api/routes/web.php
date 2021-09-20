@@ -13,7 +13,7 @@
 
 $router->group(["prefix" => "api/v1"], function() use($router) {
 
-    $router->post("/status", "ProjectController@health");
+    $router->get("/health", "ProjectController@health");
 
     $router->group(["prefix" => "auth"], function() use($router) {
         $router->post("/register", "AuthController@register");

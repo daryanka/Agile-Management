@@ -7,7 +7,8 @@
     "test": "jest",
     "start": "webpack-dev-server --config webpack.config.js  --open --hot --mode development",
     "dev-open": "webpack-dev-server --open --hot --mode development --host 0.0.0.0 --port 8080",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "build-prod": "cross-env RELEASE_STAGE=prod webpack --mode production"
   },
   "author": "",
   "license": "ISC",
@@ -18,7 +19,7 @@
     "@types/react-select": "^3.0.11",
     "axios": "^0.19.2",
     "core-js": "^3.6.4",
-    "fibers": "^4.0.2",
+    "cross-env": "^7.0.3",
     "formik": "^2.1.4",
     "lodash": "^4.17.15",
     "prop-types": "^15.7.2",

@@ -23,6 +23,7 @@ interface CompProps {
   errors?: errorType<string>,
   isInput?: boolean,
   validation?: string
+  customErr?: string
 }
 
 const Input:FC<CompProps> = props => {
@@ -36,6 +37,24 @@ const Input:FC<CompProps> = props => {
       props.changedValue(props.value, props.name)
     }
   }, [props.value])
+
+  let err: any = null
+
+  if (props.errors && props.errors[props.name]) {
+    err = (
+      <p className="error-message">
+        {props.errors[props.name]}
+      </p>
+    )
+  }
+
+  if (props.customErr) {
+    err = (
+      <p className="error-message">
+        {props.customErr}
+      </p>
+    )
+  }
 
   return (
     <div
@@ -67,11 +86,7 @@ const Input:FC<CompProps> = props => {
         value={props.value}
       />
 
-      {(props.errors && props.errors[props.name]) && (
-        <p className="error-message">
-          {props.errors[props.name]}
-        </p>
-      )}
+      {err}
     </div>
   )
 }
