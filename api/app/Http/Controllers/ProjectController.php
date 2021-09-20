@@ -28,7 +28,7 @@ class ProjectController extends Controller
     public function __construct(Request $request)
     {
         $this->request = $request;
-        $this->middleware("auth", ["except" => "test"]);
+        $this->middleware("auth", ["except" => "health"]);
     }
 
     public function create() {

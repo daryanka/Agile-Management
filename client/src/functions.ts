@@ -16,7 +16,11 @@ const functions = {
       headers.token = `${cookie.get("token")}`
     }
 
-    url = `http://localhost:3000/api/v1${url}`;
+    if (process.env.RELEASE_STAGE == "prod") {
+      url = `https://api-agile-management.daryanamin.co.uk/api/v1${url}`;
+    } else {
+      url = `http://localhost:3000/api/v1${url}`;
+    }
 
     const config = _.merge(additionalConfig ? additionalConfig : {}, {
       method: method,
