@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom"
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../Store"
 import {LOGIN_LOGOUT_USER} from "../types/userDispatchTypes";
+import functions from "../../functions";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ const Navbar = () => {
     dispatch({
       type: LOGIN_LOGOUT_USER
     })
+    functions.pushTo("/login")
   }
 
   const mapNav = () => {
@@ -35,7 +37,7 @@ const Navbar = () => {
         return (
           <div className={"btn-cont"}>
             <NavLink to={"/login"}><button className={"button secondary"}>Login</button></NavLink>
-            <NavLink to={"/register"}><button className={"button"}>Sign In</button></NavLink>
+            <NavLink to={"/register"}><button className={"button"}>Register</button></NavLink>
           </div>
         );
       default:
@@ -50,11 +52,11 @@ const Navbar = () => {
       <div className={"nav-options"}>
         {mapNav()}
 
-        <button onClick={onHamburgerClick} className={`hamburger hamburger--spin ${hamburger ? "is-active" : ""}`} type="button">
-        <span className="hamburger-box">
-          <span className="hamburger-inner"/>
-        </span>
-        </button>
+        {/*<button onClick={onHamburgerClick} className={`hamburger hamburger--spin ${hamburger ? "is-active" : ""}`} type="button">*/}
+        {/*<span className="hamburger-box">*/}
+        {/*  <span className="hamburger-inner"/>*/}
+        {/*</span>*/}
+        {/*</button>*/}
       </div>
 
     </nav>
