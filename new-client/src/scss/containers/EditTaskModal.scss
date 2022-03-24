@@ -1,0 +1,48 @@
+.edit-task-modal {
+
+  &.open {
+    min-height: 300px;
+  }
+
+  .title {
+    outline: none;
+    transition: ease all 250ms;
+    &:hover {
+      background-color: rgba($primary, 0.1);
+    }
+  }
+
+  .desc {
+    outline: none;
+    margin-bottom: 25px;
+    transition: ease all 250ms;
+    &:hover {
+      background-color: rgba($primary, 0.1);
+    }
+  }
+
+  .css-1uccc91-singleValue {
+    color: $primary;
+  }
+
+
+  .btns-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+    .button {
+      &.secondary {
+        margin-right: 20px;
+      }
+    }
+
+    @include until(500px) {
+      flex-direction: column;
+      .secondary {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}

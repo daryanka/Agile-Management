@@ -1,0 +1,171 @@
+.users-cont {
+  margin-top: 70px;
+  width: calc(100% - 100px);
+  max-width: 1920px;
+  margin-left: auto;
+  margin-right: auto;
+
+  .add {
+    margin-bottom: 20px;
+  }
+
+  .users-table {
+    width: 100%;
+    margin-bottom: 50px;
+
+    .m {
+      display: none;
+    }
+
+    .bar {
+      display: none;
+    }
+
+    .header {
+      background-color: $primary;
+      border-radius: 7px 7px 0 0;
+      border: 2px solid $primary;
+      display: flex;
+      p {
+        margin-left: 20px;
+        color: white;
+      }
+
+      .header-item {
+        padding: 5px 0 5px 0;
+      }
+
+      .header-1 {
+        width: 30%;
+      }
+
+      .header-2 {
+        width: 60%;
+      }
+
+      .header-3 {
+        width: 20%;
+        min-width: 154px;
+      }
+    }
+
+    .rows {
+      border: 2px solid $primary;
+      border-top: none;
+      border-right: none;
+      .row {
+        display: flex;
+        p, svg {
+          margin-left: 20px;
+        }
+
+        .row-p {
+          text-overflow: ellipsis;
+          overflow: hidden;
+          margin-right: 5px;
+        }
+
+        .row-item-1 {
+          width: 30%;
+          padding: 5px 0 5px 0;
+          border-right: 2px solid $primary;
+        }
+
+        .row-item-2 {
+          width: 60%;
+          padding: 5px 0 5px 0;
+          border-right: 2px solid $primary;
+        }
+
+        .row-item-3 {
+          width: 20%;
+          min-width: 154px;
+          padding: 5px 0 5px 0;
+          border-right: 2px solid $primary;
+          display: flex;
+          svg {
+            height: 30px;
+            width: 30px;
+            color: $primary;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+
+    @include until($tablet) {
+      .header {
+        display: none;
+      }
+
+      .bar {
+        display: block;
+        width: 100%;
+        height: 3px;
+        background: $primary;
+        border-radius: 1px;
+        margin: 30px 0;
+      }
+
+      .m {
+        display: block;
+      }
+
+      .rows, .row-item-1, .row-item-2, .row-item-3 {
+        border: unset !important;
+        width: 100% !important;
+      }
+
+      .row {
+        display: flex;
+        flex-direction: column;
+
+        p, svg {
+          margin-left: 0 !important;
+        }
+
+        .row-item-1, .row-item-2 {
+          p {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+          }
+        }
+
+        .row-item-2 {
+          margin: 10px 0;
+        }
+
+        .row-item-3 {
+          display: flex;
+          justify-content: space-between;
+          span {
+            transition: ease-in-out all 0.3s;
+            width: 48%;
+            display: flex;
+            justify-content: center;
+
+            border: 2px solid $primary;
+            border-radius: 7px;
+            padding: 5px 0;
+            background: $primary;
+
+            svg {
+              fill: white;
+            }
+
+            &:hover {
+              cursor: pointer;
+              background: white;
+
+              svg {
+                fill: $primary;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

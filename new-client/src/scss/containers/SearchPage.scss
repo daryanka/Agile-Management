@@ -1,0 +1,212 @@
+.search-cont {
+  width: calc(100% - 100px);
+  max-width: 1920px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+
+  .button {
+    margin-bottom: 20px;
+  }
+
+  .search-box {
+    width: 100%;
+
+    .box-head {
+      height: 80px;
+      border-radius: 7px 7px 0 0;
+      background-color: $primary;
+
+      @include until($small-tablet) {
+        height: 110px;
+      }
+
+      .box-content {
+        height: 100%;
+        width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        @include until($small-tablet) {
+          flex-wrap: wrap;
+        }
+
+        .head-title {
+          color: white;
+          width: 20%;
+          min-width: 255px;
+        }
+
+        .search-box {
+          color: white;
+          outline: none;
+          font-size: 20px;
+          padding: 5px 15px;
+          font-weight: bold;
+          background-color: $primary;
+          border: 2px solid white;
+          border-radius: 7px;
+          width: 80%;
+
+          @include until($small-tablet) {
+            width: 100%;
+            margin-bottom: 10px;
+          }
+        }
+      }
+    }
+
+    .box-body {
+      margin-bottom: 70px;
+      border: 2px solid $primary;
+      border-radius: 0 0 7px 7px;
+      padding: 10px 0;
+
+      .body-element {
+        height: 100%;
+        width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        .element-title {
+          margin-bottom: 10px;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+          position: relative;
+
+          &:before {
+            transition: ease-in-out all 0.3s;
+            display: block;
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: $primary;
+          }
+
+          &:hover {
+            cursor: pointer;
+            &:before {
+              width: 100%;
+            }
+          }
+        }
+
+        .element-desc {
+          font-weight: 600;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+        }
+      }
+    }
+  }
+}
+
+.create-project {
+  .textarea-c {
+    margin-top: 15px;
+  }
+  .add-link {
+    margin: 20px 0 20px 0;
+  }
+
+  .drop-zone {
+    margin-top: 20px;
+    width: 100%;
+    height: 150px;
+    border: 2px dashed $primary;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: ease all 250ms;
+    overflow-y: auto;
+    outline: none;
+    text-align: center;
+    flex-direction: column;
+    p {
+      display: flex;
+      flex-direction: column;
+    }
+
+    span {
+      font-style: italic;
+      font-size: 16px;
+    }
+    &:hover {
+      cursor: pointer;
+    }
+
+    &.active {
+      background-color: rgba(231, 82, 82, 0.07);
+    }
+  }
+
+  .files-list {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 20px;
+
+    .single-file {
+      margin-right: 15px;
+      border: 2px solid $primary;
+      padding: 5px 10px 5px 15px;
+      margin-bottom: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 7px;
+      svg {
+        margin-left: 10px;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  .link-cont {
+    margin-bottom: 15px;
+    display: flex;
+
+    .link-input {
+      width: 100%;
+      margin-right: 20px;
+      @include until(450px) {
+        margin-right: 10px;
+      }
+
+      .input-label {
+        height: 29px;
+        @include fluid-type(300px, 450px, 15px, 20px);
+      }
+    }
+
+    .button {
+      margin-top: 40px;
+      padding: 0;
+      min-width: 60px;
+      height: 44px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      @include until(450px) {
+        min-width: 50px;
+      }
+      svg {
+        height: 22px;
+        width: 22px;
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+.assign-wrapper {
+  .assign-user {
+    .select-comp {
+      margin: 20px 0 20px 0;
+    }
+  }
+
+  .modal-buttons-cont {
+    width: 100%;
+    margin-top: auto;
+    display: flex;
+
+    .btns {
+      width: auto;
+      margin-left: auto;
+
+      @include until(510px) {
+        width: 100%;
+        margin-left: 0;
+        .button {
+          width: 100%;
+          margin-top: 20px;
+        }
+      }
+
+      .button:last-child {
+        margin-left: 20px;
+
+        @include until(510px) {
+          margin-left: 0;
+        }
+      }
+    }
+  }
+}

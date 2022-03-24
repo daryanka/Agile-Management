@@ -1,0 +1,56 @@
+.centering {
+  max-width: $centering;
+  width: 100%;
+}
+
+body, html{
+  min-height: 100vh;
+}
+
+#root, #content-wrapper {
+  min-height: 100vh;
+}
+
+#content-wrapper {
+  margin-bottom: -80px;
+  display: flex;
+  flex-direction: column;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+ul, li {
+  list-style: none;
+}
+
+.primary {
+  color: $primary;
+}
+
+.secondary {
+  color: $secondary;
+} 
+
+.bold {
+  font-weight: 700;
+}
+
+.semi-bold {
+  font-weight: 600;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.danger {
+  color: red;
+}

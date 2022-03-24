@@ -1,0 +1,60 @@
+// Colors
+$primary: #e54848; // Red
+$secondary: #fff; // White
+$gray: #707070; // Gray
+
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,400i,600,600i,700&display=swap');
+
+// Centering Width
+$centering: 1600px;
+
+// Break-points
+$desktop: 1200px;
+$large-tablet : 1024px;
+$tablet: 728px;
+$small-tablet: 600px;
+$mobile: 450px;
+$small-mobile: 350px;
+
+// Border radius for buttons and inputs
+$border-radius: 7px;
+
+//Font Family
+$font-family: "Poppins", "Arial", sans-serif;
+
+// Typography
+h1, h2, h3, h4, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, a, p, .p, .a  {
+  color: $primary;
+  font-family: $font-family;
+  text-decoration: none;
+}
+
+h1, .h1 {
+  font-size: 36px;
+}
+
+h2, .h2 {
+  font-size: 32px;
+}
+
+h3, .h3 {
+  font-size: 30px;
+}
+
+h4, .h4 {
+  font-size: 28px;
+}
+
+h5, .h5 {
+  font-size: 26px;
+}
+
+h6, .h6 {
+  font-size: 20px;
+}
+
+p, .p {
+  font-size: 20px;
+}
+

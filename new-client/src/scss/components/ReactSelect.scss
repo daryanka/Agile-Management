@@ -1,0 +1,36 @@
+.css-2b097c-container {
+  font-family: "Poppins", "Arial", sans-serif !important;
+  outline: none;
+  .css-1pahdxg-control {
+    border: hsl(0,0%,80%) solid 1px;
+    box-shadow: none;
+    &:hover {
+      border: hsl(0,0%,80%) solid 1px;
+    }
+  }
+
+  .css-1okebmr-indicatorSeparator {
+    background-color: #707070;
+
+  }
+
+  .css-4ljt47-MenuList {
+    max-height: 150px;
+  }
+
+  .css-1rhbuit-multiValue {
+    background-color: $primary;
+    color: white;
+    .css-12jo7m5 {
+      color: white;
+    }
+
+    .css-xb97g8 {
+      cursor: pointer;
+    }
+  }
+}
+
+.css-yk16xz-control {
+  border-color: #707070 !important;
+}

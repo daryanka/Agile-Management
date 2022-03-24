@@ -1,0 +1,115 @@
+.grid {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+$grid-cols : 12;
+$gutter: 20px;
+
+@for $i from 1 through $grid-cols {
+  .col-xs-#{$i} {
+    width: calc(100% /#{$grid-cols} * #{$i} - #{$gutter});
+    @if $i == 12 {
+      width: 100%;
+    }
+  }
+  .col-xs-offset-#{$i} {
+    margin-left: 100% / $grid-cols * $i;
+  }
+
+  .col-xs-offset-right-#{$i} {
+    margin-right: 100% / $grid-cols * $i;
+  }
+}
+
+@for $i from 1 through $grid-cols {
+  @include at-least($mobile) {
+    .col-s-#{$i} {
+      width: calc(100% /#{$grid-cols} * #{$i} - #{$gutter});
+      @if $i == 12 {
+        width: 100%;
+      }
+    }
+    .col-s-offset-#{$i} {
+      margin-left: 100% / $grid-cols * $i;
+    }
+
+    .col-s-offset-right-#{$i} {
+      margin-right: 100% / $grid-cols * $i;
+    }
+  }
+}
+
+@for $i from 1 through $grid-cols {
+  @include at-least($small-tablet) {
+    .col-sm-#{$i} {
+      width: calc(100% /#{$grid-cols} * #{$i} - #{$gutter});
+      @if $i == 12 {
+        width: 100%;
+      }
+    }
+    .col-sm-offset-#{$i} {
+      margin-left: 100% / $grid-cols * $i;
+    }
+
+    .col-sm-offset-right-#{$i} {
+      margin-right: 100% / $grid-cols * $i;
+    }
+  }
+}
+
+@for $i from 1 through $grid-cols {
+  @include at-least($tablet) {
+    .col-m-#{$i} {
+      width: calc(100% /#{$grid-cols} * #{$i} - #{$gutter});
+      @if $i == 12 {
+        width: 100%;
+      }
+    }
+    .col-m-offset-#{$i} {
+      margin-left: 100% / $grid-cols * $i;
+    }
+
+    .col-m-offset-right-#{$i} {
+      margin-right: 100% / $grid-cols * $i;
+    }
+  }
+}
+
+@for $i from 1 through $grid-cols {
+  @include at-least($large-tablet) {
+    .col-l-#{$i} {
+      width: calc(100% /#{$grid-cols} * #{$i} - #{$gutter});
+      @if $i == 12 {
+        width: 100%;
+      }
+    }
+    .col-l-offset-#{$i} {
+      margin-left: 100% / $grid-cols * $i;
+    }
+
+    .col-l-offset-right-#{$i} {
+      margin-right: 100% / $grid-cols * $i;
+    }
+  }
+}
+
+@for $i from 1 through $grid-cols {
+  @include at-least($desktop) {
+    .col-xl-#{$i} {
+      width: calc(100% /#{$grid-cols} * #{$i} - #{$gutter});
+      @if $i == 12 {
+        width: 100%;
+      }
+    }
+    .col-xl-offset-#{$i} {
+      margin-left: 100% / $grid-cols * $i;
+    }
+
+    .col-xl-offset-right-#{$i} {
+      margin-right: 100% / $grid-cols * $i;
+    }
+  }
+}

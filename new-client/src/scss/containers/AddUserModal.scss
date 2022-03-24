@@ -1,0 +1,45 @@
+.add-user-modal {
+  h1 {
+    margin-bottom: 20px;
+  }
+
+  .button {
+    margin-top: 20px;
+
+    @include until($mobile) {
+      width: 100%;
+    }
+  }
+
+  .btn-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    .btns {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+
+  @include until($tablet) {
+    .i-1 {
+      margin-top: 10px;
+    }
+  }
+}
+
+.delete-confirm {
+  .secondary {
+    margin-right: 20px;
+  }
+
+  p {
+    margin-top: 10px;
+  }
+
+  .buttons-wrapper {
+    margin-top: 50px;
+    display: flex;
+  }
+}
